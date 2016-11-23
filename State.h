@@ -16,6 +16,10 @@ public:
 	virtual void render();
 
 private:
+	virtual void load();
+	virtual void unload();
+
+private:
 	std::string mName;
 };
 
