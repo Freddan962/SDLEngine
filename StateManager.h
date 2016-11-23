@@ -11,14 +11,14 @@ class StateManager
 public:
 	StateManager();
 
-	void addState(State state);
+	void addState(State* state);
 	void nextState();
 	void prevState();
 
 	State* getCurrentState();
 
 private:
-	std::vector<State> mStates;
+	std::vector<State*> mStates;
 	State* mCurrentState;
 	int mCurrentStateIndex;
 };

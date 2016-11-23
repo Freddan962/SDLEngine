@@ -18,12 +18,19 @@ void Engine::run()
 {
 	SDL_ShowWindow(mWindow);
 
+	const int tickInterval = 1000 / FPS;
+	Uint32 nextTick;
+	int delay;
+
 	while (mRunning)
 	{
+		nextTick = SDL_GetTicks() + tickInterval;
 		SDL_Event event;
 
 		while (SDL_PollEvent(&event))
 		{
+			mStateManager.getCurrentState()->handleEvent(&event);
+
 			switch (event.type) 
 			{
 			case SDL_QUIT: mRunning = false; break;
@@ -31,12 +38,23 @@ void Engine::run()
 			}
 		}
 
+		delay = nextTick - SDL_GetTicks();
+		if (delay > 0)
+			SDL_Delay(delay);
+
+		//Update
+		mStateManager.getCurrentState()->update();
+
+		//Render
 		SDL_RenderClear(mRenderer);
+		mStateManager.getCurrentState()->render();
 		SDL_RenderPresent(mRenderer);
 	}
 
 	shutdown();
 }
+
+StateManager* Engine::getStateManager() { return &mStateManager; }
 
 void Engine::shutdown()
 {
