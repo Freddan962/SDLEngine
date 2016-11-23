@@ -1,7 +1,11 @@
 #include "State.h"
+#include "AssetContainer.h"
+#include <string>
 
-State::State(std::string name) 
+State::State(Engine* engine, std::string name)
+	: mAssets(new AssetContainer())
 {
+	mEngine = engine;
 	mName = name;
 }
 

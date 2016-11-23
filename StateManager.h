@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 
-#include "State.h"
+class State;
 
 class StateManager
 {

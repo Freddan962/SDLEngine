@@ -1,9 +1,13 @@
 #include "Engine.h"
+#include "WindowBuilder.h"
+#include "RenderBuilder.h"
+#include "StateManager.h"
 
 Engine::Engine(std::string name, double version)
 	: mName(name),
 	mVersion(version),
-	mRunning(true)
+	mRunning(true),
+	mStateManager(new StateManager())
 {
 	mWindow = WindowBuilder::build(name + " " + std::to_string(mVersion), 640, 480);
 	mRenderer = RenderBuilder::build(mWindow);
@@ -12,7 +16,7 @@ Engine::Engine(std::string name, double version)
 		shutdown();
 }
 
-Engine::~Engine() {}
+Engine::~Engine(){ }
 
 void Engine::run()
 {
@@ -29,7 +33,7 @@ void Engine::run()
 
 		while (SDL_PollEvent(&event))
 		{
-			mStateManager.getCurrentState()->handleEvent(&event);
+			mStateManager->getCurrentState()->handleEvent(&event);
 
 			switch (event.type) 
 			{
@@ -43,18 +47,19 @@ void Engine::run()
 			SDL_Delay(delay);
 
 		//Update
-		mStateManager.getCurrentState()->update();
+		mStateManager->getCurrentState()->update();
 
 		//Render
 		SDL_RenderClear(mRenderer);
-		mStateManager.getCurrentState()->render();
+		mStateManager->getCurrentState()->render();
 		SDL_RenderPresent(mRenderer);
 	}
 
 	shutdown();
 }
 
-StateManager* Engine::getStateManager() { return &mStateManager; }
+std::shared_ptr<StateManager> Engine::getStateManager() { return mStateManager; }
+SDL_Renderer* Engine::getRenderer() { return mRenderer; }
 
 void Engine::shutdown()
 {

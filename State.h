@@ -4,12 +4,16 @@
 #include "SDL.h"
 
 #include <iostream>
-#include <string>
+#include <vector>
+#include <memory>
+
+class Engine;
+class AssetContainer;
 
 class State
 {
 public:
-	State(std::string name);
+	State(Engine* engine, std::string name);
 
 	virtual void update();
 	virtual void handleEvent(SDL_Event* event);
@@ -18,6 +22,10 @@ public:
 private:
 	virtual void load();
 	virtual void unload();
+
+protected:
+	Engine* mEngine;
+	std::shared_ptr<AssetContainer> mAssets;
 
 private:
 	std::string mName;

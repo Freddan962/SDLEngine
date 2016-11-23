@@ -2,11 +2,11 @@
 #define ENGINE_H
 
 #include "SDL.h"
-#include <string>
+#include <memory>
 
-#include "WindowBuilder.h"
-#include "RenderBuilder.h"
-#include "StateManager.h"
+#include "State.h"
+
+class StateManager;
 
 class Engine
 {
@@ -15,7 +15,9 @@ public:
 	~Engine();
 
 	void run();
-	StateManager* getStateManager();
+
+	std::shared_ptr<StateManager> getStateManager();
+	SDL_Renderer* getRenderer();
 
 private:
 	void shutdown();
@@ -29,7 +31,7 @@ private:
 	SDL_Renderer* mRenderer;
 	bool mRunning;
 
-	StateManager mStateManager;
+	std::shared_ptr<StateManager> mStateManager;
 };
 
 #endif

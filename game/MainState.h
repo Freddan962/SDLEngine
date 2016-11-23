@@ -9,7 +9,7 @@
 class MainState : public State
 {
 public:
-	MainState() : State("MainState") { load(); }
+	MainState(Engine* engine) : State(engine, "MainState") { load(); }
 
 	void update();
 	void handleEvent(SDL_Event* event);
