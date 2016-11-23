@@ -1,3 +1,6 @@
 #include "State.h"
 
-State::State() {}
+State::State(std::string name) 
+{
+	mName = name;
+}
