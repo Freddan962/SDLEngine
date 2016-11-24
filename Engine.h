@@ -2,6 +2,7 @@
 #define ENGINE_H
 
 #include "SDL.h"
+#include "SDL_ttf.h"
 #include <memory>
 
 #include "State.h"

@@ -74,6 +74,17 @@ void MainState::load()
 	animated->getBody()->y = 250;
 
 	addSprite(animated);
+
+	std::shared_ptr<InputField> inputField(new InputField(mAssets->getTexture("door1"), mEngine->getRenderer()));
+	inputField->getBody()->h = 80;
+	inputField->getBody()->w = 80;
+	inputField->getBody()->x = 400;
+	inputField->getBody()->y = 300;
+	inputField->setText("Welcome");
+	inputField->setFontSize(70);
+
+	addSprite(inputField);
+
 	mKeyHooks.addHook(SDLK_a, &aClick);
 	mEventHooks.addHook(SDL_MOUSEBUTTONUP, &onClick);
 }

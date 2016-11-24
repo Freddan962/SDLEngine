@@ -15,6 +15,9 @@ Engine::Engine(std::string name, double version, float width, float height)
 	mWindow = WindowBuilder::build(name + " " + std::to_string(mVersion), mSize.x, mSize.y);
 	mRenderer = RenderBuilder::build(mWindow);
 
+	if (TTF_Init() == -1)
+		shutdown();
+
 	if (!mWindow)
 		shutdown();
 }
@@ -67,6 +70,7 @@ void Engine::shutdown()
 	if (mWindow)
 		SDL_DestroyWindow(mWindow);
 
+	TTF_Quit();
 	SDL_Quit();
 }
 

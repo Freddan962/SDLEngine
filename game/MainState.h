@@ -6,6 +6,7 @@
 #include <iostream>
 #include "../State.h"
 #include "../EntitySprite.h"
+#include "../InputField.h"
 
 class MainState : public State
 {
