@@ -4,8 +4,6 @@ SDLEngine
 Avklarade Mål
 -------------
 
- 
-
 -   man ska kunna ange en högsta "frame rate" (antalet frames per sekund)
 
 -   det ska finnas olika typer av Sprites i en klasshierarki i den generella
@@ -22,15 +20,13 @@ Avklarade Mål
     Tillämpningar ska kunna skapa flera olika "scener" bestående av olika
     Sprite-objekt och bakgrundsbilder och lätt växla mellan dem
 
-Nuvarande Mål
--------------
-
-C
-
 -   spelmotorn ska vara förberedd för att tillämpningen vill installera
     kortkommandon (enkla tangenttryckningar). Tillämpningen ska kunna ange en
     tangent och en call back-funktion som ska anropas då denna tangent har
     tryckts ner
+
+Nuvarande Mål
+-------------
 
 B
 
