@@ -12,6 +12,7 @@ public:
 
 	ImageLoader(SDL_Renderer* renderer);
 	SDL_Texture* loadBMP(std::string path);
+	SDL_Texture* loadPNG(std::string path);
 
 private:
 	SDL_Renderer* mRenderer;
