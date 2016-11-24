@@ -36,13 +36,8 @@ void Engine::run()
 
 		while (SDL_PollEvent(&event))
 		{
+			handleEvent(&event);
 			mStateManager->getCurrentState()->handleEvent(&event);
-
-			switch (event.type) 
-			{
-			case SDL_QUIT: mRunning = false; break;
-			case SDL_KEYDOWN: break;
-			}
 		}
 
 		delay = nextTick - SDL_GetTicks();
@@ -88,4 +83,12 @@ int Engine::getFrameRate()
 Vector2f* Engine::getSize()
 {
 	return &mSize;
+}
+
+void Engine::handleEvent(SDL_Event* event)
+{
+	switch (event->type)
+	{
+	case SDL_QUIT: mRunning = false; break;
+	}
 }

@@ -16,9 +16,11 @@ public:
 	~Engine();
 
 	void run();
-	void setFrameRate(int fps);
-	int getFrameRate();
+	void handleEvent(SDL_Event* event);
 
+	void setFrameRate(int fps);
+
+	int getFrameRate();
 	std::shared_ptr<StateManager> getStateManager();
 	SDL_Renderer* getRenderer();
 	Vector2f* getSize();
