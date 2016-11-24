@@ -1,8 +1,8 @@
 SDLEngine
 =========
 
-Avklarade Mål
--------------
+Uppnådda Mål
+------------
 
 -   man ska kunna ange en högsta "frame rate" (antalet frames per sekund)
 
