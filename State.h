@@ -8,6 +8,8 @@
 #include <memory>
 #include <map>
 
+#include "HookContainer.h"
+
 class Engine;
 class AssetContainer;
 class Sprite;
@@ -22,7 +24,6 @@ public:
 	virtual void render();
 
 	void addSprite(std::shared_ptr<Sprite> sprite);
-	void addHook(SDL_EventType type, void(*func)(SDL_EventType));
 
 private:
 	virtual void load();
@@ -35,7 +36,8 @@ private:
 protected:
 	Engine* mEngine;
 	std::shared_ptr<AssetContainer> mAssets;
-	std::map<SDL_EventType, std::vector<void(*)(SDL_EventType)>> mHooks;
+	HookContainer<SDL_Keycode> mKeyHooks;
+	HookContainer<SDL_EventType> mEventHooks;
 
 private:
 	std::string mName;

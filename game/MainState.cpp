@@ -26,9 +26,14 @@ void MainState::handleEvent(SDL_Event* event)
 	//std::cout << "Handling event MainState" << std::endl;
 }
 
-void onClick(SDL_EventType type)
+void onClick()
 {
 	std::cout << "CLICKED" << std::endl;
+}
+
+void aClick()
+{
+	std::cout << "A CLICK" << std::endl;
 }
 
 void MainState::load()
@@ -69,8 +74,8 @@ void MainState::load()
 	animated->getBody()->y = 250;
 
 	addSprite(animated);
-
-	addHook(SDL_MOUSEBUTTONUP, &onClick);
+	mKeyHooks.addHook(SDLK_a, &aClick);
+	mEventHooks.addHook(SDL_MOUSEBUTTONUP, &onClick);
 }
 
 void MainState::unload()

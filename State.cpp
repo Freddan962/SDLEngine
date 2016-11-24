@@ -42,8 +42,7 @@ void State::checkForCollisions()
 				spriteInner->onCollide(sprite.get());
 			}
 		}
-	}
-		
+	}	
 }
 
 void State::updateSprites()
@@ -58,28 +57,10 @@ void State::renderSprites()
 		sprite->render(mEngine->getRenderer());
 }
 
-void State::addHook(SDL_EventType type, void(*func)(SDL_EventType))
-{
-	if (mHooks.find(type) != mHooks.end())
-		mHooks.at(type).push_back(func);
-	else
-	{
-		std::vector<void(*)(SDL_EventType)> hooks;
-		hooks.push_back(func);
-		mHooks.insert(std::pair<SDL_EventType, std::vector<void(*)(SDL_EventType)>>(type, hooks));
-	}
-}
-
 void State::handleEvent(SDL_Event* event) 
 {
-	SDL_EventType type = (SDL_EventType)event->type;
-	if (mHooks.find(type) != mHooks.end())
-	{
-		std::vector<void(*)(SDL_EventType)> hooks = mHooks.at(type);
-	
-		for (auto hook : hooks)
-			hook(type);
-	}
+	mKeyHooks.handleEvent(event->key.keysym.sym);
+	mEventHooks.handleEvent((SDL_EventType)event->type);
 }
 
 void State::load() { }
