@@ -9,6 +9,7 @@
 
 class Engine;
 class AssetContainer;
+class Sprite;
 
 class State
 {
@@ -18,6 +19,8 @@ public:
 	virtual void update();
 	virtual void handleEvent(SDL_Event* event);
 	virtual void render();
+
+	void addSprite(std::shared_ptr<Sprite> sprite);
 
 private:
 	virtual void load();
@@ -29,6 +32,7 @@ protected:
 
 private:
 	std::string mName;
+	std::vector<std::shared_ptr<Sprite>> mSprites;
 };
 
 #endif
