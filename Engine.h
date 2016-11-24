@@ -5,13 +5,14 @@
 #include <memory>
 
 #include "State.h"
+#include "Vector2f.h"
 
 class StateManager;
 
 class Engine
 {
 public:
-	Engine(std::string name, double version);
+	Engine(std::string name, double version, float width, float height);
 	~Engine();
 
 	void run();
@@ -20,6 +21,7 @@ public:
 
 	std::shared_ptr<StateManager> getStateManager();
 	SDL_Renderer* getRenderer();
+	Vector2f* getSize();
 
 private:
 	void shutdown();
@@ -27,6 +29,7 @@ private:
 private:
 	std::string mName;
 	double mVersion;
+	Vector2f mSize;
 
 	int mFps;
 	SDL_Window* mWindow;

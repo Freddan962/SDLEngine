@@ -26,6 +26,9 @@ private:
 	virtual void load();
 	virtual void unload();
 
+	void updateSprites();
+	void renderSprites();
+	void checkForCollisions();
 protected:
 	Engine* mEngine;
 	std::shared_ptr<AssetContainer> mAssets;

@@ -3,11 +3,13 @@
 #include "../ImageLoader.h"
 #include "../AssetContainer.h"
 #include "../EntitySprite.h"
+#include "../Physics.h"
 
 
 void MainState::update() 
 {
 	State::update();
+
 	std::cout << "Updating MainState" << std::endl;
 }
 
@@ -32,7 +34,18 @@ void MainState::load()
 	sprite->getBody()->h = 50;
 	sprite->getBody()->w = 50;
 	sprite->setSpeed((float)100 / mEngine->getFrameRate(), 0);
+
+	std::shared_ptr<EntitySprite> spriteRight(new EntitySprite(mAssets.get()->getTexture("buff")));
+	spriteRight->getBody()->h = 50;
+	spriteRight->getBody()->w = 50;
+	spriteRight->getBody()->x = mEngine->getSize()->x - spriteRight->getBody()->w;
+	spriteRight->setSpeed((float)100 / mEngine->getFrameRate() * -1, 0);
+
+	box1 = sprite;
+	box2 = spriteRight;
+
 	addSprite(sprite);
+	addSprite(spriteRight);
 }
 
 void MainState::unload()

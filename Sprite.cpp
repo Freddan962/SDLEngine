@@ -18,6 +18,11 @@ void Sprite::render(SDL_Renderer* renderer)
 		SDL_RenderCopy(renderer, mTexture, NULL, mBody.get());
 }
 
+void Sprite::onCollide(Sprite* sprite)
+{
+
+}
+
 std::shared_ptr<SDL_Rect> Sprite::getBody()
 {
 	return mBody;

@@ -11,6 +11,7 @@ public:
 
 	virtual void update();
 	virtual void render(SDL_Renderer* renderer);
+	virtual void onCollide(Sprite* sprite);
 
 	std::shared_ptr<SDL_Rect> getBody();
 

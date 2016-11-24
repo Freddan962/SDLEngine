@@ -3,13 +3,16 @@
 #include "RenderBuilder.h"
 #include "StateManager.h"
 
-Engine::Engine(std::string name, double version)
+
+Engine::Engine(std::string name, double version, float width, float height)
 	: mName(name),
 	mVersion(version),
 	mRunning(true),
 	mStateManager(new StateManager())
 {
-	mWindow = WindowBuilder::build(name + " " + std::to_string(mVersion), 640, 480);
+	mSize.x = width;
+	mSize.y = height;
+	mWindow = WindowBuilder::build(name + " " + std::to_string(mVersion), mSize.x, mSize.y);
 	mRenderer = RenderBuilder::build(mWindow);
 
 	if (!mWindow)
@@ -80,4 +83,9 @@ void Engine::setFrameRate(int fps)
 int Engine::getFrameRate()
 {
 	return mFps;
+}
+
+Vector2f* Engine::getSize()
+{
+	return &mSize;
 }

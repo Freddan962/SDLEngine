@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include "../State.h"
+#include "../EntitySprite.h"
 
 class MainState : public State
 {
@@ -18,6 +19,10 @@ public:
 private:
 	void load();
 	void unload();
+
+private:
+	std::shared_ptr<EntitySprite> box1;
+	std::shared_ptr<EntitySprite> box2;
 };
 
 #endif
