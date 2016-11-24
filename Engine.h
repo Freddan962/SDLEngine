@@ -15,6 +15,8 @@ public:
 	~Engine();
 
 	void run();
+	void setFrameRate(int fps);
+	int getFrameRate();
 
 	std::shared_ptr<StateManager> getStateManager();
 	SDL_Renderer* getRenderer();
@@ -26,7 +28,7 @@ private:
 	std::string mName;
 	double mVersion;
 
-	const int FPS = 60;
+	int mFps;
 	SDL_Window* mWindow;
 	SDL_Renderer* mRenderer;
 	bool mRunning;

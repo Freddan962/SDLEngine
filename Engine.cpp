@@ -22,7 +22,7 @@ void Engine::run()
 {
 	SDL_ShowWindow(mWindow);
 
-	const int tickInterval = 1000 / FPS;
+	const int tickInterval = 1000 / mFps;
 	Uint32 nextTick;
 	int delay;
 
@@ -70,4 +70,14 @@ void Engine::shutdown()
 		SDL_DestroyWindow(mWindow);
 
 	SDL_Quit();
+}
+
+void Engine::setFrameRate(int fps)
+{
+	mFps = fps;
+}
+
+int Engine::getFrameRate()
+{
+	return mFps;
 }
