@@ -25,6 +25,11 @@ Uppnådda Mål
     tangent och en call back-funktion som ska anropas då denna tangent har
     tryckts ner
 
+-   det ska finnas en grafisk komponent (Sprite-subklass?) som ska kunna
+    användas som ett inmatningsfält för text, som tillämpningen kan använda för
+    textinmatning (t.ex. namn på spelaren för en high score-lista). Det behöver
+    inte (men får gärna) finnas editeringsmöjligheter för inmatningsfältet.
+
 Nuvarande Mål
 -------------
 
@@ -32,12 +37,9 @@ B
 
 -   kortkommandon (tangenttryckningar) ska kunna knytas även till
     medlemsfunktioner i angivna objekt (förutom till fria funktioner). Det ska
-    vara lätt för tillämpningen att ange antingen en funktionspekare
-
--   det ska finnas en grafisk komponent (Sprite-subklass?) som ska kunna
-    användas som ett inmatningsfält för text, som tillämpningen kan använda för
-    textinmatning (t.ex. namn på spelaren för en high score-lista). Det behöver
-    inte (men får gärna) finnas editeringsmöjligheter för inmatningsfältet.
+    vara lätt för tillämpningen att ange antingen en funktionspekare till en fri
+    funktion eller kombinationen av en objektpekare och en
+    funktionsmedlemspekare tillsammans med tangenten
 
 A
 
