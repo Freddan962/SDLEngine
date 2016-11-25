@@ -17,13 +17,13 @@ void MainState::update()
 void MainState::render()
 {
 	State::render();
-	//std::cout << "Rendering MainState" << std::endl;
+	std::cout << "Rendering MainState" << std::endl;
 }
 
 void MainState::handleEvent(SDL_Event* event)
 {
 	State::handleEvent(event);
-	//std::cout << "Handling event MainState" << std::endl;
+	std::cout << "Handling event MainState" << std::endl;
 }
 
 void onClick()
@@ -45,11 +45,11 @@ void MainState::load()
 {
 	//std::cout << "Loading MainState" << std::endl;
 	ImageLoader loader(mEngine->getRenderer());
-	mAssets.get()->addTexture("buff", loader.loadBMP("C:\\Users\\Freddan962\\Desktop\\C++\\Lek\\Engine\\Engine\\Source\\assets\\iconbuff.bmp"));
-	mAssets.get()->addTexture("door1", loader.loadPNG("C:\\Users\\Freddan962\\Desktop\\C++\\Lek\\Engine\\Engine\\Source\\assets\\door1.png"));
-	mAssets.get()->addTexture("door2", loader.loadPNG("C:\\Users\\Freddan962\\Desktop\\C++\\Lek\\Engine\\Engine\\Source\\assets\\door2.png"));
-	mAssets.get()->addTexture("door3", loader.loadPNG("C:\\Users\\Freddan962\\Desktop\\C++\\Lek\\Engine\\Engine\\Source\\assets\\door3.png"));
-	mAssets.get()->addTexture("door4", loader.loadPNG("C:\\Users\\Freddan962\\Desktop\\C++\\Lek\\Engine\\Engine\\Source\\assets\\door4.png"));
+	mAssets.get()->addTexture("buff", loader.loadBMP("..\\engine\\source\\assets\\iconbuff.bmp"));
+	mAssets.get()->addTexture("door1", loader.loadPNG("..\\engine\\source\\assets\\door1.png"));
+	mAssets.get()->addTexture("door2", loader.loadPNG("..\\engine\\source\\assets\\door2.png"));
+	mAssets.get()->addTexture("door3", loader.loadPNG("..\\engine\\source\\assets\\door3.png"));
+	mAssets.get()->addTexture("door4", loader.loadPNG("..\\engine\\source\\assets\\door4.png"));
 
 	std::shared_ptr<EntitySprite> sprite(new EntitySprite(mAssets.get()->getTexture("buff")));
 	sprite->getBody()->h = 50;
