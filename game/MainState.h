@@ -7,12 +7,18 @@
 #include "../State.h"
 #include "../EntitySprite.h"
 #include "../InputField.h"
+#include "../Test.h"
+
+class Test;
 
 class MainState : public State
 {
 public:
-	MainState(Engine* engine) : State(engine, "MainState") { load(); }
-
+	MainState(Engine* engine)
+		: State(engine, "MainState"),
+		mTest(new Test)
+	{ load(); }
+	
 	void update();
 	void handleEvent(SDL_Event* event);
 	void render();
@@ -24,6 +30,7 @@ private:
 private:
 	std::shared_ptr<EntitySprite> box1;
 	std::shared_ptr<EntitySprite> box2;
+	std::shared_ptr<Test> mTest;
 };
 
 #endif
