@@ -33,6 +33,9 @@ void GUI::GUI::handleEvent(SDL_Event* event)
 	case SDL_MOUSEBUTTONDOWN:
 		handleMouseButtonDown(event);
 		break;
+	case SDL_TEXTINPUT:
+		handleTextInput(event);
+		break;
 	}
 }
 
@@ -97,12 +100,44 @@ void GUI::GUI::handleMouseButtonDown(SDL_Event* event)
 	handleElementInteraction(getMouseClick());
 }
 
+void GUI::GUI::handleTextInput(SDL_Event* event)
+{
+	std::string text = event->text.text;
+
+	for (itField iterator = mActiveInputFields.begin(); iterator != mActiveInputFields.end(); iterator++)
+	{
+		std::shared_ptr<InputField> field = iterator->second;
+		field->appendText(text);
+	}
+}
+
 void GUI::GUI::handleElementInteraction(std::shared_ptr<SDL_Rect> click)
 {
-	/*for (itField iterator = mInputFields.begin(); iterator != mInputFields.end(); iterator++)
-		iterator->second.get()->*/
-
+	handleInputFieldInteraction(click);
+		
 	for (itButton iterator = mButtons.begin(); iterator != mButtons.end(); iterator++)
 		if (Physics::isRectangularCollision(iterator->second->getBody().get(), click.get()))
 			iterator->second.get()->onClick();
+}
+
+void GUI::GUI::handleInputFieldInteraction(std::shared_ptr<SDL_Rect> click)
+{
+	for (itField iterator = mInputFields.begin(); iterator != mInputFields.end(); iterator++)
+	{
+		std::shared_ptr<InputField> field = iterator->second;
+
+		if (Physics::isRectangularCollision(field->getBody().get(), click.get()))
+		{
+			if (mActiveInputFields.find(iterator->first) == mActiveInputFields.end())
+			{
+				field->setActive(true);
+				mActiveInputFields.insert(std::pair<std::string, std::shared_ptr<InputField>>(iterator->first, field));
+			}
+		}
+		else if (field->getActive())
+		{
+			field->setActive(false);
+			mActiveInputFields.erase(iterator->first);
+		}
+	}
 }

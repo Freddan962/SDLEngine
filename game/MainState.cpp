@@ -88,8 +88,7 @@ void MainState::load()
 	inputField->getBody()->y = 300;
 	inputField->setText("Welcome");
 	inputField->setFontSize(70);
-
-	addSprite(inputField);
+	mGUI.add("input", inputField);
 
 	std::shared_ptr<Button> button(new Button(mAssets->getTexture("door1")));
 	button->getBody()->h = 20;

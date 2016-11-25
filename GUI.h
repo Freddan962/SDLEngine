@@ -29,14 +29,18 @@ namespace GUI
 	private:
 		void updateElements();
 		void renderElements(SDL_Renderer* renderer);
+
 		void handleMouseButtonDown(SDL_Event* event);
+		void handleTextInput(SDL_Event* event);
 		void handleElementInteraction(std::shared_ptr<SDL_Rect> click);
+		void handleInputFieldInteraction(std::shared_ptr<SDL_Rect> click);
 		std::shared_ptr<SDL_Rect> getMouseClick();
 
 	private:
 		std::map<std::string, std::shared_ptr<InputField>> mInputFields;
 		std::map<std::string, std::shared_ptr<Button>> mButtons;
 		std::map<std::string, std::shared_ptr<Sprite>> mSprites;
+		std::map<std::string, std::shared_ptr<InputField>> mActiveInputFields;
 		Vector2<int> mCursorSize;
 	};
 }

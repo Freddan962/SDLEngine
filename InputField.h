@@ -26,7 +26,11 @@ public:
 	void render(SDL_Renderer* renderer);
 
 	void setText(std::string text);
+	void appendText(std::string text);
 	void setFontSize(int size);
+
+	void setActive(bool active);
+	bool getActive();
 
 private:
 	void constructVisuals();
@@ -37,6 +41,8 @@ private:
 	SDL_Color mTextColor;
 	SDL_Texture* mTextTexture;
 	SDL_Renderer* mRenderer;
+
+	bool mActive;
 
 };
 

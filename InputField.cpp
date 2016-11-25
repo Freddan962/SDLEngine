@@ -17,6 +17,12 @@ void InputField::setText(std::string text)
 	constructVisuals();
 }
 
+void InputField::appendText(std::string text)
+{
+	mText = mText.append(text);
+	constructVisuals();
+}
+
 void InputField::setFontSize(int size)
 {
 	TTF_Font* pFont = TTF_OpenFont("C:\\Users\\Freddan962\\Desktop\\C++\\Lek\\Engine\\Engine\\Source\\assets\\vertigo.ttf", size);
@@ -35,3 +41,6 @@ void InputField::constructVisuals()
 	mTextTexture = textTexture;
 	SDL_FreeSurface(textSurface);
 }
+
+void InputField::setActive(bool active) { mActive = active; }
+bool InputField::getActive() { return mActive; }
