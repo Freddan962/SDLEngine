@@ -84,7 +84,7 @@ int Engine::getFrameRate()
 	return mFps;
 }
 
-Vector2f* Engine::getSize()
+Vector2<float>* Engine::getSize()
 {
 	return &mSize;
 }

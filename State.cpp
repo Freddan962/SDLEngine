@@ -4,6 +4,7 @@
 #include "Sprite.h"
 #include "Engine.h"
 #include "Physics.h"
+#include "GUI.h"
 
 State::State(Engine* engine, std::string name)
 	: mAssets(new AssetContainer())
@@ -14,6 +15,7 @@ State::State(Engine* engine, std::string name)
 
 void State::update() 
 { 
+	mGUI.update();
 	updateSprites();
 	checkForCollisions();
 }
@@ -21,6 +23,7 @@ void State::update()
 void State::render() 
 {
 	renderSprites();
+	mGUI.render(mEngine->getRenderer());
 }
 
 void State::addSprite(std::shared_ptr<Sprite> sprite)
@@ -59,6 +62,7 @@ void State::renderSprites()
 
 void State::handleEvent(SDL_Event* event) 
 {
+	mGUI.handleEvent(event);
 	mKeyHooks.handleEvent(event->key.keysym.sym);
 	mEventHooks.handleEvent((SDL_EventType)event->type);
 }

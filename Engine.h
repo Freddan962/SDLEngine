@@ -6,7 +6,7 @@
 #include <memory>
 
 #include "State.h"
-#include "Vector2f.h"
+#include "Vector2.h"
 
 class StateManager;
 
@@ -24,7 +24,7 @@ public:
 	int getFrameRate();
 	std::shared_ptr<StateManager> getStateManager();
 	SDL_Renderer* getRenderer();
-	Vector2f* getSize();
+	Vector2<float>* getSize();
 
 private:
 	void shutdown();
@@ -32,7 +32,7 @@ private:
 private:
 	std::string mName;
 	double mVersion;
-	Vector2f mSize;
+	Vector2<float> mSize;
 
 	int mFps;
 	SDL_Window* mWindow;

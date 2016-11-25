@@ -8,7 +8,7 @@ void EntitySprite::update()
 	mBody->y += (int)mSpeed->y;
 }
 
-std::shared_ptr<Vector2f> EntitySprite::getSpeed()
+std::shared_ptr<Vector2<float>> EntitySprite::getSpeed()
 {
 	return mSpeed;
 }

@@ -9,6 +9,7 @@
 #include <map>
 
 #include "HookContainer.h"
+#include "GUI.h"
 
 class Engine;
 class AssetContainer;
@@ -38,6 +39,7 @@ protected:
 	std::shared_ptr<AssetContainer> mAssets;
 	HookContainer<SDL_Keycode> mKeyHooks;
 	HookContainer<SDL_EventType> mEventHooks;
+	GUI::GUI mGUI;
 
 private:
 	std::string mName;

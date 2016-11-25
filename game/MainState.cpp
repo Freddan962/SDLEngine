@@ -5,6 +5,7 @@
 #include "../EntitySprite.h"
 #include "../Physics.h"
 #include "../AnimatedSprite.h"
+#include "../Button.h"
 
 
 void MainState::update() 
@@ -34,6 +35,11 @@ void onClick()
 void aClick()
 {
 	std::cout << "A CLICK" << std::endl;
+}
+
+void buttonClick()
+{
+	std::cout << "A BUTTON CLICK" << std::endl;
 }
 
 void MainState::load()
@@ -84,6 +90,14 @@ void MainState::load()
 	inputField->setFontSize(70);
 
 	addSprite(inputField);
+
+	std::shared_ptr<Button> button(new Button(mAssets->getTexture("door1")));
+	button->getBody()->h = 20;
+	button->getBody()->w = 20;
+	button->getBody()->x = 500;
+	button->getBody()->y = 400;
+	button->click = &buttonClick;
+	mGUI.add("play", button);
 
 	mKeyHooks.addHook(SDLK_a, &aClick);
 	mEventHooks.addHook(SDL_MOUSEBUTTONUP, &onClick);
