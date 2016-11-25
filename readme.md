@@ -33,15 +33,11 @@ Uppnådda Mål
 Nuvarande Mål
 -------------
 
-B
-
 -   kortkommandon (tangenttryckningar) ska kunna knytas även till
     medlemsfunktioner i angivna objekt (förutom till fria funktioner). Det ska
     vara lätt för tillämpningen att ange antingen en funktionspekare till en fri
     funktion eller kombinationen av en objektpekare och en
     funktionsmedlemspekare tillsammans med tangenten
-
-A
 
 -   kollisionsdetektering ska göras på pixelnivå, med hänsyn tagen till
     genomskinliga pixlar
