@@ -25,6 +25,7 @@ public:
 	virtual void render();
 
 	void addSprite(std::string, std::shared_ptr<Sprite> sprite);
+	std::vector<std::shared_ptr<Sprite>>* getSprites(std::string name);
 
 private:
 	virtual void load();
@@ -34,7 +35,6 @@ private:
 	void renderSprites();
 	void checkForCollisions();
 
-	std::vector<std::shared_ptr<Sprite>>* getSprites(std::string name);
 	std::vector<std::shared_ptr<Sprite>> getSprites();
 
 protected:

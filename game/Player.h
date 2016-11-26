@@ -4,6 +4,7 @@
 #include <vector>
 #include "../EntitySprite.h"
 #include "../Vector2.h"
+#include "../Timer.h"
 
 class Projectile;
 
@@ -17,10 +18,11 @@ public:
 
 	void moveLeft();
 	void moveRight();
-	void fire(std::vector<std::shared_ptr<Projectile>>* mProjectiles);
+	void fire();
 
 private:
 	Vector2<float> mCurrSpeed;
+	Timer mFireTimer;
 };
 
 #endif

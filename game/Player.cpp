@@ -6,6 +6,8 @@ Player::Player(SDL_Texture * texture)
 	: EntitySprite(texture)
 {
 	mCurrSpeed.x = 4;
+	mFireTimer.setTime(1000);
+	mFireTimer.start();
 }
 
 void Player::update()
@@ -28,7 +30,8 @@ void Player::moveRight()
 	setSpeed(mCurrSpeed.x, 0);
 }
 
-void Player::fire(std::vector<std::shared_ptr<Projectile>>* mProjectiles)
+void Player::fire()
 {
-
+	if (mFireTimer.isReady())
+		std::cout << "fire" << std::endl;
 }

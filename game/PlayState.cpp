@@ -75,4 +75,5 @@ void PlayState::bindHooks()
 {
 	mKeyHooks.addHook(SDLK_a, std::bind(&Player::moveLeft, mPlayer.get()), SDL_KEYDOWN);
 	mKeyHooks.addHook(SDLK_d, std::bind(&Player::moveRight, mPlayer.get()), SDL_KEYDOWN);
+	mKeyHooks.addHook(SDLK_SPACE, std::bind(&PlayLogic::playerShoot, mPlayLogic), SDL_KEYDOWN);
 }

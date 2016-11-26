@@ -13,7 +13,6 @@ public:
 	void update();
 	void render(SDL_Renderer* renderer);
 
-private:
 	void playerShoot();
 
 private:
