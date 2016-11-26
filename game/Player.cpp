@@ -7,7 +7,7 @@ Player::Player(SDL_Texture * texture)
 	: EntitySprite(texture)
 {
 	mCurrSpeed.x = 4;
-	mFireTimer.setTime(1000);
+	mFireTimer.setTime(500);
 	mFireTimer.start();
 }
 

@@ -21,14 +21,14 @@ public:
 	void setSpeed(int x, int y);
 	void modSpeed(int x, int y);
 
-	void setMovementRestriction(Vector4<int> restriction);
-	Vector4<int> getMovementRestriction() const;
+	void setMovementRestriction(std::shared_ptr<Vector4<int>> restriction);
+	std::shared_ptr<Vector4<int>> getMovementRestriction() const;
 
 private:
 	Vector2<int> mSpeed;
 	//x = left, z = right
 	//y = top, o = bottom
-	Vector4<int> mRestriction;
+	std::shared_ptr<Vector4<int>> mRestriction;
 };
 
 #endif

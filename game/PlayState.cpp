@@ -61,11 +61,12 @@ void PlayState::prepareEntities()
 	std::shared_ptr<Player> player(new Player(mAssets->getTexture("player")));
 	SpriteCenterer::centerHorizontal(player.get(), mEngine->getSize()->x);
 	player.get()->getBody()->y = mEngine->getSize()->y - player.get()->getBody()->h - player.get()->getBody()->h * 0.1;
-	Vector4<int> restriction;
-	restriction.x = 0;
-	restriction.y = 0;
-	restriction.z = mEngine->getSize()->x;
-	restriction.o = mEngine->getSize()->y;
+	
+	std::shared_ptr<Vector4<int>> restriction (new Vector4<int>);
+	restriction->x = 0;
+	restriction->y = 0;
+	restriction->z = mEngine->getSize()->x;
+	restriction->o = mEngine->getSize()->y;
 	player.get()->setMovementRestriction(restriction);
 
 	std::shared_ptr<Projectile> projectile(new Projectile(mAssets->getTexture("laserBlue")));
