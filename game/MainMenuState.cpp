@@ -68,5 +68,5 @@ void MainMenuState::prepareButtons()
 
 	mGUI.add("playButton", playButton);
 	mGUI.add("exitButton", exitButton);
-	addSprite(background);
+	addSprite("backkground", background);
 }

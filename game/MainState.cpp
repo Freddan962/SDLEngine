@@ -65,8 +65,8 @@ void MainState::load()
 	box1 = sprite;
 	box2 = spriteRight;
 
-	addSprite(sprite);
-	addSprite(spriteRight);
+	addSprite("sprite", sprite);
+	addSprite("spriteRight", spriteRight);
 
 	//AnimatedSprite
 	std::shared_ptr<AnimatedSprite> animated(new AnimatedSprite(mAssets->getTexture("door1")));
@@ -78,7 +78,7 @@ void MainState::load()
 	animated->getBody()->x = 300;
 	animated->getBody()->y = 250;
 
-	addSprite(animated);
+	addSprite("animated", animated);
 
 	std::shared_ptr<InputField> inputField(new InputField(mAssets->getTexture("door1"), mEngine->getRenderer()));
 	inputField->getBody()->h = 80;

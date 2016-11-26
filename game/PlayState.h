@@ -2,6 +2,7 @@
 #define PLAYSTATE_H
 
 #include "../State.h"
+#include "PlayLogic.h"
 
 class Engine;
 class Player;
@@ -24,7 +25,10 @@ private:
 	void bindHooks();
 
 private:
+
+private:
 	std::shared_ptr<Player> mPlayer;
+	PlayLogic mPlayLogic;
 };
 
 #endif

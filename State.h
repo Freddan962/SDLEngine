@@ -24,7 +24,7 @@ public:
 	virtual void handleEvent(SDL_Event* event);
 	virtual void render();
 
-	void addSprite(std::shared_ptr<Sprite> sprite);
+	void addSprite(std::string, std::shared_ptr<Sprite> sprite);
 
 private:
 	virtual void load();
@@ -33,6 +33,9 @@ private:
 	void updateSprites();
 	void renderSprites();
 	void checkForCollisions();
+
+	std::vector<std::shared_ptr<Sprite>>* getSprites(std::string name);
+	std::vector<std::shared_ptr<Sprite>> getSprites();
 
 protected:
 	Engine* mEngine;
@@ -43,7 +46,7 @@ protected:
 
 private:
 	std::string mName;
-	std::vector<std::shared_ptr<Sprite>> mSprites;
+	std::map<std::string, std::vector<std::shared_ptr<Sprite>>> mSprites;
 };
 
 #endif

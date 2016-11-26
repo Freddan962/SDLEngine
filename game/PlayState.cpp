@@ -7,7 +7,8 @@
 #include "../SpriteCenterer.h"
 
 PlayState::PlayState(Engine * engine)
-	: State(engine, "PlayState") 
+	: State(engine, "PlayState"),
+	mPlayLogic(this)
 {
 	load();
 }
@@ -16,11 +17,13 @@ PlayState::PlayState(Engine * engine)
 void PlayState::update()
 {
 	State::update();
+	mPlayLogic.update();
 }
 
 void PlayState::render()
 {
 	State::render();
+	mPlayLogic.render(mEngine->getRenderer());
 }
 
 void PlayState::handleEvent(SDL_Event * event)
@@ -64,8 +67,8 @@ void PlayState::prepareEntities()
 	player.get()->setMovementRestriction(restriction);
 	mPlayer = player;
 
-	addSprite(background);
-	addSprite(mPlayer);
+	addSprite("background", background);
+	addSprite("player", mPlayer);
 }
 
 void PlayState::bindHooks()
