@@ -7,7 +7,8 @@ void AnimatedSprite::update()
 
 void AnimatedSprite::render(SDL_Renderer* renderer)
 {
-	updateFrame();
+	if (mAnimate)
+		updateFrame();
 
 	if (mTexture && mBody)
 		SDL_RenderCopy(renderer, mTexture, NULL, mBody.get());
@@ -37,4 +38,14 @@ void AnimatedSprite::updateFrame()
 		mTexture = mFrames.at(mAnimationIndex);
 		mAnimationCounter = 0;
 	}
+}
+
+void AnimatedSprite::disableAnimation()
+{
+	mAnimate = false;
+}
+
+void AnimatedSprite::enableAnimation()
+{
+	mAnimate = true;
 }

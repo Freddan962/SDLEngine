@@ -22,6 +22,8 @@ public:
 	void addFrame(SDL_Texture* frame);
 
 	void setAnimationSpeed(int speed);
+	void disableAnimation();
+	void enableAnimation();
 
 private:
 	void updateFrame();
@@ -32,6 +34,7 @@ private:
 	int mAnimationSpeed;
 	int mAnimationCounter;
 	int mAnimationIndex;
+	bool mAnimate;
 };
 
 #endif

@@ -39,10 +39,10 @@ void MainMenuState::loadAssets()
 	mAssets->addTexture("exitButton", loader.loadPNG("..\\engine\\source\\assets\\exitbutton.png"));
 	mAssets->addTexture("playButton", loader.loadPNG("..\\engine\\source\\assets\\playbutton.png"));
 
-	mAssets->addTexture("bgCastle", loader.loadPNG("..\\engine\\source\\assets\\bgcastle.png"));
-	mAssets->addTexture("bgDesert", loader.loadPNG("..\\engine\\source\\assets\\bgdesert.png"));
-	mAssets->addTexture("bgForest", loader.loadPNG("..\\engine\\source\\assets\\bgforest.png"));
-	mAssets->addTexture("bgTallTrees", loader.loadPNG("..\\engine\\source\\assets\\bgtalltrees.png"));
+	mAssets->addTexture("bgblack", loader.loadPNG("..\\engine\\source\\assets\\bgblack.png"));
+	mAssets->addTexture("bgblue", loader.loadPNG("..\\engine\\source\\assets\\bgblue.png"));
+	mAssets->addTexture("bgdarkpurple", loader.loadPNG("..\\engine\\source\\assets\\bgdarkpurple.png"));
+	mAssets->addTexture("bgpurple", loader.loadPNG("..\\engine\\source\\assets\\bgpurple.png"));
 }
 
 void MainMenuState::prepareButtons()
@@ -57,10 +57,10 @@ void MainMenuState::prepareButtons()
 	exitButton->getBody()->y = 400;
 	exitButton->click = std::bind(&Engine::shutdown, mEngine);
 
-	std::shared_ptr<AnimatedSprite> background(new AnimatedSprite(mAssets->getTexture("bgCastle")));
-	background->addFrame(mAssets->getTexture("bgDesert"));
-	background->addFrame(mAssets->getTexture("bgForest"));
-	background->addFrame(mAssets->getTexture("bgTallTrees"));
+	std::shared_ptr<AnimatedSprite> background(new AnimatedSprite(mAssets->getTexture("bgblack")));
+	background->addFrame(mAssets->getTexture("bgblue"));
+	background->addFrame(mAssets->getTexture("bgdarkpurple"));
+	background->addFrame(mAssets->getTexture("bgpurple"));
 	background->setAnimationSpeed(150);
 	background->getBody()->y = -1;
 	background->getBody()->h = mEngine->getSize()->y + 1;
