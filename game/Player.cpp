@@ -1,15 +1,21 @@
 #include "Player.h"
 #include <iostream>
+#include "Projectile.h"
 
 Player::Player(SDL_Texture * texture)
 	: EntitySprite(texture)
 {
-	mCurrSpeed.x = 2;
+	mCurrSpeed.x = 4;
 }
 
 void Player::update()
 {
 	EntitySprite::update();
+}
+
+void Player::render(SDL_Renderer* renderer)
+{
+	EntitySprite::render(renderer);
 }
 
 void Player::moveLeft()
@@ -20,4 +26,9 @@ void Player::moveLeft()
 void Player::moveRight()
 {
 	setSpeed(mCurrSpeed.x, 0);
+}
+
+void Player::fire(std::vector<std::shared_ptr<Projectile>>* mProjectiles)
+{
+
 }

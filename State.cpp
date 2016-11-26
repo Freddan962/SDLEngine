@@ -63,7 +63,7 @@ void State::renderSprites()
 void State::handleEvent(SDL_Event* event) 
 {
 	mGUI.handleEvent(event);
-	mKeyHooks.handleEvent(event->key.keysym.sym);
+	mKeyHooks.handleEvent(event->key.keysym.sym, event);
 	mEventHooks.handleEvent((SDL_EventType)event->type);
 }
 
