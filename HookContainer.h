@@ -12,7 +12,6 @@ template <class T, class Y = SDL_EventType>
 class HookContainer
 {
 public:
-	template <class T>
 	void addHook(T type, Func func)
 	{
 		if (mHooks.find(type) != mHooks.end())
@@ -25,7 +24,6 @@ public:
 		}
 	}
 
-	template <class T, class Y = SDL_EventType>
 	void addHook(T type, Func func, Y condition)
 	{
 		if (mConditionHooks.find(type) != mConditionHooks.end())
@@ -40,7 +38,6 @@ public:
 		}
 	}
 
-	template <class T, class Y = SDL_EventType>
 	void handleEvent(T event, SDL_Event* eventSt = nullptr)
 	{
 		if (mHooks.find(event) != mHooks.end())
