@@ -72,6 +72,8 @@ void Engine::shutdown()
 
 	TTF_Quit();
 	SDL_Quit();
+
+	mRunning = false;
 }
 
 void Engine::setFrameRate(int fps)
@@ -84,7 +86,7 @@ int Engine::getFrameRate()
 	return mFps;
 }
 
-Vector2<float>* Engine::getSize()
+Vector2<int>* Engine::getSize()
 {
 	return &mSize;
 }

@@ -1,5 +1,6 @@
 #include "Engine.h"
 #include "game\MainState.h"
+#include "game/MainMenuState.h"
 #include "StateManager.h"
 
 using namespace std;
@@ -9,8 +10,11 @@ int main(int argc, char *argv[])
 	Engine engine("Engine", 0.1, 640, 480);
 	engine.setFrameRate(60);
 
-	MainState st(&engine);
-	engine.getStateManager()->addState(&st);
+	//MainState st(&engine);
+	//engine.getStateManager()->addState(&st);
+
+	MainMenuState mainMenuState(&engine);
+	engine.getStateManager()->addState(&mainMenuState);
 
 	engine.run();
 

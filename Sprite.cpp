@@ -5,6 +5,11 @@ Sprite::Sprite(SDL_Texture* texture)
 	: mBody(new SDL_Rect())
 {
 	mTexture = texture;
+
+	int width, height;
+	SDL_QueryTexture(texture, NULL, NULL, &width, &height);
+	mBody->w = width;
+	mBody->h = height;
 }
 
 void Sprite::update()

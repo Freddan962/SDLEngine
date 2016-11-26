@@ -3,7 +3,7 @@
 
 #include "SDL.h"
 #include "Sprite.h"
-
+#include <functional>
 
 class Button : public Sprite
 {
@@ -13,7 +13,7 @@ public:
 	void onClick();
 
 public:
-	void(*click)();
+	std::function<void()> click;
 };
 
 #endif

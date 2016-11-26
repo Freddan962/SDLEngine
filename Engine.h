@@ -24,15 +24,13 @@ public:
 	int getFrameRate();
 	std::shared_ptr<StateManager> getStateManager();
 	SDL_Renderer* getRenderer();
-	Vector2<float>* getSize();
-
-private:
+	Vector2<int>* getSize();
 	void shutdown();
 
 private:
 	std::string mName;
 	double mVersion;
-	Vector2<float> mSize;
+	Vector2<int> mSize;
 
 	int mFps;
 	SDL_Window* mWindow;
