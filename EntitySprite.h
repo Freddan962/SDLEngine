@@ -10,23 +10,25 @@ class EntitySprite : public Sprite
 {
 public:
 	EntitySprite(SDL_Texture* texture)
-		: Sprite(texture),
-		mSpeed(new Vector2<int>) {}
+		: Sprite(texture) {}
+
+	EntitySprite(const EntitySprite& other);
 
 	virtual void update();
 	void updateMovement();
 
-	std::shared_ptr<Vector2<int>> getSpeed();
+	Vector2<int> getSpeed() const;
 	void setSpeed(int x, int y);
 	void modSpeed(int x, int y);
 
-	void setMovementRestriction(std::shared_ptr<Vector4<int>> restriction);
+	void setMovementRestriction(Vector4<int> restriction);
+	Vector4<int> getMovementRestriction() const;
 
 private:
-	std::shared_ptr<Vector2<int>> mSpeed;
+	Vector2<int> mSpeed;
 	//x = left, z = right
 	//y = top, o = bottom
-	std::shared_ptr<Vector4<int>> mRestriction;
+	Vector4<int> mRestriction;
 };
 
 #endif

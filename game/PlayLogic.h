@@ -2,6 +2,8 @@
 #define PLAYLOGIC_H
 
 #include "SDL.h"
+#include <vector>
+#include "Projectile.h"
 
 class State;
 

@@ -30,8 +30,7 @@ void State::addSprite(std::string name, std::shared_ptr<Sprite> sprite)
 {
 	if (mSprites.find(name) != mSprites.end())
 	{
-		std::vector<std::shared_ptr<Sprite>> sprites = mSprites.at(name);
-		sprites.push_back(sprite);
+		mSprites.at(name).push_back(sprite);
 	}
 	else
 	{

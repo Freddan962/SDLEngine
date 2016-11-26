@@ -8,12 +8,14 @@ class Sprite
 {
 public:
 	Sprite(SDL_Texture* texture);
+	Sprite(const Sprite &other);
 
 	virtual void update();
 	virtual void render(SDL_Renderer* renderer);
 	virtual void onCollide(Sprite* sprite);
 
-	std::shared_ptr<SDL_Rect> getBody();
+	SDL_Texture* getTexture() const;
+	std::shared_ptr<SDL_Rect> getBody() const;
 
 protected:
 	std::shared_ptr<SDL_Rect> mBody;

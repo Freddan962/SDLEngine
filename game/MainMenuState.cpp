@@ -36,6 +36,8 @@ void MainMenuState::unload()
 void MainMenuState::loadAssets()
 {
 	ImageLoader loader(mEngine->getRenderer());
+	mAssets->addTexture("logo", loader.loadPNG("..\\engine\\source\\assets\\logo.png")); //iCCP complain cause
+
 	mAssets->addTexture("exitButton", loader.loadPNG("..\\engine\\source\\assets\\exitbutton.png"));
 	mAssets->addTexture("playButton", loader.loadPNG("..\\engine\\source\\assets\\playbutton.png"));
 
@@ -66,6 +68,13 @@ void MainMenuState::prepareButtons()
 	background->getBody()->h = mEngine->getSize()->y + 1;
 	background->getBody()->w = mEngine->getSize()->x;
 
+	std::shared_ptr<Sprite> logo(new Sprite(mAssets->getTexture("logo")));
+	logo->getBody()->h = 200;
+	logo->getBody()->w = 333;
+	SpriteCenterer::centerHorizontal(logo.get(), mEngine->getSize()->x);
+	logo->getBody()->y = 50;
+	
+	mGUI.add("logo", logo);
 	mGUI.add("playButton", playButton);
 	mGUI.add("exitButton", exitButton);
 	addSprite("backkground", background);

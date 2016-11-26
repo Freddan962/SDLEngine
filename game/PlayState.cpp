@@ -5,6 +5,7 @@
 #include "../Sprite.h"
 #include "Player.h"
 #include "../SpriteCenterer.h"
+#include "Projectile.h"
 
 PlayState::PlayState(Engine * engine)
 	: State(engine, "PlayState"),
@@ -48,6 +49,7 @@ void PlayState::loadAssets()
 	ImageLoader loader(mEngine->getRenderer());
 	mAssets->addTexture("bgPurple", loader.loadPNG("..\\engine\\source\\assets\\bgpurple.png"));
 	mAssets->addTexture("player", loader.loadPNG("..\\engine\\source\\assets\\player.png"));
+	mAssets->addTexture("laserBlue", loader.loadPNG("..\\engine\\source\\assets\\laserblue.png"));
 }
 
 void PlayState::prepareEntities()
@@ -59,12 +61,18 @@ void PlayState::prepareEntities()
 	std::shared_ptr<Player> player(new Player(mAssets->getTexture("player")));
 	SpriteCenterer::centerHorizontal(player.get(), mEngine->getSize()->x);
 	player.get()->getBody()->y = mEngine->getSize()->y - player.get()->getBody()->h - player.get()->getBody()->h * 0.1;
-	std::shared_ptr<Vector4<int>> restriction(new Vector4<int>);
-	restriction->x = 0;
-	restriction->y = 0;
-	restriction->z = mEngine->getSize()->x;
-	restriction->o = mEngine->getSize()->y;
+	Vector4<int> restriction;
+	restriction.x = 0;
+	restriction.y = 0;
+	restriction.z = mEngine->getSize()->x;
+	restriction.o = mEngine->getSize()->y;
 	player.get()->setMovementRestriction(restriction);
+
+	std::shared_ptr<Projectile> projectile(new Projectile(mAssets->getTexture("laserBlue")));
+	projectile->getBody()->h *= 0.7;
+	projectile->getBody()->w *= 0.7;
+	player->setProjectile(projectile);
+
 	mPlayer = player;
 
 	addSprite("background", background);

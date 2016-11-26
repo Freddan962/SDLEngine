@@ -12,6 +12,20 @@ Sprite::Sprite(SDL_Texture* texture)
 	mBody->h = height;
 }
 
+Sprite::Sprite(const Sprite& other)
+{
+	mTexture = other.mTexture;
+
+	SDL_Rect newBody;
+	newBody.x = other.getBody()->x;
+	newBody.y = other.getBody()->y;
+	newBody.w = other.getBody()->w;
+	newBody.h = other.getBody()->h;
+	mBody = std::make_shared<SDL_Rect>(newBody);
+
+	mTexture = other.getTexture();
+}
+
 void Sprite::update()
 {
 
@@ -28,7 +42,12 @@ void Sprite::onCollide(Sprite* sprite)
 
 }
 
-std::shared_ptr<SDL_Rect> Sprite::getBody()
+std::shared_ptr<SDL_Rect> Sprite::getBody() const
 {
 	return mBody;
+}
+
+SDL_Texture* Sprite::getTexture() const
+{
+	return mTexture;
 }
