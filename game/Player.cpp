@@ -6,7 +6,8 @@
 Player::Player(SDL_Texture * texture)
 	: EntitySprite(texture)
 {
-	mCurrSpeed.x = 4;
+	mCurrSpeed.x = 6;
+	mProjectileSpeed.y = -8;
 	mFireTimer.setTime(500);
 	mFireTimer.start();
 }
@@ -31,6 +32,11 @@ void Player::moveRight()
 	setSpeed(mCurrSpeed.x, 0);
 }
 
+void Player::stopMoveHorizontal()
+{
+	setSpeed(0, getSpeed().y);
+}
+
 void Player::setProjectile(std::shared_ptr<Projectile> projectile)
 {
 	mProjectile = projectile;
@@ -43,7 +49,7 @@ std::shared_ptr<Projectile> Player::fire()
 	SpriteCenterer::centerHorizontal(copy.get(), getBody()->w);
 	copy->getBody()->x += getBody()->x;
 	copy->getBody()->y = getBody()->y - copy->getBody()->h;
-	copy->setSpeed(0, -4);
+	copy->setSpeed(0, mProjectileSpeed.y);
 	return copy;
 }
 
@@ -51,4 +57,9 @@ bool Player::canFire()
 {
 	if (!mProjectile.get()) return false;
 	return mFireTimer.isReady();
+}
+
+Vector2<float> Player::getProjectileSpeed()
+{
+	return mProjectileSpeed;
 }

@@ -19,14 +19,18 @@ public:
 	void moveLeft();
 	void moveRight();
 
+	void stopMoveHorizontal();
+
 	std::shared_ptr<Projectile> fire();
 	bool canFire();
 	void setProjectile(std::shared_ptr<Projectile> projectile);
+	Vector2<float> getProjectileSpeed();
 	
 private:
 	Vector2<float> mCurrSpeed;
 	Timer mFireTimer;
 	std::shared_ptr<Projectile> mProjectile;
+	Vector2<float> mProjectileSpeed;
 };
 
 #endif
