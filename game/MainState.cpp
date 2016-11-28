@@ -98,8 +98,6 @@ void MainState::load()
 	button->click = &buttonClick;
 	mGUI.add("play", button);
 
-	mKeyHooks.addHook(SDLK_a, std::bind(&Test::sumAndPrint, mTest.get(), 15, 20));
-	mKeyHooks.addHook(SDLK_a, std::bind(&Test::sumAndPrint2, mTest.get()));
 	mKeyHooks.addHook(SDLK_a, std::function<void()>(aClick));
 	mEventHooks.addHook(SDL_MOUSEBUTTONUP, &onClick);
 }
