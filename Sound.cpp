@@ -9,7 +9,8 @@ Sound::Sound(Mix_Chunk* sound)
 
 void Sound::play()
 {
-	mChannel = Mix_PlayChannel(-1, mSound, mLoops);
+	if (mSound)
+		mChannel = Mix_PlayChannel(-1, mSound, mLoops);
 }
 
 bool Sound::isPlaying()

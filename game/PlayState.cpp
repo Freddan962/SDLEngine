@@ -6,6 +6,8 @@
 #include "Player.h"
 #include "../SpriteCenterer.h"
 #include "Projectile.h"
+#include "../SoundLoader.h"
+#include "../Sound.h"
 
 PlayState::PlayState(Engine * engine)
 	: State(engine, "PlayState"),
@@ -53,6 +55,9 @@ void PlayState::loadAssets()
 	mAssets->addTexture("bgPurple", loader.loadPNG(assetPath + "bgpurple.png"));
 	mAssets->addTexture("player", loader.loadPNG(assetPath + "player.png"));
 	mAssets->addTexture("laserBlue", loader.loadPNG(assetPath + "laserblue.png"));
+
+	SoundLoader soundLoader;
+	mAssets->addChunk("laser", soundLoader.loadOGG(assetPath + "laser.ogg"));
 }
 
 void PlayState::prepareEntities()
@@ -77,10 +82,14 @@ void PlayState::prepareEntities()
 	projectile->getBody()->w *= 0.7;
 	player->setProjectile(projectile);
 
+	std::shared_ptr<Sound> laserSound(new Sound(mAssets->getChunk("laser")));
+	player->setProjectileFiringSound(laserSound);
+
 	mPlayer = player;
 
 	sprites.add("background", background);
 	sprites.add("player", mPlayer);
+	sounds.add("playerLaser", laserSound);
 }
 
 void PlayState::bindHooks()

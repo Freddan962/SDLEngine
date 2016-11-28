@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Projectile.h"
 #include "../SpriteCenterer.h"
+#include "../Sound.h"
 
 Player::Player(SDL_Texture * texture)
 	: EntitySprite(texture)
@@ -42,6 +43,11 @@ void Player::setProjectile(std::shared_ptr<Projectile> projectile)
 	mProjectile = projectile;
 }
 
+void Player::setProjectileFiringSound(std::shared_ptr<Sound> sound)
+{
+	mProjectileFiringSound = sound;
+}
+
 std::shared_ptr<Projectile> Player::fire()
 {
 	Projectile projectile(*mProjectile.get());
@@ -50,6 +56,8 @@ std::shared_ptr<Projectile> Player::fire()
 	copy->getBody()->x += getBody()->x;
 	copy->getBody()->y = getBody()->y - copy->getBody()->h;
 	copy->setSpeed(0, mProjectileSpeed.y);
+
+	mProjectileFiringSound->play();
 	return copy;
 }
 
