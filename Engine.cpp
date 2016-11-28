@@ -2,7 +2,7 @@
 #include "WindowBuilder.h"
 #include "RenderBuilder.h"
 #include "StateManager.h"
-
+#include "sdl\include\SDL_mixer.h"
 
 Engine::Engine(std::string name, double version, float width, float height)
 	: mName(name),
@@ -14,6 +14,9 @@ Engine::Engine(std::string name, double version, float width, float height)
 	mSize.y = height;
 	mWindow = WindowBuilder::build(name + " " + std::to_string(mVersion), mSize.x, mSize.y);
 	mRenderer = RenderBuilder::build(mWindow);
+
+	if (Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 4096) != 0)
+		shutdown();
 
 	if (TTF_Init() == -1)
 		shutdown();
@@ -71,6 +74,7 @@ void Engine::shutdown()
 		SDL_DestroyWindow(mWindow);
 
 	TTF_Quit();
+	Mix_CloseAudio();
 	SDL_Quit();
 
 	mRunning = false;

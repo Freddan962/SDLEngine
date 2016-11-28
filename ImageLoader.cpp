@@ -1,6 +1,6 @@
 #include "ImageLoader.h"
 #include <fstream>
-#include "SDL_image.h"
+#include <SDL_image.h>
 
 ImageLoader::ImageLoader(SDL_Renderer* renderer)
 {

@@ -46,10 +46,12 @@ void PlayState::unload()
 
 void PlayState::loadAssets()
 {
+	std::string assetPath = "..\\engine\\source\\assets\\";
+
 	ImageLoader loader(mEngine->getRenderer());
-	mAssets->addTexture("bgPurple", loader.loadPNG("..\\engine\\source\\assets\\bgpurple.png"));
-	mAssets->addTexture("player", loader.loadPNG("..\\engine\\source\\assets\\player.png"));
-	mAssets->addTexture("laserBlue", loader.loadPNG("..\\engine\\source\\assets\\laserblue.png"));
+	mAssets->addTexture("bgPurple", loader.loadPNG(assetPath + "bgpurple.png"));
+	mAssets->addTexture("player", loader.loadPNG(assetPath + "player.png"));
+	mAssets->addTexture("laserBlue", loader.loadPNG(assetPath + "laserblue.png"));
 }
 
 void PlayState::prepareEntities()

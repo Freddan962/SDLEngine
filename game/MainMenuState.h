@@ -20,6 +20,7 @@ private:
 
 	void loadAssets();
 	void prepareButtons();
+	void prepare();
 
 private:
 };

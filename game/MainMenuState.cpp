@@ -6,6 +6,8 @@
 #include "../SpriteCenterer.h"
 #include "../StateManager.h"
 #include "../AnimatedSprite.h"
+#include "../SoundLoader.h"
+#include "../Sound.h";
 
 void MainMenuState::update()
 {
@@ -26,6 +28,7 @@ void MainMenuState::load()
 {
 	loadAssets();
 	prepareButtons();
+	prepare();
 }
 
 void MainMenuState::unload()
@@ -35,16 +38,20 @@ void MainMenuState::unload()
 
 void MainMenuState::loadAssets()
 {
+	std::string assetPath = "..\\engine\\source\\assets\\";
 	ImageLoader loader(mEngine->getRenderer());
-	mAssets->addTexture("logo", loader.loadPNG("..\\engine\\source\\assets\\logo.png")); //iCCP complain cause
+	mAssets->addTexture("logo", loader.loadPNG(assetPath + "logo.png")); //iCCP complain cause
 
-	mAssets->addTexture("exitButton", loader.loadPNG("..\\engine\\source\\assets\\exitbutton.png"));
-	mAssets->addTexture("playButton", loader.loadPNG("..\\engine\\source\\assets\\playbutton.png"));
+	mAssets->addTexture("exitButton", loader.loadPNG(assetPath + "exitbutton.png"));
+	mAssets->addTexture("playButton", loader.loadPNG(assetPath + "playbutton.png"));
 
-	mAssets->addTexture("bgblack", loader.loadPNG("..\\engine\\source\\assets\\bgblack.png"));
-	mAssets->addTexture("bgblue", loader.loadPNG("..\\engine\\source\\assets\\bgblue.png"));
-	mAssets->addTexture("bgdarkpurple", loader.loadPNG("..\\engine\\source\\assets\\bgdarkpurple.png"));
-	mAssets->addTexture("bgpurple", loader.loadPNG("..\\engine\\source\\assets\\bgpurple.png"));
+	mAssets->addTexture("bgblack", loader.loadPNG(assetPath + "bgblack.png"));
+	mAssets->addTexture("bgblue", loader.loadPNG(assetPath + "bgblue.png"));
+	mAssets->addTexture("bgdarkpurple", loader.loadPNG(assetPath + "bgdarkpurple.png"));
+	mAssets->addTexture("bgpurple", loader.loadPNG(assetPath + "bgpurple.png"));
+
+	SoundLoader soundLoader;
+	mAssets->addChunk("theme", soundLoader.loadOGG(assetPath + "theme.ogg"));
 }
 
 void MainMenuState::prepareButtons()
@@ -78,4 +85,11 @@ void MainMenuState::prepareButtons()
 	mGUI.add("playButton", playButton);
 	mGUI.add("exitButton", exitButton);
 	addSprite("backkground", background);
+}
+
+void MainMenuState::prepare()
+{
+	Sound theme(mAssets->getChunk("theme"));
+	theme.repeat();
+	theme.play();
 }
