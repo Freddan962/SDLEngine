@@ -107,7 +107,7 @@ void GUI::GUI::handleTextInput(SDL_Event* event)
 	for (itField iterator = mActiveInputFields.begin(); iterator != mActiveInputFields.end(); iterator++)
 	{
 		std::shared_ptr<InputField> field = iterator->second;
-		field->appendText(text);
+		field->text.appendText(text);
 	}
 }
 
@@ -134,7 +134,7 @@ void GUI::GUI::handleInputFieldInteraction(std::shared_ptr<SDL_Rect> click)
 				mActiveInputFields.insert(std::pair<std::string, std::shared_ptr<InputField>>(iterator->first, field));
 			}
 		}
-		else if (field->getActive())
+		else if (field->isActive())
 		{
 			field->setActive(false);
 			mActiveInputFields.erase(iterator->first);

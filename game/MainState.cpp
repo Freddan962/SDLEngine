@@ -51,6 +51,8 @@ void MainState::load()
 	mAssets->textures.add("door2", loader.loadPNG(assetPath + "door2.png"));
 	mAssets->textures.add("door3", loader.loadPNG(assetPath +  "door3.png"));
 	mAssets->textures.add("door4", loader.loadPNG(assetPath +  "door4.png"));
+	mAssets->textures.add("buttonblue", loader.loadPNG(assetPath + "buttonblue.png"));
+	mAssets->fonts.add("vertigo", loader.loadFont(assetPath + "vertigo.ttf", 40));
 
 	std::shared_ptr<EntitySprite> sprite(new EntitySprite(mAssets->textures.get("buff")));
 	sprite->getBody()->h = 50;
@@ -81,13 +83,11 @@ void MainState::load()
 
 	sprites.add("animated", animated);
 
-	std::shared_ptr<InputField> inputField(new InputField(mAssets->textures.get("door1"), mEngine->getRenderer()));
-	inputField->getBody()->h = 80;
-	inputField->getBody()->w = 80;
+	std::shared_ptr<InputField> inputField(new InputField(mAssets->textures.get("buttonblue"), mEngine->getRenderer()));
 	inputField->getBody()->x = 400;
 	inputField->getBody()->y = 300;
-	inputField->setText("Welcome");
-	inputField->setFontSize(70);
+	inputField->text.setFont(mAssets->fonts.get("vertigo"));
+	inputField->text.setText("Welcome");
 	mGUI.add("input", inputField);
 
 	std::shared_ptr<Button> button(new Button(mAssets->textures.get("door1"), mEngine->getRenderer()));
