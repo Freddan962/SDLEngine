@@ -4,7 +4,7 @@
 #include "../AssetLoader.h"
 #include "../Sprite.h"
 #include "Player.h"
-#include "../SpriteCenterer.h"
+#include "../Centerer.h"
 #include "Projectile.h"
 #include "../Sound.h"
 
@@ -66,7 +66,7 @@ void PlayState::prepareEntities()
 	background->getBody()->w = mEngine->getSize()->x;
 
 	std::shared_ptr<Player> player(new Player(mAssets->textures.get("player")));
-	SpriteCenterer::centerHorizontal(player.get(), mEngine->getSize()->x);
+	Centerer::centerHorizontal(player.get(), mEngine->getSize()->x);
 	player.get()->getBody()->y = mEngine->getSize()->y - player.get()->getBody()->h - player.get()->getBody()->h * 0.1;
 	
 	std::shared_ptr<Vector4<int>> restriction (new Vector4<int>);

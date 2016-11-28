@@ -39,7 +39,7 @@ void Text::constructVisuals()
 	if (mTextTexture)
 		SDL_DestroyTexture(mTextTexture);
 
-	adjustBodyForText(mText);
+	adjustBodyForText();
 
 	mTextTexture = textTexture;
 	SDL_FreeSurface(textSurface);
@@ -50,7 +50,18 @@ void Text::setColor(Uint8 r, Uint8 g, Uint8 b)
 	mTextColor = { r, g, b };
 }
 
-void Text::adjustBodyForText(std::string text)
+void Text::adjustBodyForText()
 {
-	TTF_SizeText(mFont, text.c_str(), &getBody()->w, &getBody()->h);
+	Vector2<int> size = getSize();
+	getBody()->w = size.x;
+	getBody()->h = size.y;
+}
+
+Vector2<int> Text::getSize()
+{
+	Vector2<int> size;
+	if (mText.empty()) return size;
+
+	TTF_SizeText(mFont, mText.c_str(), &size.x, &size.y);
+	return size;
 }

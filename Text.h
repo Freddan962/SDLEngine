@@ -4,6 +4,7 @@
 #include <string>
 #include "SDL_ttf.h"
 #include "Sprite.h"
+#include "Vector2.h"
 
 class Text : public Sprite
 {
@@ -19,8 +20,10 @@ public:
 	void setFont(TTF_Font* font);
 	void setColor(Uint8 r, Uint8 g, Uint8 b);
 
+	Vector2<int> getSize();
+
 private:
-	void adjustBodyForText(std::string text);
+	void adjustBodyForText();
 
 private:
 	std::string mText;

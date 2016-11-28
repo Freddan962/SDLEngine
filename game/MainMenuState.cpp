@@ -3,7 +3,7 @@
 #include "../Button.h"
 #include "../AssetContainer.h"
 #include "../AssetLoader.h"
-#include "../SpriteCenterer.h"
+#include "../Centerer.h"
 #include "../StateManager.h"
 #include "../AnimatedSprite.h"
 #include "../Sound.h";
@@ -44,8 +44,7 @@ void MainMenuState::loadAssets()
 	AssetLoader loader(mEngine->getRenderer());
 	mAssets->textures.add("logo", loader.loadPNG(assetPath + "logo.png")); //iCCP complain cause
 
-	mAssets->textures.add("exitButton", loader.loadPNG(assetPath + "exitbutton.png"));
-	mAssets->textures.add("playButton", loader.loadPNG(assetPath + "playbutton.png"));
+	mAssets->textures.add("buttonblue", loader.loadPNG(assetPath + "buttonblue.png"));
 
 	mAssets->textures.add("bgblack", loader.loadPNG(assetPath + "bgblack.png"));
 	mAssets->textures.add("bgblue", loader.loadPNG(assetPath + "bgblue.png"));
@@ -54,20 +53,24 @@ void MainMenuState::loadAssets()
 
 	mAssets->chunks.add("theme", loader.loadOGG(assetPath + "theme.ogg"));
 
-	mAssets->fonts.add("vertigo", loader.loadFont(assetPath + "vertigo.ttf", 24));
+	mAssets->fonts.add("vertigo", loader.loadFont(assetPath + "vertigo.ttf", 40));
 }
 
 void MainMenuState::prepareButtons()
 {
-	std::shared_ptr<Button> playButton(new Button(mAssets->textures.get("playButton")));
-	SpriteCenterer::centerHorizontal(playButton.get(), mEngine->getSize()->x);
+	std::shared_ptr<Button> playButton(new Button(mAssets->textures.get("buttonblue"), mEngine->getRenderer()));
+	Centerer::centerHorizontal(playButton.get(), mEngine->getSize()->x);
 	playButton->getBody()->y = 330;
 	playButton->click = std::bind(&StateManager::nextState, mEngine->getStateManager());
+	playButton->text.setFont(mAssets->fonts.get("vertigo"));
+	playButton->text.setText("P l a y");
 
-	std::shared_ptr<Button> exitButton(new Button(mAssets->textures.get("exitButton")));
-	SpriteCenterer::centerHorizontal(exitButton.get(), mEngine->getSize()->x);
+	std::shared_ptr<Button> exitButton(new Button(mAssets->textures.get("buttonblue"), mEngine->getRenderer()));
+	Centerer::centerHorizontal(exitButton.get(), mEngine->getSize()->x);
 	exitButton->getBody()->y = 400;
 	exitButton->click = std::bind(&Engine::shutdown, mEngine);
+	exitButton->text.setFont(mAssets->fonts.get("vertigo"));
+	exitButton->text.setText("E x i t");;
 
 	std::shared_ptr<AnimatedSprite> background(new AnimatedSprite(mAssets->textures.get("bgblack")));
 	background->addFrame(mAssets->textures.get("bgblue"));
@@ -81,7 +84,7 @@ void MainMenuState::prepareButtons()
 	std::shared_ptr<Sprite> logo(new Sprite(mAssets->textures.get("logo")));
 	logo->getBody()->h = 200;
 	logo->getBody()->w = 333;
-	SpriteCenterer::centerHorizontal(logo.get(), mEngine->getSize()->x);
+	Centerer::centerHorizontal(logo.get(), mEngine->getSize()->x);
 	logo->getBody()->y = 50;
 	
 	mGUI.add("logo", logo);

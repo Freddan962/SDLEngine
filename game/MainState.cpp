@@ -90,7 +90,7 @@ void MainState::load()
 	inputField->setFontSize(70);
 	mGUI.add("input", inputField);
 
-	std::shared_ptr<Button> button(new Button(mAssets->textures.get("door1")));
+	std::shared_ptr<Button> button(new Button(mAssets->textures.get("door1"), mEngine->getRenderer()));
 	button->getBody()->h = 20;
 	button->getBody()->w = 20;
 	button->getBody()->x = 500;
