@@ -2,6 +2,8 @@
 #define STATE_H
 
 #include "SDL.h"
+#include "SDL_ttf.h"
+#include "SDL_mixer.h"
 
 #include <iostream>
 #include <vector>
@@ -37,6 +39,7 @@ private:
 public:
 	MapVector <std::shared_ptr<Sprite>> sprites;
 	MapVector <std::shared_ptr<Sound>> sounds;
+	MapVector <std::shared_ptr<TTF_Font>> fonts;
 
 protected:
 	Engine* mEngine;

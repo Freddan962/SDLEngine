@@ -1,6 +1,6 @@
 #include "MainState.h"
 #include "../Engine.h"
-#include "../ImageLoader.h"
+#include "../AssetLoader.h"
 #include "../AssetContainer.h"
 #include "../EntitySprite.h"
 #include "../Physics.h"
@@ -43,20 +43,21 @@ void buttonClick()
 
 void MainState::load()
 {
-	//std::cout << "Loading MainState" << std::endl;
-	ImageLoader loader(mEngine->getRenderer());
-	mAssets.get()->addTexture("buff", loader.loadBMP("..\\engine\\source\\assets\\iconbuff.bmp"));
-	mAssets.get()->addTexture("door1", loader.loadPNG("..\\engine\\source\\assets\\door1.png"));
-	mAssets.get()->addTexture("door2", loader.loadPNG("..\\engine\\source\\assets\\door2.png"));
-	mAssets.get()->addTexture("door3", loader.loadPNG("..\\engine\\source\\assets\\door3.png"));
-	mAssets.get()->addTexture("door4", loader.loadPNG("..\\engine\\source\\assets\\door4.png"));
+	std::string assetPath = "..\\engine\\source\\assets\\";
+	AssetLoader loader(mEngine->getRenderer());
 
-	std::shared_ptr<EntitySprite> sprite(new EntitySprite(mAssets.get()->getTexture("buff")));
+	mAssets->textures.add("buff", loader.loadBMP(assetPath + "iconbuff.bmp"));
+	mAssets->textures.add("door1", loader.loadPNG(assetPath + "door1.png"));
+	mAssets->textures.add("door2", loader.loadPNG(assetPath + "door2.png"));
+	mAssets->textures.add("door3", loader.loadPNG(assetPath +  "door3.png"));
+	mAssets->textures.add("door4", loader.loadPNG(assetPath +  "door4.png"));
+
+	std::shared_ptr<EntitySprite> sprite(new EntitySprite(mAssets->textures.get("buff")));
 	sprite->getBody()->h = 50;
 	sprite->getBody()->w = 50;
 	sprite->setSpeed((float)100 / mEngine->getFrameRate(), 0);
 
-	std::shared_ptr<EntitySprite> spriteRight(new EntitySprite(mAssets.get()->getTexture("buff")));
+	std::shared_ptr<EntitySprite> spriteRight(new EntitySprite(mAssets->textures.get("buff")));
 	spriteRight->getBody()->h = 50;
 	spriteRight->getBody()->w = 50;
 	spriteRight->getBody()->x = mEngine->getSize()->x - spriteRight->getBody()->w;
@@ -69,10 +70,10 @@ void MainState::load()
 	sprites.add("spriteRight", spriteRight);
 
 	//AnimatedSprite
-	std::shared_ptr<AnimatedSprite> animated(new AnimatedSprite(mAssets->getTexture("door1")));
-	animated->addFrame(mAssets->getTexture("door2"));
-	animated->addFrame(mAssets->getTexture("door3"));
-	animated->addFrame(mAssets->getTexture("door4"));
+	std::shared_ptr<AnimatedSprite> animated(new AnimatedSprite(mAssets->textures.get("door1")));
+	animated->addFrame(mAssets->textures.get("door2"));
+	animated->addFrame(mAssets->textures.get("door3"));
+	animated->addFrame(mAssets->textures.get("door4"));
 	animated->getBody()->h = 24;
 	animated->getBody()->w = 24;
 	animated->getBody()->x = 300;
@@ -80,7 +81,7 @@ void MainState::load()
 
 	sprites.add("animated", animated);
 
-	std::shared_ptr<InputField> inputField(new InputField(mAssets->getTexture("door1"), mEngine->getRenderer()));
+	std::shared_ptr<InputField> inputField(new InputField(mAssets->textures.get("door1"), mEngine->getRenderer()));
 	inputField->getBody()->h = 80;
 	inputField->getBody()->w = 80;
 	inputField->getBody()->x = 400;
@@ -89,7 +90,7 @@ void MainState::load()
 	inputField->setFontSize(70);
 	mGUI.add("input", inputField);
 
-	std::shared_ptr<Button> button(new Button(mAssets->getTexture("door1")));
+	std::shared_ptr<Button> button(new Button(mAssets->textures.get("door1")));
 	button->getBody()->h = 20;
 	button->getBody()->w = 20;
 	button->getBody()->x = 500;

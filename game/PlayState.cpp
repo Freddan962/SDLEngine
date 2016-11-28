@@ -1,12 +1,11 @@
 #include "PlayState.h"
 #include "../AssetContainer.h"
 #include "../Engine.h"
-#include "../ImageLoader.h"
+#include "../AssetLoader.h"
 #include "../Sprite.h"
 #include "Player.h"
 #include "../SpriteCenterer.h"
 #include "Projectile.h"
-#include "../SoundLoader.h"
 #include "../Sound.h"
 
 PlayState::PlayState(Engine * engine)
@@ -51,22 +50,22 @@ void PlayState::loadAssets()
 {
 	std::string assetPath = "..\\engine\\source\\assets\\";
 
-	ImageLoader loader(mEngine->getRenderer());
-	mAssets->addTexture("bgPurple", loader.loadPNG(assetPath + "bgpurple.png"));
-	mAssets->addTexture("player", loader.loadPNG(assetPath + "player.png"));
-	mAssets->addTexture("laserBlue", loader.loadPNG(assetPath + "laserblue.png"));
+	
+	AssetLoader loader(mEngine->getRenderer());
+	mAssets->textures.add("bgPurple", loader.loadPNG(assetPath + "bgpurple.png"));
+	mAssets->textures.add("player", loader.loadPNG(assetPath + "player.png"));
+	mAssets->textures.add("laserBlue", loader.loadPNG(assetPath + "laserblue.png"));
 
-	SoundLoader soundLoader;
-	mAssets->addChunk("laser", soundLoader.loadOGG(assetPath + "laser.ogg"));
+	mAssets->chunks.add("laser", loader.loadOGG(assetPath + "laser.ogg"));
 }
 
 void PlayState::prepareEntities()
 {
-	std::shared_ptr<Sprite> background(new Sprite(mAssets->getTexture("bgPurple")));
+	std::shared_ptr<Sprite> background(new Sprite(mAssets->textures.get("bgPurple")));
 	background->getBody()->h = mEngine->getSize()->y;
 	background->getBody()->w = mEngine->getSize()->x;
 
-	std::shared_ptr<Player> player(new Player(mAssets->getTexture("player")));
+	std::shared_ptr<Player> player(new Player(mAssets->textures.get("player")));
 	SpriteCenterer::centerHorizontal(player.get(), mEngine->getSize()->x);
 	player.get()->getBody()->y = mEngine->getSize()->y - player.get()->getBody()->h - player.get()->getBody()->h * 0.1;
 	
@@ -77,12 +76,12 @@ void PlayState::prepareEntities()
 	restriction->o = mEngine->getSize()->y;
 	player.get()->setMovementRestriction(restriction);
 
-	std::shared_ptr<Projectile> projectile(new Projectile(mAssets->getTexture("laserBlue")));
+	std::shared_ptr<Projectile> projectile(new Projectile(mAssets->textures.get("laserBlue")));
 	projectile->getBody()->h *= 0.7;
 	projectile->getBody()->w *= 0.7;
 	player->setProjectile(projectile);
 
-	std::shared_ptr<Sound> laserSound(new Sound(mAssets->getChunk("laser")));
+	std::shared_ptr<Sound> laserSound(new Sound(mAssets->chunks.get("laser")));
 	player->setProjectileFiringSound(laserSound);
 
 	mPlayer = player;

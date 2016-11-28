@@ -43,7 +43,6 @@ private:
 	SDL_Renderer* mRenderer;
 
 	bool mActive;
-
 };
 
 #endif
