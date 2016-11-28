@@ -5,6 +5,7 @@
 #include "Engine.h"
 #include "Physics.h"
 #include "GUI.h"
+#include "Sound.h"
 
 State::State(Engine* engine, std::string name)
 	: mAssets(new AssetContainer())
@@ -26,25 +27,11 @@ void State::render()
 	mGUI.render(mEngine->getRenderer());
 }
 
-void State::addSprite(std::string name, std::shared_ptr<Sprite> sprite)
-{
-	if (mSprites.find(name) != mSprites.end())
-	{
-		mSprites.at(name).push_back(sprite);
-	}
-	else
-	{
-		std::vector<std::shared_ptr<Sprite>> sprites;
-		sprites.push_back(sprite);
-		mSprites.insert(std::pair<std::string, std::vector<std::shared_ptr<Sprite>>>(name, sprites));
-	}
-}
-
 void State::checkForCollisions()
 {
-	for (std::shared_ptr<Sprite> sprite : getSprites())
+	for (std::shared_ptr<Sprite> sprite : sprites.get())
 	{
-		for (std::shared_ptr<Sprite> spriteInner : getSprites())
+		for (std::shared_ptr<Sprite> spriteInner : sprites.get())
 		{
 			if (sprite.get() == spriteInner.get()) continue;
 
@@ -59,13 +46,13 @@ void State::checkForCollisions()
 
 void State::updateSprites()
 {
-	for (std::shared_ptr<Sprite> sprite : getSprites())
+	for (std::shared_ptr<Sprite> sprite : sprites.get())
 		sprite->update();
 }
 
 void State::renderSprites()
 {
-	for (std::shared_ptr<Sprite> sprite : getSprites())
+	for (std::shared_ptr<Sprite> sprite : sprites.get())
 		sprite->render(mEngine->getRenderer());
 }
 
@@ -76,28 +63,17 @@ void State::handleEvent(SDL_Event* event)
 	mEventHooks.handleEvent((SDL_EventType)event->type);
 }
 
-std::vector<std::shared_ptr<Sprite>> State::getSprites()
-{
-	std::vector<std::shared_ptr<Sprite>> sprites;
-
-	for (auto pair : mSprites)
-	{
-		std::vector<std::shared_ptr<Sprite>> pairSprites = pair.second;
-
-		for (auto sprite : pairSprites)
-			sprites.push_back(sprite);
-	}
-
-	return sprites;
-}
-
-std::vector<std::shared_ptr<Sprite>>* State::getSprites(std::string name)
-{
-	if (mSprites.find(name) != mSprites.end())
-		return &mSprites.at(name);
-
-	return nullptr;
-}
 
 void State::load() { }
-void State::unload() { }
+
+void State::unload()
+{
+	pauseAllSounds();
+}
+
+void State::pauseAllSounds()
+{
+	auto collection = sounds.get();
+	for (std::vector<std::shared_ptr<Sound>>::iterator it = collection.begin(); it != collection.end(); it++)
+		it->get()->pause();
+}

@@ -10,10 +10,12 @@
 
 #include "HookContainer.h"
 #include "GUI.h"
+#include "MapVector.h"
 
 class Engine;
 class AssetContainer;
 class Sprite;
+class Sound;
 
 class State
 {
@@ -23,19 +25,18 @@ public:
 	virtual void update();
 	virtual void handleEvent(SDL_Event* event);
 	virtual void render();
-
-	void addSprite(std::string, std::shared_ptr<Sprite> sprite);
-	std::vector<std::shared_ptr<Sprite>>* getSprites(std::string name);
-
-private:
 	virtual void load();
 	virtual void unload();
 
+private:
 	void updateSprites();
 	void renderSprites();
 	void checkForCollisions();
+	void pauseAllSounds();
 
-	std::vector<std::shared_ptr<Sprite>> getSprites();
+public:
+	MapVector <std::shared_ptr<Sprite>> sprites;
+	MapVector <std::shared_ptr<Sound>> sounds;
 
 protected:
 	Engine* mEngine;
@@ -46,7 +47,6 @@ protected:
 
 private:
 	std::string mName;
-	std::map<std::string, std::vector<std::shared_ptr<Sprite>>> mSprites;
 };
 
 #endif

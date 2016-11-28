@@ -11,7 +11,7 @@ PlayState::PlayState(Engine * engine)
 	: State(engine, "PlayState"),
 	mPlayLogic(this)
 {
-	load();
+	
 }
 
 
@@ -34,6 +34,7 @@ void PlayState::handleEvent(SDL_Event * event)
 
 void PlayState::load()
 {
+	State::load();
 	loadAssets();
 	prepareEntities();
 	bindHooks();
@@ -41,7 +42,7 @@ void PlayState::load()
 
 void PlayState::unload()
 {
-
+	State::unload();
 }
 
 void PlayState::loadAssets()
@@ -78,8 +79,8 @@ void PlayState::prepareEntities()
 
 	mPlayer = player;
 
-	addSprite("background", background);
-	addSprite("player", mPlayer);
+	sprites.add("background", background);
+	sprites.add("player", mPlayer);
 }
 
 void PlayState::bindHooks()

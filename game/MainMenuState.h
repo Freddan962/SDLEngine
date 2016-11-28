@@ -8,7 +8,7 @@ class Engine;
 class MainMenuState : public State
 {
 public:
-	MainMenuState(Engine* engine) : State(engine, "MainMenuState") { load(); };
+	MainMenuState(Engine* engine) : State(engine, "MainMenuState") { };
 
 	void update();
 	void render();

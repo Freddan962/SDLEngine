@@ -21,12 +21,12 @@ void PlayLogic::render(SDL_Renderer * renderer)
 
 void PlayLogic::playerShoot()
 {
-	std::shared_ptr<Player> player = std::dynamic_pointer_cast<Player>(mState->getSprites("player")->at(0));
+	std::shared_ptr<Player> player = std::dynamic_pointer_cast<Player>(mState->sprites.get("player")->at(0));
 	
 	if (player->canFire())
 	{
 		std::shared_ptr<Projectile> projectile = player->fire();
 		if (projectile.get() != nullptr)
-			mState->addSprite("playerProjectiles", projectile);
+			mState->sprites.add("playerProjectiles", projectile);
 	}
 }

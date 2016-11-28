@@ -26,6 +26,8 @@ void MainMenuState::handleEvent(SDL_Event* event)
 
 void MainMenuState::load()
 {
+	State::load();
+
 	loadAssets();
 	prepareButtons();
 	prepare();
@@ -33,7 +35,7 @@ void MainMenuState::load()
 
 void MainMenuState::unload()
 {
-
+	State::unload();
 }
 
 void MainMenuState::loadAssets()
@@ -84,12 +86,13 @@ void MainMenuState::prepareButtons()
 	mGUI.add("logo", logo);
 	mGUI.add("playButton", playButton);
 	mGUI.add("exitButton", exitButton);
-	addSprite("backkground", background);
+	sprites.add("backkground", background);
 }
 
 void MainMenuState::prepare()
 {
-	Sound theme(mAssets->getChunk("theme"));
-	theme.repeat();
-	theme.play();
+	std::shared_ptr<Sound> theme(new Sound(mAssets->getChunk("theme")));
+	theme->repeat();
+	theme->play();
+	sounds.add("theme", theme);
 }
