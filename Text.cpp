@@ -36,6 +36,11 @@ void Text::appendText(std::string text)
 	constructVisuals();
 }
 
+void Text::removeLastCharacter()
+{
+	setText(mText.substr(0, mText.size() - 1));
+}
+
 void Text::constructVisuals()
 {
 	SDL_Surface* textSurface = TTF_RenderText_Blended(mFont, mText.c_str(), mTextColor);
@@ -69,4 +74,9 @@ Vector2<int> Text::getSize()
 
 	TTF_SizeText(mFont, mText.c_str(), &size.x, &size.y);
 	return size;
+}
+
+std::string Text::getText()
+{
+	return mText;
 }

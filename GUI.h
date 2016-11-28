@@ -34,6 +34,7 @@ namespace GUI
 		void handleTextInput(SDL_Event* event);
 		void handleElementInteraction(std::shared_ptr<SDL_Rect> click);
 		void handleInputFieldInteraction(std::shared_ptr<SDL_Rect> click);
+		void handleKeyDown(SDL_Event* event);
 		std::shared_ptr<SDL_Rect> getMouseClick();
 
 	private:

@@ -15,6 +15,7 @@ public:
 	void render(SDL_Renderer* renderer);
 
 	void appendText(std::string text);
+	void removeLastCharacter();
 	void constructVisuals();
 
 	void setText(std::string text);
@@ -22,6 +23,7 @@ public:
 	void setColor(Uint8 r, Uint8 g, Uint8 b);
 
 	Vector2<int> getSize();
+	std::string getText();
 
 private:
 	void adjustBodyForText();

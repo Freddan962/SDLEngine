@@ -36,6 +36,9 @@ void GUI::GUI::handleEvent(SDL_Event* event)
 	case SDL_TEXTINPUT:
 		handleTextInput(event);
 		break;
+	case SDL_KEYDOWN:
+		handleKeyDown(event);
+		break;
 	}
 }
 
@@ -140,4 +143,12 @@ void GUI::GUI::handleInputFieldInteraction(std::shared_ptr<SDL_Rect> click)
 			mActiveInputFields.erase(iterator->first);
 		}
 	}
+}
+
+void GUI::GUI::handleKeyDown(SDL_Event* event)
+{
+	if (event->key.keysym.sym != SDLK_BACKSPACE) return;
+
+	for (itField iterator = mActiveInputFields.begin(); iterator != mActiveInputFields.end(); iterator++)
+		iterator->second->text.removeLastCharacter();
 }
