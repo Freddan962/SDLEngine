@@ -19,6 +19,11 @@ void AnimatedSprite::addFrame(SDL_Texture* frame)
 	mFrames.push_back(frame);
 }
 
+void AnimatedSprite::setFrameIndex(int index)
+{
+	mTexture = mFrames[index];
+}
+
 void AnimatedSprite::setAnimationSpeed(int speed)
 {
 	mAnimationSpeed = speed;

@@ -20,6 +20,7 @@ public:
 	void update();
 	void render(SDL_Renderer* renderer);
 	void addFrame(SDL_Texture* frame);
+	void setFrameIndex(int index);
 
 	void setAnimationSpeed(int speed);
 	void disableAnimation();

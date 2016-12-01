@@ -54,6 +54,15 @@ void buttonClick()
 	std::cout << "A BUTTON CLICK" << std::endl;
 }
 
+void MainState::staticButtonClick()
+{
+	if (mStaticAnimatedFrame + 1 > 3)
+		mStaticAnimatedFrame = -1;
+
+	mStaticAnimatedFrame += 1;
+	mStaticAnimated->setFrameIndex(mStaticAnimatedFrame);
+}
+
 void MainState::load()
 {
 	std::string assetPath = "..\\engine\\source\\assets\\";
@@ -67,11 +76,13 @@ void MainState::load()
 	mAssets->textures.add("buttonblue", loader.loadPNG(assetPath + "buttonblue.png"));
 	mAssets->fonts.add("vertigo", loader.loadFont(assetPath + "vertigo.ttf", 40));
 
+	//Collision Sprite Left
 	std::shared_ptr<EntitySprite> sprite(new EntitySprite(mAssets->textures.get("buff")));
 	sprite->getBody()->h = 50;
 	sprite->getBody()->w = 50;
 	sprite->setSpeed((float)100 / mEngine->getFrameRate(), 0); 
 
+	//Collision Sprite Right
 	std::shared_ptr<EntitySprite> spriteRight(new EntitySprite(mAssets->textures.get("buff")));
 	spriteRight->getBody()->h = 50;
 	spriteRight->getBody()->w = 50;
@@ -91,11 +102,54 @@ void MainState::load()
 	animated->addFrame(mAssets->textures.get("door4"));
 	animated->getBody()->h = 24;
 	animated->getBody()->w = 24;
-	animated->getBody()->x = 300;
-	animated->getBody()->y = 250;
+	animated->getBody()->x = 100;
+	animated->getBody()->y = 200;
 
 	sprites.add("animated", animated);
 
+	//AnimatedSprite Text
+	std::shared_ptr<Text> animatedText(new Text(mEngine->getRenderer()));
+	animatedText->setFont(mAssets->fonts.get("vertigo"));
+	animatedText->setText("Animated Sprite");
+	animatedText->getBody()->y = 140;
+	Centerer::centerHorizontal(animatedText.get(), 230);
+	mGUI.add("animatedText", animatedText);
+
+	//Static AnimatedSprite
+	std::shared_ptr<AnimatedSprite> staticAnimated(new AnimatedSprite(mAssets->textures.get("door1")));
+	staticAnimated->addFrame(mAssets->textures.get("door2"));
+	staticAnimated->addFrame(mAssets->textures.get("door3"));
+	staticAnimated->addFrame(mAssets->textures.get("door4"));
+	staticAnimated->getBody()->h = 24;
+	staticAnimated->getBody()->w = 24;
+	staticAnimated->getBody()->x = 450;
+	staticAnimated->getBody()->y = 200;
+	staticAnimated->disableAnimation();
+	mStaticAnimated = staticAnimated;
+
+	sprites.add("animated", staticAnimated);
+
+	//Static AnimatedSprite Text
+	std::shared_ptr<Text> staticAnimatedText(new Text(mEngine->getRenderer()));
+	staticAnimatedText->setFont(mAssets->fonts.get("vertigo"));
+	staticAnimatedText->setText("Static Animated Sprite");
+	staticAnimatedText->getBody()->x = 350;
+	staticAnimatedText->getBody()->y = 140;
+	mGUI.add("animatedText2", staticAnimatedText);
+
+
+	//Static Animated Button
+	std::shared_ptr<Button> staticButton(new Button(mAssets->textures.get("buttonblue"), mEngine->getRenderer()));
+	staticButton->getBody()->y = 240;
+	staticButton->getBody()->x = 415;
+	staticButton->getBody()->w = staticButton->getBody()->w * 0.5;
+	staticButton->getBody()->h = staticButton->getBody()->h * 0.85;
+	staticButton->text.setFont(mAssets->fonts.get("vertigo"));
+	staticButton->text.setText("Click me!");
+	staticButton->click = std::bind(&MainState::staticButtonClick, this);
+	mGUI.add("staticbutton", staticButton);
+
+	//Input Field
 	std::shared_ptr<InputField> inputField(new InputField(mAssets->textures.get("buttonblue"), mEngine->getRenderer()));
 	Centerer::centerHorizontal(inputField.get(), mEngine->getSize()->x);
 	inputField->getBody()->y = 300;
@@ -103,6 +157,7 @@ void MainState::load()
 	inputField->text.setText("Input Field");
 	mGUI.add("input", inputField);
 
+	//Long Button
 	std::shared_ptr<Button> button(new Button(mAssets->textures.get("buttonblue"), mEngine->getRenderer()));
 	Centerer::centerHorizontal(button.get(), mEngine->getSize()->x);
 	button->getBody()->y = 400;
@@ -110,14 +165,7 @@ void MainState::load()
 	button->text.setText("A Very Long Button Name");
 	mGUI.add("button", button);
 
-	std::shared_ptr<Button> buttonDoor(new Button(mAssets->textures.get("door1"), mEngine->getRenderer()));
-	buttonDoor->getBody()->h = 20;
-	buttonDoor->getBody()->w = 20;
-	buttonDoor->getBody()->x = 500;
-	buttonDoor->getBody()->y = 400;
-	buttonDoor->click = &buttonClick;
-	mGUI.add("play", buttonDoor);
-
+	//Collision Status Text
 	std::shared_ptr<Text> collisionStatus(new Text(mEngine->getRenderer()));
 	collisionStatus->setFont(mAssets->fonts.get("vertigo"));
 	collisionStatus->setText("Collision status: Unknown");
@@ -126,6 +174,7 @@ void MainState::load()
 	collisionText = collisionStatus;
 	mGUI.add("collisionText", collisionText);
 
+	//Hooks
 	mKeyHooks.addHook(SDLK_a, std::function<void()>(aClick));
 	mEventHooks.addHook(SDL_MOUSEBUTTONUP, &onClick);
 }
