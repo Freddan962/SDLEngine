@@ -1,5 +1,6 @@
 #include "Centerer.h"
 #include "Sprite.h"
+#include "Text.h"
 
 void Centerer::center(Sprite* sprite, Vector2<int> area)
 {

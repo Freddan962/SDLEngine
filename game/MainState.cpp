@@ -6,24 +6,31 @@
 #include "../Physics.h"
 #include "../AnimatedSprite.h"
 #include "../Button.h"
+#include "../Centerer.h"
 
 void MainState::update() 
 {
 	State::update();
 
-	//std::cout << "Updating MainState" << std::endl;
+	if (Physics::isRectangularCollision(box1->getBody().get(), box2->getBody().get()))
+	{
+		collisionText.get()->setColor(0, 255, 0);
+		collisionText.get()->setText("Collision status: Colliding");
+	} else
+	{
+		collisionText.get()->setColor(255, 0, 0);
+		collisionText.get()->setText("Collision status: None");
+	}
 }
 
 void MainState::render()
 {
 	State::render();
-	std::cout << "Rendering MainState" << std::endl;
 }
 
 void MainState::handleEvent(SDL_Event* event)
 {
 	State::handleEvent(event);
-	std::cout << "Handling event MainState" << std::endl;
 }
 
 void onClick()
@@ -97,6 +104,14 @@ void MainState::load()
 	button->getBody()->y = 400;
 	button->click = &buttonClick;
 	mGUI.add("play", button);
+
+	std::shared_ptr<Text> collisionStatus(new Text(mEngine->getRenderer()));
+	collisionStatus->setFont(mAssets->fonts.get("vertigo"));
+	collisionStatus->getBody()->y = 60;
+	collisionStatus->getBody()->x = mEngine->getSize()->x / 2 - 80;
+	collisionStatus->setText("Collision status: Unknown");
+	collisionText = collisionStatus;
+	mGUI.add("collisionText", collisionText);
 
 	mKeyHooks.addHook(SDLK_a, std::function<void()>(aClick));
 	mEventHooks.addHook(SDL_MOUSEBUTTONUP, &onClick);

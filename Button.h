@@ -17,8 +17,6 @@ public:
 
 public:
 	Text text;
-
-public:
 	std::function<void()> click;
 };
 

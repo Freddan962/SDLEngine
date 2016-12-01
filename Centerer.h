@@ -6,6 +6,7 @@
 #include "Vector4.h"
 
 class Sprite;
+class Text;
 
 class Centerer
 {

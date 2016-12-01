@@ -12,8 +12,7 @@ class MainState : public State
 {
 public:
 	MainState(Engine* engine)
-		: State(engine, "MainState")
-	{ load(); }
+		: State(engine, "MainState") {}
 	
 	void update();
 	void handleEvent(SDL_Event* event);
@@ -26,6 +25,7 @@ private:
 private:
 	std::shared_ptr<EntitySprite> box1;
 	std::shared_ptr<EntitySprite> box2;
+	std::shared_ptr<Text> collisionText;
 };
 
 #endif

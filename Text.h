@@ -30,8 +30,8 @@ private:
 
 private:
 	std::string mText;
-	TTF_Font* mFont;
 	SDL_Color mTextColor;
+	TTF_Font* mFont;
 	SDL_Texture* mTextTexture;
 	SDL_Renderer* mRenderer;
 };
