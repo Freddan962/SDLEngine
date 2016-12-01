@@ -97,14 +97,14 @@ void MainState::load()
 	sprites.add("animated", animated);
 
 	std::shared_ptr<InputField> inputField(new InputField(mAssets->textures.get("buttonblue"), mEngine->getRenderer()));
-	inputField->getBody()->x = 400;
+	Centerer::centerHorizontal(inputField.get(), mEngine->getSize()->x);
 	inputField->getBody()->y = 300;
 	inputField->text.setFont(mAssets->fonts.get("vertigo"));
 	inputField->text.setText("Input Field");
 	mGUI.add("input", inputField);
 
 	std::shared_ptr<Button> button(new Button(mAssets->textures.get("buttonblue"), mEngine->getRenderer()));
-	button->getBody()->x = 300;
+	Centerer::centerHorizontal(button.get(), mEngine->getSize()->x);
 	button->getBody()->y = 400;
 	button->text.setFont(mAssets->fonts.get("vertigo"));
 	button->text.setText("A Very Long Button Name");
@@ -120,9 +120,9 @@ void MainState::load()
 
 	std::shared_ptr<Text> collisionStatus(new Text(mEngine->getRenderer()));
 	collisionStatus->setFont(mAssets->fonts.get("vertigo"));
-	collisionStatus->getBody()->y = 60;
-	collisionStatus->getBody()->x = mEngine->getSize()->x / 2 - 80;
 	collisionStatus->setText("Collision status: Unknown");
+	collisionStatus->getBody()->y = 60;
+	Centerer::centerHorizontal(collisionStatus.get(), mEngine->getSize()->x);
 	collisionText = collisionStatus;
 	mGUI.add("collisionText", collisionText);
 
@@ -132,7 +132,7 @@ void MainState::load()
 
 void MainState::unload()
 {
-	std::cout << "Unloading MainState" << std::endl;
+	
 }
 
 
