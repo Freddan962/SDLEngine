@@ -21,6 +21,12 @@ void MainState::update()
 		collisionText.get()->setColor(255, 0, 0);
 		collisionText.get()->setText("Collision status: None");
 	}
+
+	if (box1->getBody()->x + box1->getSpeed().x < 0 || box1->getBody()->x + box1->getBody()->w + box1->getSpeed().x > mEngine->getSize()->x)
+		box1->setSpeed(box1->getSpeed().x * -1, 0);
+
+	if (box2->getBody()->x + box2->getSpeed().x < 0 || box2->getBody()->x + box2->getBody()->w + box2->getSpeed().x > mEngine->getSize()->x)
+		box2->setSpeed(box2->getSpeed().x * -1, 0);
 }
 
 void MainState::render()
