@@ -54,6 +54,7 @@ void Engine::run()
 		mStateManager->getCurrentState()->update();
 
 		//Render
+		SDL_SetRenderDrawColor(mRenderer, 0, 0, 0, 0);
 		SDL_RenderClear(mRenderer);
 		mStateManager->getCurrentState()->render();
 		SDL_RenderPresent(mRenderer);

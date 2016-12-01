@@ -21,7 +21,9 @@ public:
 	void update();
 	void handleEvent(SDL_Event* event);
 	void render();
+
 	void staticButtonClick();
+	void toggleCollisionMode();
 
 private:
 	void load();
@@ -33,6 +35,7 @@ private:
 	std::shared_ptr<Text> collisionText;
 	std::shared_ptr<AnimatedSprite> mStaticAnimated;
 	int mStaticAnimatedFrame;
+	bool mCollisionMode;
 };
 
 #endif

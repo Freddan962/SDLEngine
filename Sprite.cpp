@@ -31,6 +31,7 @@ Sprite::Sprite(const Sprite& other)
 	mBody = std::make_shared<SDL_Rect>(newBody);
 
 	mSurface = other.getSurface();
+	mBodyOutline = false;
 }
 
 void Sprite::update()
@@ -42,6 +43,9 @@ void Sprite::render()
 {
 	if (mSurface && mBody)
 		SDL_RenderCopy(mRenderer, mTexture, NULL, mBody.get());
+
+	if (mBodyOutline)
+		renderBodyOutline();
 }
 
 void Sprite::onCollide(Sprite* sprite)
@@ -49,9 +53,20 @@ void Sprite::onCollide(Sprite* sprite)
 
 }
 
+void Sprite::renderBodyOutline()
+{
+	SDL_SetRenderDrawColor(mRenderer, 0, 255, 0, 0);
+	SDL_RenderDrawRect(mRenderer, mBody.get());
+}
+
 void Sprite::setRenderer(SDL_Renderer* renderer)
 {
 	mRenderer = renderer;
+}
+
+void Sprite::setBodyOutline(bool state)
+{
+	mBodyOutline = state;
 }
 
 std::shared_ptr<SDL_Rect> Sprite::getBody() const

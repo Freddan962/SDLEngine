@@ -14,7 +14,10 @@ public:
 	virtual void render();
 	virtual void onCollide(Sprite* sprite);
 
+	void renderBodyOutline();
+
 	void setRenderer(SDL_Renderer* renderer);
+	void setBodyOutline(bool state);
 
 	SDL_Surface* getSurface() const;
 	SDL_Texture* getTexture() const;
@@ -27,6 +30,7 @@ protected:
 private:
 	SDL_Surface* mSurface;
 	SDL_Texture* mTexture;
+	bool mBodyOutline;
 };
 
 #endif

@@ -12,15 +12,40 @@ void MainState::update()
 {
 	State::update();
 
-	if (Physics::isRectangularCollision(box1->getBody().get(), box2->getBody().get()))
+
+	if (mCollisionMode) //Rect collision
 	{
-		collisionText.get()->setColor(0, 255, 0);
-		collisionText.get()->setText("Collision status: Colliding");
-	} else
-	{
-		collisionText.get()->setColor(255, 0, 0);
-		collisionText.get()->setText("Collision status: None");
+		if (Physics::isRectangularCollision(box1.get(), box2.get()))
+		{
+			collisionText.get()->setColor(0, 255, 0);
+			collisionText.get()->setText("Collision Status Rect: Colliding");
+			box1->setSpeed(0, 0);
+			box2->setSpeed(0, 0);
+		}
+		else
+		{
+			collisionText.get()->setColor(255, 0, 0);
+			collisionText.get()->setText("Collision Status Rect: None");
+		}
 	}
+	else //Pixel collision
+	{
+		if (Physics::isRectangularPixelCollision(box1.get(), box2.get()))
+		{
+			collisionText.get()->setColor(0, 255, 0);
+			collisionText.get()->setText("Collision Status Pixel: Colliding");
+			box1->setSpeed(0, 0);
+			box2->setSpeed(0, 0);
+		}
+		else
+		{
+			collisionText.get()->setColor(255, 0, 0);
+			collisionText.get()->setText("Collision Status Pixel: None");
+		}
+	}
+	
+
+
 
 	if (box1->getBody()->x + box1->getSpeed().x < 0 || box1->getBody()->x + box1->getBody()->w + box1->getSpeed().x > mEngine->getSize()->x)
 		box1->setSpeed(box1->getSpeed().x * -1, 0);
@@ -54,6 +79,16 @@ void buttonClick()
 	std::cout << "A BUTTON CLICK" << std::endl;
 }
 
+void MainState::toggleCollisionMode()
+{
+	mCollisionMode = !mCollisionMode;
+
+	box1->getBody()->x = 50;
+	box2->getBody()->x = mEngine->getSize()->x - box2->getBody()->w;
+	box1->setSpeed(2, 0);
+	box2->setSpeed(-2, 0);
+}
+
 void MainState::staticButtonClick()
 {
 	if (mStaticAnimatedFrame + 1 > 3)
@@ -75,20 +110,23 @@ void MainState::load()
 	mAssets->surfaces.add("door3", loader.loadPNG(assetPath +  "door3.png"));
 	mAssets->surfaces.add("door4", loader.loadPNG(assetPath +  "door4.png"));
 	mAssets->surfaces.add("buttonblue", loader.loadPNG(assetPath + "buttonblue.png"));
+	mAssets->surfaces.add("transparentcube", loader.loadPNG(assetPath + "transparentcube.png"));
 	mAssets->fonts.add("vertigo", loader.loadFont(assetPath + "vertigo.ttf", 40));
 
 	//Collision Sprite Left
-	std::shared_ptr<EntitySprite> sprite(new EntitySprite(mAssets->surfaces.get("buff"), mEngine->getRenderer()));
+	std::shared_ptr<EntitySprite> sprite(new EntitySprite(mAssets->surfaces.get("transparentcube"), mEngine->getRenderer()));
 	sprite->getBody()->h = 50;
 	sprite->getBody()->w = 50;
 	sprite->setSpeed((float)100 / mEngine->getFrameRate(), 0); 
+	sprite->setBodyOutline(true);
 
 	//Collision Sprite Right
-	std::shared_ptr<EntitySprite> spriteRight(new EntitySprite(mAssets->surfaces.get("buff"), mEngine->getRenderer()));
+	std::shared_ptr<EntitySprite> spriteRight(new EntitySprite(mAssets->surfaces.get("transparentcube"), mEngine->getRenderer()));
 	spriteRight->getBody()->h = 50;
 	spriteRight->getBody()->w = 50;
 	spriteRight->getBody()->x = mEngine->getSize()->x - spriteRight->getBody()->w;
 	spriteRight->setSpeed((float)100 / mEngine->getFrameRate() * -1, 0);
+	spriteRight->setBodyOutline(true);
 
 	box1 = sprite;
 	box2 = spriteRight;
@@ -177,6 +215,7 @@ void MainState::load()
 
 	//Hooks
 	mKeyHooks.addHook(SDLK_a, std::function<void()>(aClick));
+	mKeyHooks.addHook(SDLK_r, std::bind(&MainState::toggleCollisionMode, this), SDL_KEYUP);
 	mEventHooks.addHook(SDL_MOUSEBUTTONUP, &onClick);
 }
 
