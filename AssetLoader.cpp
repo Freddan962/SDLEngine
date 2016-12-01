@@ -7,17 +7,14 @@ AssetLoader::AssetLoader(SDL_Renderer* renderer)
 	mRenderer = renderer;
 }
 
-SDL_Texture* AssetLoader::loadBMP(std::string path)
+SDL_Surface* AssetLoader::loadBMP(std::string path)
 {
-	SDL_Surface* surface = SDL_LoadBMP(path.c_str());
-	SDL_Texture* texture = SDL_CreateTextureFromSurface(mRenderer, surface);
-	SDL_FreeSurface(surface);
-	return texture;
+	return SDL_LoadBMP(path.c_str());
 }
 
-SDL_Texture* AssetLoader::loadPNG(std::string path)
+SDL_Surface* AssetLoader::loadPNG(std::string path)
 {
-	return IMG_LoadTexture(mRenderer, path.c_str());
+	return IMG_Load(path.c_str());
 }
 
 Mix_Chunk* AssetLoader::loadWAV(std::string path)

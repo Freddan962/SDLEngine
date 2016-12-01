@@ -12,7 +12,7 @@ class Sound;
 class Player : public EntitySprite
 {
 public:
-	Player(SDL_Texture* texture);
+	Player(SDL_Surface* surface, SDL_Renderer* renderer);
 
 	void update();
 	void render(SDL_Renderer* renderer);

@@ -5,23 +5,27 @@ void AnimatedSprite::update()
 
 }
 
-void AnimatedSprite::render(SDL_Renderer* renderer)
+void AnimatedSprite::render()
 {
 	if (mAnimate)
 		updateFrame();
 
-	if (mTexture && mBody)
-		SDL_RenderCopy(renderer, mTexture, NULL, mBody.get());
+	if (mSurface && mBody)
+	{
+		SDL_Texture* texture = SDL_CreateTextureFromSurface(mRenderer, mSurface);
+		SDL_RenderCopy(mRenderer, texture, NULL, mBody.get());
+		SDL_DestroyTexture(texture);
+	}
 }
 
-void AnimatedSprite::addFrame(SDL_Texture* frame)
+void AnimatedSprite::addFrame(SDL_Surface* frame)
 {
 	mFrames.push_back(frame);
 }
 
 void AnimatedSprite::setFrameIndex(int index)
 {
-	mTexture = mFrames[index];
+	mSurface = mFrames.at(index);
 }
 
 void AnimatedSprite::setAnimationSpeed(int speed)
@@ -40,7 +44,7 @@ void AnimatedSprite::updateFrame()
 		else
 			mAnimationIndex += 1;
 
-		mTexture = mFrames.at(mAnimationIndex);
+		mSurface = mFrames.at(mAnimationIndex);
 		mAnimationCounter = 0;
 	}
 }

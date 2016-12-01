@@ -6,7 +6,7 @@
 class Projectile : public EntitySprite
 {
 public:
-	Projectile(SDL_Texture* texture) : EntitySprite(texture) {}
+	Projectile(SDL_Surface* surface, SDL_Renderer* renderer) : EntitySprite(surface, renderer) {}
 	Projectile(const Projectile& other);
 };
 

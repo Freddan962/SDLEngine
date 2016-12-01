@@ -1,14 +1,14 @@
 #include "InputField.h"
 
-InputField::InputField(SDL_Texture* texture, SDL_Renderer* renderer) 
-	: Button(texture, renderer)
+InputField::InputField(SDL_Surface* surface, SDL_Renderer* renderer) 
+	: Button(surface, renderer)
 {
 
 }
 
-void InputField::render(SDL_Renderer* renderer)
+void InputField::render()
 {
-	Button::render(renderer);
+	Button::render();
 }
 
 void InputField::setActive(bool active) { mActive = active; }

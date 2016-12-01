@@ -52,20 +52,20 @@ void PlayState::loadAssets()
 
 	
 	AssetLoader loader(mEngine->getRenderer());
-	mAssets->textures.add("bgPurple", loader.loadPNG(assetPath + "bgpurple.png"));
-	mAssets->textures.add("player", loader.loadPNG(assetPath + "player.png"));
-	mAssets->textures.add("laserBlue", loader.loadPNG(assetPath + "laserblue.png"));
+	mAssets->surfaces.add("bgPurple", loader.loadPNG(assetPath + "bgpurple.png"));
+	mAssets->surfaces.add("player", loader.loadPNG(assetPath + "player.png"));
+	mAssets->surfaces.add("laserBlue", loader.loadPNG(assetPath + "laserblue.png"));
 
 	mAssets->chunks.add("laser", loader.loadOGG(assetPath + "laser.ogg"));
 }
 
 void PlayState::prepareEntities()
 {
-	std::shared_ptr<Sprite> background(new Sprite(mAssets->textures.get("bgPurple")));
+	std::shared_ptr<Sprite> background(new Sprite(mAssets->surfaces.get("bgPurple"), mEngine->getRenderer()));
 	background->getBody()->h = mEngine->getSize()->y;
 	background->getBody()->w = mEngine->getSize()->x;
 
-	std::shared_ptr<Player> player(new Player(mAssets->textures.get("player")));
+	std::shared_ptr<Player> player(new Player(mAssets->surfaces.get("player"), mEngine->getRenderer()));
 	Centerer::centerHorizontal(player.get(), mEngine->getSize()->x);
 	player.get()->getBody()->y = mEngine->getSize()->y - player.get()->getBody()->h - player.get()->getBody()->h * 0.1;
 	
@@ -76,7 +76,7 @@ void PlayState::prepareEntities()
 	restriction->o = mEngine->getSize()->y;
 	player.get()->setMovementRestriction(restriction);
 
-	std::shared_ptr<Projectile> projectile(new Projectile(mAssets->textures.get("laserBlue")));
+	std::shared_ptr<Projectile> projectile(new Projectile(mAssets->surfaces.get("laserBlue"), mEngine->getRenderer()));
 	projectile->getBody()->h *= 0.7;
 	projectile->getBody()->w *= 0.7;
 	player->setProjectile(projectile);

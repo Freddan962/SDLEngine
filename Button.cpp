@@ -1,7 +1,7 @@
 #include "Button.h"
 
-Button::Button(SDL_Texture* texture, SDL_Renderer* renderer) 
-	: Sprite(texture),
+Button::Button(SDL_Surface* surface, SDL_Renderer* renderer) 
+	: Sprite(surface, renderer),
 	text(renderer)
 {
 	text.setTextLimit(getBody()->w);
@@ -15,10 +15,10 @@ void Button::update()
 	text.getBody()->y = getBody()->y + getBody()->h / 2 - text.getSize().y / 2;
 }
 
-void Button::render(SDL_Renderer* renderer)
+void Button::render()
 {
-	Sprite::render(renderer);
-	text.render(renderer);
+	Sprite::render();
+	text.render();
 }
 
 void Button::onClick()

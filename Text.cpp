@@ -1,7 +1,7 @@
 #include "Text.h"
 
 Text::Text(SDL_Renderer* renderer)
-	: Sprite(NULL)
+	: Sprite(NULL, renderer)
 {
 	mRenderer = renderer;
 	setColor(255, 255, 255);
@@ -13,10 +13,10 @@ Text::~Text()
 	SDL_DestroyTexture(mTextTexture);
 }
 
-void Text::render(SDL_Renderer* renderer)
+void Text::render()
 {
-	if (renderer && mTextTexture)
-		SDL_RenderCopy(renderer, mTextTexture, NULL, mBody.get());
+	if (mRenderer && mTextTexture)
+		SDL_RenderCopy(mRenderer, mTextTexture, NULL, mBody.get());
 }
 
 void Text::setText(std::string text)

@@ -1,20 +1,27 @@
 #include "Sprite.h"
 #include "SDL.h"
 
-Sprite::Sprite(SDL_Texture* texture)
+Sprite::Sprite(SDL_Surface* surface, SDL_Renderer* renderer)
 	: mBody(new SDL_Rect())
 {
-	mTexture = texture;
+	mSurface = surface;
+	mRenderer = renderer;
 
-	int width, height;
-	SDL_QueryTexture(texture, NULL, NULL, &width, &height);
-	mBody->w = width;
-	mBody->h = height;
+	if (surface)
+	{
+		mBody->w = surface->w;
+		mBody->h = surface->h;
+	}
+
+	if (surface && renderer)
+	{
+		mTexture = SDL_CreateTextureFromSurface(renderer, surface);
+	}
 }
 
 Sprite::Sprite(const Sprite& other)
 {
-	mTexture = other.mTexture;
+	mSurface = other.mSurface;
 
 	SDL_Rect newBody;
 	newBody.x = other.getBody()->x;
@@ -23,7 +30,7 @@ Sprite::Sprite(const Sprite& other)
 	newBody.h = other.getBody()->h;
 	mBody = std::make_shared<SDL_Rect>(newBody);
 
-	mTexture = other.getTexture();
+	mSurface = other.getSurface();
 }
 
 void Sprite::update()
@@ -31,10 +38,10 @@ void Sprite::update()
 
 }
 
-void Sprite::render(SDL_Renderer* renderer)
+void Sprite::render()
 {
-	if (mTexture && mBody)
-		SDL_RenderCopy(renderer, mTexture, NULL, mBody.get());
+	if (mSurface && mBody)
+		SDL_RenderCopy(mRenderer, mTexture, NULL, mBody.get());
 }
 
 void Sprite::onCollide(Sprite* sprite)
@@ -42,9 +49,19 @@ void Sprite::onCollide(Sprite* sprite)
 
 }
 
+void Sprite::setRenderer(SDL_Renderer* renderer)
+{
+	mRenderer = renderer;
+}
+
 std::shared_ptr<SDL_Rect> Sprite::getBody() const
 {
 	return mBody;
+}
+
+SDL_Surface* Sprite::getSurface() const
+{
+	return mSurface;
 }
 
 SDL_Texture* Sprite::getTexture() const

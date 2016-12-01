@@ -12,7 +12,7 @@ public:
 	Text(SDL_Renderer* renderer);
 	~Text();
 
-	void render(SDL_Renderer* renderer);
+	void render();
 
 	void appendText(std::string text);
 	void removeLastCharacter();

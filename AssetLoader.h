@@ -11,8 +11,8 @@ class AssetLoader
 public:
 	AssetLoader(SDL_Renderer* renderer);
 
-	SDL_Texture* loadBMP(std::string path);
-	SDL_Texture* loadPNG(std::string path);
+	SDL_Surface* loadBMP(std::string path);
+	SDL_Surface* loadPNG(std::string path);
 
 	Mix_Chunk* loadWAV(std::string path);
 	Mix_Chunk* loadOGG(std::string path);

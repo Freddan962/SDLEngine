@@ -9,10 +9,10 @@
 class Button : public Sprite
 {
 public:
-	Button(SDL_Texture* texture, SDL_Renderer* renderer);
+	Button(SDL_Surface* surface, SDL_Renderer* renderer);
 
 	void update();
-	void render(SDL_Renderer* renderer);
+	void render();
 	void onClick();
 
 public: 

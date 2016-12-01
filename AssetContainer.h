@@ -9,7 +9,7 @@
 class AssetContainer
 {
 public:
-	Asset<SDL_Texture*> textures;
+	Asset<SDL_Surface*> surfaces;
 	Asset<Mix_Chunk*> chunks;
 	Asset<TTF_Font*> fonts;
 };

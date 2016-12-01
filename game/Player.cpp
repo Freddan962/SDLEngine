@@ -4,8 +4,8 @@
 #include "../Centerer.h"
 #include "../Sound.h"
 
-Player::Player(SDL_Texture * texture)
-	: EntitySprite(texture)
+Player::Player(SDL_Surface* surface, SDL_Renderer* renderer)
+	: EntitySprite(surface, renderer)
 {
 	mCurrSpeed.x = 6;
 	mProjectileSpeed.y = -8;
@@ -20,7 +20,7 @@ void Player::update()
 
 void Player::render(SDL_Renderer* renderer)
 {
-	EntitySprite::render(renderer);
+	EntitySprite::render();
 }
 
 void Player::moveLeft()

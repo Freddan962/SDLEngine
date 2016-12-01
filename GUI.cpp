@@ -75,13 +75,13 @@ void GUI::GUI::updateElements()
 void GUI::GUI::renderElements(SDL_Renderer* renderer)
 {
 	for (itField iterator = mInputFields.begin(); iterator != mInputFields.end(); iterator++)
-		iterator->second.get()->render(renderer);
+		iterator->second.get()->render();
 
 	for (itButton iterator = mButtons.begin(); iterator != mButtons.end(); iterator++)
-		iterator->second.get()->render(renderer);
+		iterator->second.get()->render();
 
 	for (itSprite iterator = mSprites.begin(); iterator != mSprites.end(); iterator++)
-		iterator->second.get()->render(renderer);
+		iterator->second.get()->render();
 }
 
 std::shared_ptr<SDL_Rect> GUI::GUI::getMouseClick()

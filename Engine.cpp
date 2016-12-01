@@ -12,7 +12,7 @@ Engine::Engine(std::string name, double version, float width, float height)
 {
 	mSize.x = width;
 	mSize.y = height;
-	mWindow = WindowBuilder::build(name + " " + std::to_string(mVersion), mSize.x, mSize.y);
+	mWindow = WindowBuilder::build(name, mSize.x, mSize.y);
 	mRenderer = RenderBuilder::build(mWindow);
 
 	if (Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 4096) != 0)

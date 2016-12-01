@@ -8,18 +8,18 @@
 class AnimatedSprite : public Sprite
 {
 public:
-	AnimatedSprite(SDL_Texture* texture) : Sprite(texture) 
+	AnimatedSprite(SDL_Surface* surface, SDL_Renderer* renderer) : Sprite(surface, renderer) 
 	{ 
 		mAnimationSpeed = 100;
 		mAnimationCounter = 0;
 		mAnimationIndex = 0;
-		mTexture = texture;
-		mFrames.push_back(texture);
+		mSurface = surface;
+		mFrames.push_back(surface);
 	};
 
 	void update();
-	void render(SDL_Renderer* renderer);
-	void addFrame(SDL_Texture* frame);
+	void render();
+	void addFrame(SDL_Surface* frame);
 	void setFrameIndex(int index);
 
 	void setAnimationSpeed(int speed);
@@ -30,8 +30,8 @@ private:
 	void updateFrame();
 
 private:
-	SDL_Texture* mTexture;
-	std::vector<SDL_Texture*> mFrames;
+	SDL_Surface* mSurface;
+	std::vector<SDL_Surface*> mFrames;
 	int mAnimationSpeed;
 	int mAnimationCounter;
 	int mAnimationIndex;

@@ -4,9 +4,9 @@
 LimitedText::LimitedText(SDL_Renderer* renderer)
 	: Text(renderer) { }
 
-void LimitedText::render(SDL_Renderer* renderer)
+void LimitedText::render()
 {
-	Text::render(renderer);
+	Text::render();
 }
 
 void LimitedText::setText(std::string text)

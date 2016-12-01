@@ -9,8 +9,8 @@
 class EntitySprite : public Sprite
 {
 public:
-	EntitySprite(SDL_Texture* texture)
-		: Sprite(texture) {}
+	EntitySprite(SDL_Surface* surface, SDL_Renderer* renderer)
+		: Sprite(surface, renderer) {}
 
 	EntitySprite(const EntitySprite& other);
 

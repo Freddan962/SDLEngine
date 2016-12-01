@@ -61,6 +61,7 @@ void MainState::staticButtonClick()
 
 	mStaticAnimatedFrame += 1;
 	mStaticAnimated->setFrameIndex(mStaticAnimatedFrame);
+	std::cout << "Updated Frame Index: " << mStaticAnimatedFrame << std::endl;
 }
 
 void MainState::load()
@@ -68,22 +69,22 @@ void MainState::load()
 	std::string assetPath = "..\\engine\\source\\assets\\";
 	AssetLoader loader(mEngine->getRenderer());
 
-	mAssets->textures.add("buff", loader.loadBMP(assetPath + "iconbuff.bmp"));
-	mAssets->textures.add("door1", loader.loadPNG(assetPath + "door1.png"));
-	mAssets->textures.add("door2", loader.loadPNG(assetPath + "door2.png"));
-	mAssets->textures.add("door3", loader.loadPNG(assetPath +  "door3.png"));
-	mAssets->textures.add("door4", loader.loadPNG(assetPath +  "door4.png"));
-	mAssets->textures.add("buttonblue", loader.loadPNG(assetPath + "buttonblue.png"));
+	mAssets->surfaces.add("buff", loader.loadBMP(assetPath + "iconbuff.bmp"));
+	mAssets->surfaces.add("door1", loader.loadPNG(assetPath + "door1.png"));
+	mAssets->surfaces.add("door2", loader.loadPNG(assetPath + "door2.png"));
+	mAssets->surfaces.add("door3", loader.loadPNG(assetPath +  "door3.png"));
+	mAssets->surfaces.add("door4", loader.loadPNG(assetPath +  "door4.png"));
+	mAssets->surfaces.add("buttonblue", loader.loadPNG(assetPath + "buttonblue.png"));
 	mAssets->fonts.add("vertigo", loader.loadFont(assetPath + "vertigo.ttf", 40));
 
 	//Collision Sprite Left
-	std::shared_ptr<EntitySprite> sprite(new EntitySprite(mAssets->textures.get("buff")));
+	std::shared_ptr<EntitySprite> sprite(new EntitySprite(mAssets->surfaces.get("buff"), mEngine->getRenderer()));
 	sprite->getBody()->h = 50;
 	sprite->getBody()->w = 50;
 	sprite->setSpeed((float)100 / mEngine->getFrameRate(), 0); 
 
 	//Collision Sprite Right
-	std::shared_ptr<EntitySprite> spriteRight(new EntitySprite(mAssets->textures.get("buff")));
+	std::shared_ptr<EntitySprite> spriteRight(new EntitySprite(mAssets->surfaces.get("buff"), mEngine->getRenderer()));
 	spriteRight->getBody()->h = 50;
 	spriteRight->getBody()->w = 50;
 	spriteRight->getBody()->x = mEngine->getSize()->x - spriteRight->getBody()->w;
@@ -96,10 +97,10 @@ void MainState::load()
 	sprites.add("spriteRight", spriteRight);
 
 	//AnimatedSprite
-	std::shared_ptr<AnimatedSprite> animated(new AnimatedSprite(mAssets->textures.get("door1")));
-	animated->addFrame(mAssets->textures.get("door2"));
-	animated->addFrame(mAssets->textures.get("door3"));
-	animated->addFrame(mAssets->textures.get("door4"));
+	std::shared_ptr<AnimatedSprite> animated(new AnimatedSprite(mAssets->surfaces.get("door1"), mEngine->getRenderer()));
+	animated->addFrame(mAssets->surfaces.get("door2"));
+	animated->addFrame(mAssets->surfaces.get("door3"));
+	animated->addFrame(mAssets->surfaces.get("door4"));
 	animated->getBody()->h = 24;
 	animated->getBody()->w = 24;
 	animated->getBody()->x = 100;
@@ -116,10 +117,10 @@ void MainState::load()
 	mGUI.add("animatedText", animatedText);
 
 	//Static AnimatedSprite
-	std::shared_ptr<AnimatedSprite> staticAnimated(new AnimatedSprite(mAssets->textures.get("door1")));
-	staticAnimated->addFrame(mAssets->textures.get("door2"));
-	staticAnimated->addFrame(mAssets->textures.get("door3"));
-	staticAnimated->addFrame(mAssets->textures.get("door4"));
+	std::shared_ptr<AnimatedSprite> staticAnimated(new AnimatedSprite(mAssets->surfaces.get("door1"), mEngine->getRenderer()));
+	staticAnimated->addFrame(mAssets->surfaces.get("door2"));
+	staticAnimated->addFrame(mAssets->surfaces.get("door3"));
+	staticAnimated->addFrame(mAssets->surfaces.get("door4"));
 	staticAnimated->getBody()->h = 24;
 	staticAnimated->getBody()->w = 24;
 	staticAnimated->getBody()->x = 450;
@@ -139,7 +140,7 @@ void MainState::load()
 
 
 	//Static Animated Button
-	std::shared_ptr<Button> staticButton(new Button(mAssets->textures.get("buttonblue"), mEngine->getRenderer()));
+	std::shared_ptr<Button> staticButton(new Button(mAssets->surfaces.get("buttonblue"), mEngine->getRenderer()));
 	staticButton->getBody()->y = 240;
 	staticButton->getBody()->x = 415;
 	staticButton->getBody()->w = staticButton->getBody()->w * 0.5;
@@ -150,7 +151,7 @@ void MainState::load()
 	mGUI.add("staticbutton", staticButton);
 
 	//Input Field
-	std::shared_ptr<InputField> inputField(new InputField(mAssets->textures.get("buttonblue"), mEngine->getRenderer()));
+	std::shared_ptr<InputField> inputField(new InputField(mAssets->surfaces.get("buttonblue"), mEngine->getRenderer()));
 	Centerer::centerHorizontal(inputField.get(), mEngine->getSize()->x);
 	inputField->getBody()->y = 300;
 	inputField->text.setFont(mAssets->fonts.get("vertigo"));
@@ -158,7 +159,7 @@ void MainState::load()
 	mGUI.add("input", inputField);
 
 	//Long Button
-	std::shared_ptr<Button> button(new Button(mAssets->textures.get("buttonblue"), mEngine->getRenderer()));
+	std::shared_ptr<Button> button(new Button(mAssets->surfaces.get("buttonblue"), mEngine->getRenderer()));
 	Centerer::centerHorizontal(button.get(), mEngine->getSize()->x);
 	button->getBody()->y = 400;
 	button->text.setFont(mAssets->fonts.get("vertigo"));

@@ -10,9 +10,9 @@
 class InputField : public Button
 {
 public:
-	InputField(SDL_Texture* texture, SDL_Renderer* renderer);
+	InputField(SDL_Surface* surface, SDL_Renderer* renderer);
 
-	void render(SDL_Renderer* renderer);
+	void render();
 
 	void setActive(bool active);
 	bool isActive();

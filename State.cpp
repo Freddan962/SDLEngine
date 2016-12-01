@@ -53,7 +53,7 @@ void State::updateSprites()
 void State::renderSprites()
 {
 	for (std::shared_ptr<Sprite> sprite : sprites.get())
-		sprite->render(mEngine->getRenderer());
+		sprite->render();
 }
 
 void State::handleEvent(SDL_Event* event) 
