@@ -36,11 +36,11 @@ Uppnådda Mål
     funktion eller kombinationen av en objektpekare och en
     funktionsmedlemspekare tillsammans med tangenten
 
-Nuvarande Mål
--------------
-
 -   kollisionsdetektering ska göras på pixelnivå, med hänsyn tagen till
     genomskinliga pixlar
+
+Nuvarande Mål
+-------------
 
 -   spelmotorn ska implementera viss funktionalitet hos en fysikmotor, nämligen
     att rörliga Sprites kan påverkas av en gravitation samt ska kunna studsa mot
