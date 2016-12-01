@@ -4,7 +4,7 @@
 #include "SDL.h"
 #include "Sprite.h"
 #include <functional>
-#include "Text.h"
+#include "LimitedText.h"
 
 class Button : public Sprite
 {
@@ -15,9 +15,12 @@ public:
 	void render(SDL_Renderer* renderer);
 	void onClick();
 
-public:
-	Text text;
+public: 
+	LimitedText text;
 	std::function<void()> click;
+
+private:
+	std::string mActualText;
 };
 
 #endif

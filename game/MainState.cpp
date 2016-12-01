@@ -70,7 +70,7 @@ void MainState::load()
 	std::shared_ptr<EntitySprite> sprite(new EntitySprite(mAssets->textures.get("buff")));
 	sprite->getBody()->h = 50;
 	sprite->getBody()->w = 50;
-	sprite->setSpeed((float)100 / mEngine->getFrameRate(), 0);
+	sprite->setSpeed((float)100 / mEngine->getFrameRate(), 0); 
 
 	std::shared_ptr<EntitySprite> spriteRight(new EntitySprite(mAssets->textures.get("buff")));
 	spriteRight->getBody()->h = 50;
@@ -100,16 +100,23 @@ void MainState::load()
 	inputField->getBody()->x = 400;
 	inputField->getBody()->y = 300;
 	inputField->text.setFont(mAssets->fonts.get("vertigo"));
-	inputField->text.setText("Welcome");
+	inputField->text.setText("Input Field");
 	mGUI.add("input", inputField);
 
-	std::shared_ptr<Button> button(new Button(mAssets->textures.get("door1"), mEngine->getRenderer()));
-	button->getBody()->h = 20;
-	button->getBody()->w = 20;
-	button->getBody()->x = 500;
+	std::shared_ptr<Button> button(new Button(mAssets->textures.get("buttonblue"), mEngine->getRenderer()));
+	button->getBody()->x = 300;
 	button->getBody()->y = 400;
-	button->click = &buttonClick;
-	mGUI.add("play", button);
+	button->text.setFont(mAssets->fonts.get("vertigo"));
+	button->text.setText("A Very Long Button Name");
+	mGUI.add("button", button);
+
+	std::shared_ptr<Button> buttonDoor(new Button(mAssets->textures.get("door1"), mEngine->getRenderer()));
+	buttonDoor->getBody()->h = 20;
+	buttonDoor->getBody()->w = 20;
+	buttonDoor->getBody()->x = 500;
+	buttonDoor->getBody()->y = 400;
+	buttonDoor->click = &buttonClick;
+	mGUI.add("play", buttonDoor);
 
 	std::shared_ptr<Text> collisionStatus(new Text(mEngine->getRenderer()));
 	collisionStatus->setFont(mAssets->fonts.get("vertigo"));

@@ -29,11 +29,13 @@ private:
 	void adjustBodyForText();
 
 private:
-	std::string mText;
 	SDL_Color mTextColor;
 	TTF_Font* mFont;
 	SDL_Texture* mTextTexture;
 	SDL_Renderer* mRenderer;
+
+protected:
+	std::string mText;
 };
 
 #endif

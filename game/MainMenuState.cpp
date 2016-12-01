@@ -6,7 +6,7 @@
 #include "../Centerer.h"
 #include "../StateManager.h"
 #include "../AnimatedSprite.h"
-#include "../Sound.h";
+#include "../Sound.h"
 #include "../Text.h"
 
 void MainMenuState::update()

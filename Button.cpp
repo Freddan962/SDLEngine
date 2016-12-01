@@ -4,7 +4,7 @@ Button::Button(SDL_Texture* texture, SDL_Renderer* renderer)
 	: Sprite(texture),
 	text(renderer)
 {
-
+	text.setTextLimit(getBody()->w);
 };
 
 void Button::update()
@@ -23,5 +23,6 @@ void Button::render(SDL_Renderer* renderer)
 
 void Button::onClick()
 {
-	click();
+	if (click)
+		click();
 }
