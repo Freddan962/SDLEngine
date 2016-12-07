@@ -1,7 +1,7 @@
 #include "Engine.h"
-#include "game\MainState.h"
-#include "game\MainMenuState.h"
-#include "game\PlayState.h"
+#include "pong/WelcomeState.h"
+#include "pong/MenuState.h"
+#include "pong/HighScoreState.h"
 #include "StateManager.h"
 
 using namespace std;
@@ -11,14 +11,18 @@ int main(int argc, char *argv[])
 	Engine engine("SDLEngine", 0, 640, 480);
 	engine.setFrameRate(60);
 
-	MainState st(&engine);
-	engine.getStateManager()->addState(&st);
+	//MainState st(&engine);
+	//engine.getStateManager()->addState(&st);
 
 	//MainMenuState mainMenuState(&engine);
 	//engine.getStateManager()->addState(&mainMenuState);
 
-	PlayState playState(&engine);
-	engine.getStateManager()->addState(&playState);
+	//PlayState playState(&engine);
+	//engine.getStateManager()->addState(&playState);
+
+	WelcomeState welcomeState(&engine);
+	engine.getStateManager()->addState(&welcomeState);
+	
 
 	engine.run();
 

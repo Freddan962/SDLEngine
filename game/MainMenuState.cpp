@@ -54,7 +54,8 @@ void MainMenuState::loadAssets()
 	mAssets->chunks.add("theme", loader.loadOGG(assetPath + "theme.ogg"));
 
 	mAssets->fonts.add("vertigo", loader.loadFont(assetPath + "vertigo.ttf", 40));
-}
+	
+	}
 
 void MainMenuState::prepareButtons()
 {
