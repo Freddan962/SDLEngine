@@ -12,6 +12,7 @@ public:
 
 	void appendText(std::string text);
 	void removeLastCharacter();
+	bool isEmpty();
 	void setText(std::string text);
 	std::string getText();
 

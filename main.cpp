@@ -22,7 +22,8 @@ int main(int argc, char *argv[])
 
 	WelcomeState welcomeState(&engine);
 	engine.getStateManager()->addState(&welcomeState);
-	
+	MenuState menuState(&engine);
+	engine.getStateManager()->addState(&menuState);
 
 	engine.run();
 

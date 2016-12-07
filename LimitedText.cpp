@@ -26,6 +26,11 @@ void LimitedText::removeLastCharacter()
 	setText(mActualText.substr(0, mActualText.size() - 1));
 }
 
+bool LimitedText::isEmpty()
+{
+	return mActualText.empty();
+}
+
 std::string LimitedText::getText()
 {
 	return mActualText;

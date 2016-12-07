@@ -18,9 +18,6 @@ public:
 public: 
 	LimitedText text;
 	std::function<void()> click;
-
-private:
-	std::string mActualText;
 };
 
 #endif

@@ -2,6 +2,7 @@
 #define WELCOMESTATE_H
 
 #include "../State.h"
+#include "Player.h"
 
 class WelcomeState : public State
 {
@@ -17,6 +18,11 @@ public:
 private:
 	void loadAssets();
 	void setUp();
+	void okButtonClick();
+
+private:
+	std::shared_ptr<InputField> mInputField;
+	std::shared_ptr<Player> mPlayer;
 };
 
 #endif

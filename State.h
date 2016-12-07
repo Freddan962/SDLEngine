@@ -40,6 +40,7 @@ public:
 	MapVector <std::shared_ptr<Sprite>> sprites;
 	MapVector <std::shared_ptr<Sound>> sounds;
 	MapVector <std::shared_ptr<TTF_Font>> fonts;
+	MapVector <std::shared_ptr<Sprite>> savedSprites;
 
 protected:
 	Engine* mEngine;
