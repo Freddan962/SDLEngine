@@ -28,6 +28,7 @@ namespace GUI
 	
 	private:
 		void updateElements();
+		void updateHover();
 		void renderElements(SDL_Renderer* renderer);
 
 		void handleMouseButtonDown(SDL_Event* event);
@@ -35,7 +36,7 @@ namespace GUI
 		void handleElementInteraction(std::shared_ptr<SDL_Rect> click);
 		void handleInputFieldInteraction(std::shared_ptr<SDL_Rect> click);
 		void handleKeyDown(SDL_Event* event);
-		std::shared_ptr<SDL_Rect> getMouseClick();
+		std::shared_ptr<SDL_Rect> getMousePos();
 
 	private:
 		std::map<std::string, std::shared_ptr<InputField>> mInputFields;

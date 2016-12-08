@@ -13,11 +13,25 @@ public:
 
 	void update();
 	void render();
+
+	void swapSurfaces();
+	bool hasSecondarySurface();
+
 	void onClick();
+	void onMouseActive();
+	void onMouseInactive();
+	void onMouseEnter();
+	void onMouseLeave();
+
+	void setSecondarySurface(SDL_Surface* surface);
 
 public: 
 	LimitedText text;
 	std::function<void()> click;
+
+	bool mMouseHover;
+	SDL_Surface* mSecondarySurface;
+	SDL_Texture* mSecondaryTexture;
 };
 
 #endif

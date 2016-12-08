@@ -38,6 +38,7 @@ void MenuState::loadAssets()
 	AssetLoader loader(mEngine->getRenderer(), "..\\engine\\source\\assets\\");
 	mAssets->fonts.add("vertigo", loader.loadFont("vertigo.ttf", 40));
 	mAssets->surfaces.add("buttonblue", loader.loadPNG( "buttonblue.png"));
+	mAssets->surfaces.add("buttonblueinactive", loader.loadPNG("buttonblue_inactive.png"));
 	mAssets->surfaces.add("background", loader.loadPNG("bg_purple.png"));
 }
 
@@ -57,28 +58,31 @@ void MenuState::setUp()
 	welcomeTxt->getBody()->y = mEngine->getSize()->y * 0.3;
 	mGUI.add("Welcome", welcomeTxt);
 
-	std::shared_ptr<Button> playButton(new Button(mAssets->surfaces.get("buttonblue"), mEngine->getRenderer()));
+	std::shared_ptr<Button> playButton(new Button(mAssets->surfaces.get("buttonblueinactive"), mEngine->getRenderer()));
 	Centerer::centerHorizontal(playButton.get(), mEngine->getSize()->x);
 	playButton->getBody()->y = welcomeTxt->getBody()->y + welcomeTxt->getBody()->h + 20;
 	playButton->text.setFont(mAssets->fonts.get("vertigo"));
 	playButton->text.setText("Play");
 	playButton->click = std::bind(&MenuState::playButtonClick, this);
+	playButton->setSecondarySurface(mAssets->surfaces.get("buttonblue"));
 	mGUI.add("playbutton", playButton);
 
-	std::shared_ptr<Button> highScoreButton(new Button(mAssets->surfaces.get("buttonblue"), mEngine->getRenderer()));
+	std::shared_ptr<Button> highScoreButton(new Button(mAssets->surfaces.get("buttonblueinactive"), mEngine->getRenderer()));
 	Centerer::centerHorizontal(highScoreButton.get(), mEngine->getSize()->x);
 	highScoreButton->getBody()->y = playButton->getBody()->y + playButton->getBody()->h + 20;
 	highScoreButton->text.setFont(mAssets->fonts.get("vertigo"));
 	highScoreButton->text.setText("High Scores");
 	highScoreButton->click = std::bind(&MenuState::highScoreButtonClick, this);
+	highScoreButton->setSecondarySurface(mAssets->surfaces.get("buttonblue"));
 	mGUI.add("highScorebutton", highScoreButton);
 
-	std::shared_ptr<Button> exitButton(new Button(mAssets->surfaces.get("buttonblue"), mEngine->getRenderer()));
+	std::shared_ptr<Button> exitButton(new Button(mAssets->surfaces.get("buttonblueinactive"), mEngine->getRenderer()));
 	Centerer::centerHorizontal(exitButton.get(), mEngine->getSize()->x);
 	exitButton->getBody()->y = highScoreButton->getBody()->y + highScoreButton->getBody()->h + 20;
 	exitButton->text.setFont(mAssets->fonts.get("vertigo"));
 	exitButton->text.setText("Exit");
 	exitButton->click = std::bind(&MenuState::exitButtonClick, this);
+	exitButton->setSecondarySurface(mAssets->surfaces.get("buttonblue"));
 	mGUI.add("exitButton", exitButton);
 }
 

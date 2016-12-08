@@ -38,6 +38,7 @@ void WelcomeState::loadAssets() {
 	AssetLoader loader(mEngine->getRenderer(), "..\\engine\\source\\assets\\");
 	mAssets->fonts.add("vertigo", loader.loadFont("vertigo.ttf", 40));
 	mAssets->surfaces.add("buttonblue", loader.loadPNG("buttonblue.png"));
+	mAssets->surfaces.add("buttonblueinactive", loader.loadPNG("buttonblue_inactive.png"));
 	mAssets->surfaces.add("background", loader.loadPNG("bg_purple.png"));
 	mAssets->surfaces.add("logo", loader.loadPNG("logo.png"));
 }
@@ -49,7 +50,7 @@ void WelcomeState::setUp() {
 	sprites.add("background", background);
 
 	std::shared_ptr<Sprite> logo(new Sprite(mAssets->surfaces.get("logo"), mEngine->getRenderer()));
-	logo->scale(0.65, 0.65);
+	logo->scale(0.60, 0.60);
 	logo->getBody()->y = mEngine->getSize()->y * 0.3;
 	Centerer::centerHorizontal(logo.get(), mEngine->getSize()->x);
 	sprites.add("logo", logo);
@@ -65,20 +66,22 @@ void WelcomeState::setUp() {
 	welcomeTxt->getBody()->y = welcomeTxt->getBody()->y + mEngine->getSize()->y * 0.1;
 	mGUI.add("welcomeTxt", welcomeTxt);
 
-	std::shared_ptr<InputField> inputField(new InputField(mAssets->surfaces.get("buttonblue"), mEngine->getRenderer()));
+	std::shared_ptr<InputField> inputField(new InputField(mAssets->surfaces.get("buttonblueinactive"), mEngine->getRenderer()));
 	Centerer::centerHorizontal(inputField.get(), mEngine->getSize()->x);
 	inputField->getBody()->y = welcomeTxt->getBody()->y + welcomeTxt->getBody()->h + 20;
 	inputField->text.setFont(mAssets->fonts.get("vertigo"));
 	inputField->text.setText("");
+	inputField->setSecondarySurface(mAssets->surfaces.get("buttonblue"));
 	mGUI.add("input", inputField);
 	mInputField = inputField;
 
-	std::shared_ptr<Button> okButton(new Button(mAssets->surfaces.get("buttonblue"), mEngine->getRenderer()));
+	std::shared_ptr<Button> okButton(new Button(mAssets->surfaces.get("buttonblueinactive"), mEngine->getRenderer()));
 	Centerer::centerHorizontal(okButton.get(), mEngine->getSize()->x);
 	okButton->getBody()->y = inputField->getBody()->y + inputField->getBody()->h + 20;
 	okButton->text.setFont(mAssets->fonts.get("vertigo"));
 	okButton->text.setText("OK");
 	okButton->click = std::bind(&WelcomeState::okButtonClick, this);
+	okButton->setSecondarySurface(mAssets->surfaces.get("buttonblue"));
 	mGUI.add("OKbutton", okButton);
 }
 

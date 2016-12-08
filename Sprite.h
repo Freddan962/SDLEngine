@@ -27,10 +27,10 @@ public:
 protected:
 	std::shared_ptr<SDL_Rect> mBody;
 	SDL_Renderer* mRenderer;
-
-private:
 	SDL_Surface* mSurface;
 	SDL_Texture* mTexture;
+
+private:
 	bool mBodyOutline;
 };
 

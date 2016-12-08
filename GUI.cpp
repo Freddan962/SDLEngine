@@ -70,6 +70,30 @@ void GUI::GUI::updateElements()
 
 	for (itSprite iterator = mSprites.begin(); iterator != mSprites.end(); iterator++)
 		iterator->second.get()->update();
+
+	updateHover();
+}
+
+void GUI::GUI::updateHover()
+{
+	std::shared_ptr<SDL_Rect> click = getMousePos();
+
+	for (itField iterator = mInputFields.begin(); iterator != mInputFields.end(); iterator++)
+	{
+		if (Physics::isRectangularCollision(iterator->second->getBody().get(), click.get()))
+			iterator->second->onMouseActive();
+		else
+			iterator->second->onMouseInactive();
+	}
+
+
+	for (itButton iterator = mButtons.begin(); iterator != mButtons.end(); iterator++)
+	{
+		if (Physics::isRectangularCollision(iterator->second->getBody().get(), click.get()))
+			iterator->second->onMouseActive();
+		else
+			iterator->second->onMouseInactive();
+	}		
 }
 
 void GUI::GUI::renderElements(SDL_Renderer* renderer)
@@ -84,7 +108,7 @@ void GUI::GUI::renderElements(SDL_Renderer* renderer)
 		iterator->second.get()->render();
 }
 
-std::shared_ptr<SDL_Rect> GUI::GUI::getMouseClick()
+std::shared_ptr<SDL_Rect> GUI::GUI::getMousePos()
 {
 	Vector2<int> mousePos;
 	SDL_GetMouseState(&mousePos.x, &mousePos.y);
@@ -100,7 +124,7 @@ std::shared_ptr<SDL_Rect> GUI::GUI::getMouseClick()
 
 void GUI::GUI::handleMouseButtonDown(SDL_Event* event)
 {
-	handleElementInteraction(getMouseClick());
+	handleElementInteraction(getMousePos());
 }
 
 void GUI::GUI::handleTextInput(SDL_Event* event)

@@ -14,9 +14,7 @@ Sprite::Sprite(SDL_Surface* surface, SDL_Renderer* renderer)
 	}
 
 	if (surface && renderer)
-	{
 		mTexture = SDL_CreateTextureFromSurface(renderer, surface);
-	}
 }
 
 Sprite::Sprite(const Sprite& other)
