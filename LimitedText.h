@@ -13,11 +13,14 @@ public:
 	void appendText(std::string text);
 	void removeLastCharacter();
 	bool isEmpty();
-	void setText(std::string text);
-	std::string getText();
 
-	int getTextLimit();
-	void setTextLimit(int limit);
+	void setText(std::string text);
+	void setCutLimit(int limit);
+	void setInputLimit(int limit);
+
+	std::string getText();
+	int getCutLimit();
+	int getInputLimit();
 
 private:
 	void cut();
@@ -25,7 +28,8 @@ private:
 	void updateText(std::string text);
 
 private:
-	int mLimit;
+	int mInputLimit;
+	int mCutLimit;
 	std::string mActualText;
 };
 

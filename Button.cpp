@@ -4,7 +4,7 @@ Button::Button(SDL_Surface* surface, SDL_Renderer* renderer)
 	: Sprite(surface, renderer),
 	text(renderer)
 {
-	text.setTextLimit(getBody()->w);
+	text.setCutLimit(getBody()->w);
 };
 
 void Button::update()

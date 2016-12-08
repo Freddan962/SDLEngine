@@ -7,6 +7,7 @@ LimitedText::LimitedText(SDL_Renderer* renderer)
 void LimitedText::render()
 {
 	Text::render();
+	mInputLimit = 10;
 }
 
 void LimitedText::setText(std::string text)
@@ -17,6 +18,8 @@ void LimitedText::setText(std::string text)
 
 void LimitedText::appendText(std::string text)
 {
+	if (mActualText.size() + text.size() > mInputLimit) return;
+
 	updateText(mActualText.append(text));
 	constructVisuals();
 }
@@ -36,21 +39,21 @@ std::string LimitedText::getText()
 	return mActualText;
 }
 
-int LimitedText::getTextLimit()
+int LimitedText::getCutLimit()
 {
-	return mLimit;
+	return mCutLimit;
 }
 
-void LimitedText::setTextLimit(int limit)
+void LimitedText::setCutLimit(int limit)
 {
-	mLimit = limit;
+	mCutLimit = limit;
 }
 
 bool LimitedText::shouldCut(std::string text)
 {
 	std::string aux = mText;
 	mText = text;
-	bool shouldCut = getSize().x > mLimit;
+	bool shouldCut = getSize().x > mCutLimit;
 	mText = aux;
 	return shouldCut;
 }
@@ -77,4 +80,14 @@ void LimitedText::updateText(std::string text)
 		cut();
 	else
 		mText = mActualText;
+}
+
+void LimitedText::setInputLimit(int limit)
+{
+	mInputLimit = limit;
+}
+
+int LimitedText::getInputLimit()
+{
+	return mInputLimit;
 }
