@@ -20,7 +20,7 @@ void InputField::render()
 {
 	Button::render();
 
-	if (isActive())
+	if (isActive() && text.getText().size() < text.getInputLimit())
 		mActiveText.render();
 }
 
