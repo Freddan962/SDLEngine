@@ -4,6 +4,7 @@
 #include "Button.h"
 #include "SDL.h"
 #include "SDL_ttf.h"
+#include "Timer.h"
 
 class InputField : public Button
 {
@@ -20,12 +21,18 @@ public:
 	void removeLastCharacter();
 	void positionActiveText();
 	bool isActive();
+
+	void addInputIndicator();
+	void removeInputIndicator();
+	void updateIndicatorState();
+
 	void setActive(bool active);
 
 private:
 	bool mActive;
 	Text mActiveText;
 	std::string mActiveString;
+	Timer mIndicatorTimer;
 };
 
 #endif

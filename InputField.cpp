@@ -5,12 +5,15 @@ InputField::InputField(SDL_Surface* surface, SDL_Renderer* renderer)
 	: Button(surface, renderer),
 	mActiveText(renderer)
 {
-
+	mIndicatorTimer.setTime(450);
 }
 
 void InputField::update()
 {
 	Button::update();
+
+	if (mIndicatorTimer.isReady())
+		updateIndicatorState();
 }
 
 void InputField::render()
@@ -23,16 +26,13 @@ void InputField::render()
 
 void InputField::onActive()
 {
-	mActiveText.setFont(text.getFont());
-	mActiveText.setText("|");
-
-	updateTextPosition();
-	positionActiveText();
+	addInputIndicator();
+	mIndicatorTimer.start();
 }
 
 void InputField::onInactive()
 {
-	mActiveText.removeLastCharacter();
+	removeInputIndicator();
 }
 
 void InputField::setActive(bool active) 
@@ -75,6 +75,31 @@ void InputField::positionActiveText()
 
 	mActiveText.getBody()->x = size.x;
 	mActiveText.getBody()->y = size.y;
+}
+
+void InputField::addInputIndicator()
+{
+	mActiveText.setFont(text.getFont());
+	mActiveText.setText("|");
+
+	updateTextPosition();
+	positionActiveText();
+}
+
+void InputField::removeInputIndicator()
+{
+	mActiveText.removeLastCharacter();
+}
+
+void InputField::updateIndicatorState()
+{
+	if (mActiveText.getText().empty())
+		addInputIndicator();
+	else
+		removeInputIndicator();
+
+	mIndicatorTimer.reset();
+	mIndicatorTimer.start();
 }
 
 bool InputField::isActive() { return mActive; }
