@@ -35,15 +35,20 @@ void MenuState::unload()
 
 void MenuState::loadAssets() 
 {
-	std::string assetPath = "..\\engine\\source\\assets\\";
-	AssetLoader loader(mEngine->getRenderer());
-	mAssets->fonts.add("vertigo", loader.loadFont(assetPath + "vertigo.ttf", 40));
-	mAssets->surfaces.add("buttonblue", loader.loadPNG(assetPath + "buttonblue.png"));
+	AssetLoader loader(mEngine->getRenderer(), "..\\engine\\source\\assets\\");
+	mAssets->fonts.add("vertigo", loader.loadFont("vertigo.ttf", 40));
+	mAssets->surfaces.add("buttonblue", loader.loadPNG( "buttonblue.png"));
+	mAssets->surfaces.add("background", loader.loadPNG("bg_purple.png"));
 }
 
 void MenuState::setUp() 
 {
 	mPlayer = std::dynamic_pointer_cast<Player>(savedSprites.get("player")->at(0));
+
+	std::shared_ptr<Sprite> background(new Sprite(mAssets->surfaces.get("background"), mEngine->getRenderer()));
+	background->getBody()->h = background->getBody()->h * 3;
+	background->getBody()->w = background->getBody()->w * 3;
+	sprites.add("background", background);
 
 	std::shared_ptr<Text> welcomeTxt(new Text(mEngine->getRenderer()));
 	welcomeTxt->setFont(mAssets->fonts.get("vertigo"));

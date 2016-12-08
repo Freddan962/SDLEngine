@@ -8,7 +8,7 @@ using namespace std;
 
 int main(int argc, char *argv[]) 
 {
-	Engine engine("SDLEngine", 0, 640, 480);
+	Engine engine("Pong Goal", 0, 640, 480);
 	engine.setFrameRate(60);
 
 	//MainState st(&engine);
@@ -22,6 +22,7 @@ int main(int argc, char *argv[])
 
 	WelcomeState welcomeState(&engine);
 	engine.getStateManager()->addState(&welcomeState);
+
 	MenuState menuState(&engine);
 	engine.getStateManager()->addState(&menuState);
 
