@@ -39,6 +39,7 @@ void WelcomeState::loadAssets() {
 	mAssets->fonts.add("vertigo", loader.loadFont("vertigo.ttf", 40));
 	mAssets->surfaces.add("buttonblue", loader.loadPNG("buttonblue.png"));
 	mAssets->surfaces.add("background", loader.loadPNG("bg_purple.png"));
+	mAssets->surfaces.add("logo", loader.loadPNG("logo.png"));
 }
 
 void WelcomeState::setUp() {
@@ -46,6 +47,13 @@ void WelcomeState::setUp() {
 	background->getBody()->h = background->getBody()->h * 3;
 	background->getBody()->w = background->getBody()->w * 3;
 	sprites.add("background", background);
+
+	std::shared_ptr<Sprite> logo(new Sprite(mAssets->surfaces.get("logo"), mEngine->getRenderer()));
+	logo->getBody()->w = logo->getBody()->w * 0.65;
+	logo->getBody()->h = logo->getBody()->h * 0.65;
+	logo->getBody()->y = mEngine->getSize()->y * 0.3;
+	Centerer::centerHorizontal(logo.get(), mEngine->getSize()->x);
+	sprites.add("logo", logo);
 
 	std::shared_ptr<Player> player(new Player(mAssets->surfaces.get("buttonblue"), mEngine->getRenderer()));
 	mPlayer = player;
@@ -55,7 +63,8 @@ void WelcomeState::setUp() {
 	welcomeTxt->setText("Enter name");
 	Centerer::centerHorizontal(welcomeTxt.get(), mEngine->getSize()->x);
 	Centerer::centerVertical(welcomeTxt.get(), mEngine->getSize()->y);
-	mGUI.add("1", welcomeTxt);
+	welcomeTxt->getBody()->y = welcomeTxt->getBody()->y + mEngine->getSize()->y * 0.1;
+	mGUI.add("welcomeTxt", welcomeTxt);
 
 	std::shared_ptr<InputField> inputField(new InputField(mAssets->surfaces.get("buttonblue"), mEngine->getRenderer()));
 	Centerer::centerHorizontal(inputField.get(), mEngine->getSize()->x);
