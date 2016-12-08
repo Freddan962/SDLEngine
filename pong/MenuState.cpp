@@ -33,23 +33,24 @@ void MenuState::unload()
 	State::unload();
 }
 
-void MenuState::loadAssets() {
+void MenuState::loadAssets() 
+{
 	std::string assetPath = "..\\engine\\source\\assets\\";
 	AssetLoader loader(mEngine->getRenderer());
 	mAssets->fonts.add("vertigo", loader.loadFont(assetPath + "vertigo.ttf", 40));
 	mAssets->surfaces.add("buttonblue", loader.loadPNG(assetPath + "buttonblue.png"));
 }
 
-void MenuState::setUp() {
-	//mPlayer = std::dynamic_pointer_cast<Player>(savedSprites.get("player")->at(0));
+void MenuState::setUp() 
+{
+	mPlayer = std::dynamic_pointer_cast<Player>(savedSprites.get("player")->at(0));
 
 	std::shared_ptr<Text> welcomeTxt(new Text(mEngine->getRenderer()));
 	welcomeTxt->setFont(mAssets->fonts.get("vertigo"));
-	//welcomeTxt->setText("Welcome, " + mPlayer->getName());
+	welcomeTxt->setText("Welcome, " + mPlayer->getName());
 	Centerer::centerHorizontal(welcomeTxt.get(), mEngine->getSize()->x);
 	welcomeTxt->getBody()->y = mEngine->getSize()->y * 0.3;
 	mGUI.add("Welcome", welcomeTxt);
-
 
 	std::shared_ptr<Button> playButton(new Button(mAssets->surfaces.get("buttonblue"), mEngine->getRenderer()));
 	Centerer::centerHorizontal(playButton.get(), mEngine->getSize()->x);

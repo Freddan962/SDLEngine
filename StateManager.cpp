@@ -21,7 +21,7 @@ void StateManager::addState(State* state)
 
 void StateManager::nextState()
 {
-	if (mStates.size() - 1 < mCurrentStateIndex + 1) return;
+	if (mStates.size() < mCurrentStateIndex) return;
 
 	mCurrentState->unload();
 	mCurrentStateIndex += 1;
@@ -42,4 +42,9 @@ void StateManager::prevState()
 State* StateManager::getCurrentState()
 {
 	return mCurrentState;
+}
+
+State* StateManager::getNextState()
+{
+	return mStates.size() < mCurrentStateIndex ?  nullptr : mStates.at(mCurrentStateIndex + 1);
 }

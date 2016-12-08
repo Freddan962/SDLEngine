@@ -74,6 +74,6 @@ void WelcomeState::okButtonClick()
 	if (mInputField->text.isEmpty()) return;
 
 	mPlayer->setName(mInputField->text.getText());
+	mEngine->getStateManager()->getNextState()->savedSprites.add("player", mPlayer);
 	mEngine->getStateManager()->nextState();
-	mEngine->getStateManager()->getCurrentState()->savedSprites.add("player", mPlayer);
 }
