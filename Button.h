@@ -16,6 +16,7 @@ public:
 
 	void swapSurfaces();
 	bool hasSecondarySurface();
+	void updateTextPosition();
 
 	void onClick();
 	void onMouseActive();
@@ -32,6 +33,8 @@ public:
 	bool mMouseHover;
 	SDL_Surface* mSecondarySurface;
 	SDL_Texture* mSecondaryTexture;
+
+	bool mUpdatedText;
 };
 
 #endif

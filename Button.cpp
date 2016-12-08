@@ -5,14 +5,18 @@ Button::Button(SDL_Surface* surface, SDL_Renderer* renderer)
 	text(renderer)
 {
 	text.setCutLimit(getBody()->w);
+	mUpdatedText = false;
 };
 
 void Button::update()
 {
 	Sprite::update();
-	
-	text.getBody()->x = getBody()->x + getBody()->w / 2 - text.getSize().x / 2;
-	text.getBody()->y = getBody()->y + getBody()->h / 2 - text.getSize().y / 2;
+
+	if (!mUpdatedText)
+	{
+		updateTextPosition();
+		mUpdatedText = true;
+	}
 }
 
 void Button::render()
@@ -74,4 +78,10 @@ void Button::swapSurfaces()
 
 	mSecondarySurface = auxSurface;
 	mSecondaryTexture = auxTexture;
+}
+
+void Button::updateTextPosition()
+{
+	text.getBody()->x = getBody()->x + getBody()->w / 2 - text.getSize().x / 2;
+	text.getBody()->y = getBody()->y + getBody()->h / 2 - text.getSize().y / 2;
 }

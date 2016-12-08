@@ -80,3 +80,8 @@ std::string Text::getText()
 {
 	return mText;
 }
+
+TTF_Font* Text::getFont()
+{
+	return mFont;
+}

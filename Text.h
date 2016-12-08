@@ -24,6 +24,7 @@ public:
 
 	Vector2<int> getSize();
 	std::string getText();
+	TTF_Font* getFont();
 
 private:
 	void adjustBodyForText();

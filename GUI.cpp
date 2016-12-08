@@ -134,7 +134,7 @@ void GUI::GUI::handleTextInput(SDL_Event* event)
 	for (itField iterator = mActiveInputFields.begin(); iterator != mActiveInputFields.end(); iterator++)
 	{
 		std::shared_ptr<InputField> field = iterator->second;
-		field->text.appendText(text);
+		field->appendText(text);
 	}
 }
 
@@ -174,5 +174,5 @@ void GUI::GUI::handleKeyDown(SDL_Event* event)
 	if (event->key.keysym.sym != SDLK_BACKSPACE) return;
 
 	for (itField iterator = mActiveInputFields.begin(); iterator != mActiveInputFields.end(); iterator++)
-		iterator->second->text.removeLastCharacter();
+		iterator->second->removeLastCharacter();
 }
