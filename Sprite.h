@@ -15,6 +15,7 @@ public:
 	virtual void onCollide(Sprite* sprite);
 
 	void renderBodyOutline();
+	void scale(double x, double y);
 
 	void setRenderer(SDL_Renderer* renderer);
 	void setBodyOutline(bool state);

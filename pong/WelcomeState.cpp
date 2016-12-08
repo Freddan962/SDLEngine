@@ -49,13 +49,12 @@ void WelcomeState::setUp() {
 	sprites.add("background", background);
 
 	std::shared_ptr<Sprite> logo(new Sprite(mAssets->surfaces.get("logo"), mEngine->getRenderer()));
-	logo->getBody()->w = logo->getBody()->w * 0.65;
-	logo->getBody()->h = logo->getBody()->h * 0.65;
+	logo->scale(0.65, 0.65);
 	logo->getBody()->y = mEngine->getSize()->y * 0.3;
 	Centerer::centerHorizontal(logo.get(), mEngine->getSize()->x);
 	sprites.add("logo", logo);
 
-	std::shared_ptr<Player> player(new Player(mAssets->surfaces.get("buttonblue"), mEngine->getRenderer()));
+	std::shared_ptr<Player> player(new Player(NULL, mEngine->getRenderer()));
 	mPlayer = player;
 
 	std::shared_ptr<Text> welcomeTxt(new Text(mEngine->getRenderer()));
