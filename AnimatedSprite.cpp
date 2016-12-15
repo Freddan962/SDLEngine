@@ -2,7 +2,7 @@
 
 void AnimatedSprite::update()
 {
-
+	EntitySprite::update();
 }
 
 void AnimatedSprite::render()

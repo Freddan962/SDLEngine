@@ -31,6 +31,7 @@ private:
 	std::shared_ptr<Player> mPlayer;
 	std::shared_ptr<Paddle> mPaddle1, mPaddle2;
 	std::shared_ptr<Ball> mBall;
+	bool mPaddle1Active = true;
 };
 
 #endif

@@ -1,18 +1,23 @@
 #ifndef BALL_H
 #define BALL_H
 
-#include "../EntitySprite.h"
+#include "../AnimatedSprite.h"
 
-class Ball : public EntitySprite
+class Ball : public AnimatedSprite
 {
 public:
-	Ball(SDL_Surface* surface, SDL_Renderer* renderer) : EntitySprite(surface, renderer) {}
+	Ball(SDL_Surface* surface, SDL_Renderer* renderer) : AnimatedSprite(surface, renderer) {}
 	
 	void onCollide(Sprite* sprite);
 	void onLeftRestriction();
 	void onRightRestriction();
 	void onTopRestriction();
 	void onBottomRestriction();
+
+private:
+	void invertHorizontalSpeed();
+	void invertVerticalSpeed();
+
 };
 
 #endif

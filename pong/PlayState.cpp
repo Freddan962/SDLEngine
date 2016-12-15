@@ -10,6 +10,23 @@
 void PlayState::update()
 {
 	State::update();
+
+	if (mBall->getBody()->x + mBall->getBody()->w / 2 > mEngine->getSize()->x / 2)
+	{
+		if (mPaddle1Active)
+		{
+			moveStop();
+			mPaddle1Active = false;
+		}
+	}
+	else if (mBall->getBody()->x + mBall->getBody()->w / 2 < mEngine->getSize()->x) 
+	{
+		if (!mPaddle1Active)
+		{
+			moveStop();
+			mPaddle1Active = true;
+		}
+	}
 }
 
 void PlayState::render()
@@ -41,6 +58,11 @@ void PlayState::loadAssets() {
 	mAssets->surfaces.add("paddle2", loader.loadPNG("pud_right1.png"));
 	mAssets->surfaces.add("background", loader.loadPNG("court_05.png"));
 	mAssets->surfaces.add("ball1", loader.loadPNG("ball1.png"));
+	mAssets->surfaces.add("ball2", loader.loadPNG("ball2.png"));
+	mAssets->surfaces.add("ball3", loader.loadPNG("ball3.png"));
+	mAssets->surfaces.add("ball4", loader.loadPNG("ball4.png"));
+	mAssets->surfaces.add("ball5", loader.loadPNG("ball5.png"));
+	mAssets->surfaces.add("ball6", loader.loadPNG("ball6.png"));
 	
 }
 
@@ -67,6 +89,7 @@ void PlayState::setUp() {
 	mPaddle2->scale(0.40, 0.60);
 	Centerer::centerVertical(mPaddle2.get(), mEngine->getSize()->y);
 	mPaddle2->getBody()->x = (mEngine->getSize()->x)*0.9 - (mPaddle2->getBody()->w);
+	mPaddle2->setMovementRestriction(0, 230, 0, 627);
 
 	// Ball
 	std::shared_ptr<Ball> ball(new Ball(mAssets->surfaces.get("ball1"), mEngine->getRenderer()));
@@ -74,8 +97,15 @@ void PlayState::setUp() {
 	sprites.add("ball", ball);
 	Centerer::centerHorizontal(mBall.get(), mEngine->getSize()->x);
 	Centerer::centerVertical(mBall.get(), mEngine->getSize()->y);
-	mBall->setMovementRestriction(110, 133, 1187, 720);
+	mBall->setMovementRestriction(0, 133, 1250, 720);
 	mBall->setBodyOutline(true);
+	mBall->addFrame(mAssets->surfaces.get("ball2"));
+	mBall->addFrame(mAssets->surfaces.get("ball3"));
+	mBall->addFrame(mAssets->surfaces.get("ball4"));
+	mBall->addFrame(mAssets->surfaces.get("ball5"));
+	mBall->addFrame(mAssets->surfaces.get("ball6"));
+	mBall->setAnimationSpeed(10);
+	mBall->enableAnimation();
 
 	// Key hooks
 	mKeyHooks.addHook(SDLK_UP, std::bind(&PlayState::moveUp, this), SDL_KEYDOWN);
@@ -87,17 +117,26 @@ void PlayState::setUp() {
 
 void PlayState::moveUp()
 {
-	mPaddle1->setSpeed(0, -4);
+	if (mPaddle1Active)
+		mPaddle1->setSpeed(0, -4);
+	else
+		mPaddle2->setSpeed(0, -4);
 }
 
 void PlayState::moveDown()
 {
-	mPaddle1->setSpeed(0, 4);
+	if (mPaddle1Active)
+		mPaddle1->setSpeed(0, 4);
+	else
+		mPaddle2->setSpeed(0, 4);
 }
 
 void PlayState::moveStop()
 {
-	mPaddle1->setSpeed(0, 0);
+	if (mPaddle1Active)
+		mPaddle1->setSpeed(0, 0);
+	else
+		mPaddle2->setSpeed(0, 0);
 }
 
 void PlayState::startGame()

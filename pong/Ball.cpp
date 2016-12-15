@@ -8,32 +8,43 @@ void Ball::onCollide(Sprite* sprite)
 	{
 		if (pad->id == 1)
 		{
-			setSpeed(getSpeed().x*(-1), getSpeed().y);
-			getBody()->x = pad->getBody()->x + pad->getBody()->w + getSpeed().x;
-			std::cout << " " << std::endl;
-			setSpeed(0, 0);
-			pad->setSpeed(0, 0);
+			invertHorizontalSpeed();
+			getBody()->x = pad->getBody()->x + pad->getBody()->w - getSpeed().x + 1;
 		}
 		else if (pad->id == 2)
 		{
-			setSpeed(getSpeed().x*(-1), getSpeed().y);
-			std::cout << " " << std::endl;
+			invertHorizontalSpeed();
+			getBody()->x = pad->getBody()->x - 1 - getBody()->w;
 		}
 	}
 }
+
 void Ball::onLeftRestriction()
 {
-	setSpeed(getSpeed().x*(-1), getSpeed().y);
+	invertHorizontalSpeed();
 }
+
 void Ball::onRightRestriction()
 {
-	setSpeed(getSpeed().x*(-1), getSpeed().y);
+	invertHorizontalSpeed();
 }
+
 void Ball::onTopRestriction()
 {
-	setSpeed(getSpeed().x, getSpeed().y*(-1));
+	invertVerticalSpeed();
 }
+
 void Ball::onBottomRestriction()
+{
+	invertVerticalSpeed();
+}
+
+void Ball::invertHorizontalSpeed()
+{
+	setSpeed(getSpeed().x*(-1), getSpeed().y);
+}
+
+void Ball::invertVerticalSpeed()
 {
 	setSpeed(getSpeed().x, getSpeed().y*(-1));
 }

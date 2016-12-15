@@ -2,13 +2,13 @@
 #define ANIMATEDSPRITE_H
 
 #include "SDL.h"
-#include "Sprite.h"
+#include "EntitySprite.h"
 #include <vector>
 
-class AnimatedSprite : public Sprite
+class AnimatedSprite : public EntitySprite
 {
 public:
-	AnimatedSprite(SDL_Surface* surface, SDL_Renderer* renderer) : Sprite(surface, renderer) 
+	AnimatedSprite(SDL_Surface* surface, SDL_Renderer* renderer) : EntitySprite(surface, renderer) 
 	{ 
 		mAnimationSpeed = 100;
 		mAnimationCounter = 0;

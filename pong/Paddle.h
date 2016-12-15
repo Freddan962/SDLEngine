@@ -1,12 +1,12 @@
 #ifndef PADDLE_H
 #define PADDLE_H
 
-#include "../EntitySprite.h"
+#include "../AnimatedSprite.h"
 
-class Paddle : public EntitySprite
+class Paddle : public AnimatedSprite
 {
 public:
-	Paddle(SDL_Surface* surface, SDL_Renderer* renderer) : EntitySprite(surface, renderer) {}
+	Paddle(SDL_Surface* surface, SDL_Renderer* renderer) : AnimatedSprite(surface, renderer) {}
 
 public:
 	int id;
