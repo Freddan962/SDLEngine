@@ -2,13 +2,14 @@
 #include "pong/WelcomeState.h"
 #include "pong/MenuState.h"
 #include "pong/HighScoreState.h"
+#include "pong/PlayState.h"
 #include "StateManager.h"
 
 using namespace std;
 
 int main(int argc, char *argv[]) 
 {
-	Engine engine("Pong Goal", 0, 640, 480);
+	Engine engine("Pong Goal", 0, 1280, 860);
 	engine.setFrameRate(60);
 
 	//MainState st(&engine);
@@ -25,6 +26,9 @@ int main(int argc, char *argv[])
 
 	MenuState menuState(&engine);
 	engine.getStateManager()->addState(&menuState);
+
+	PlayState playState(&engine);
+	engine.getStateManager()->addState(&playState);
 
 	engine.run();
 

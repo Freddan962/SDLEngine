@@ -35,7 +35,7 @@ void State::checkForCollisions()
 		{
 			if (sprite.get() == spriteInner.get()) continue;
 
-			if (Physics::isRectangularCollision(sprite->getBody().get(), spriteInner->getBody().get()))
+			if (Physics::isRectangularPixelCollision(sprite.get(), spriteInner.get()))
 			{
 				sprite->onCollide(spriteInner.get());
 				spriteInner->onCollide(sprite.get());

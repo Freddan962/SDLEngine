@@ -39,7 +39,7 @@ public:
 	}
 
 private:
-	static const int alphaThreshold = 10; //255 = no alpha at all
+	static const int alphaThreshold = 50; //255 = no alpha at all
 };
 
 #endif

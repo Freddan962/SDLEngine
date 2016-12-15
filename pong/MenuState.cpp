@@ -5,6 +5,7 @@
 #include "../AssetContainer.h"
 #include "../Centerer.h"
 #include "../InputField.h"
+#include "../StateManager.h"
 
 void MenuState::update()
 {
@@ -35,7 +36,7 @@ void MenuState::unload()
 
 void MenuState::loadAssets() 
 {
-	AssetLoader loader(mEngine->getRenderer(), "..\\engine\\source\\assets\\");
+	AssetLoader loader(mEngine->getRenderer(), "..\\SDLEngine\\source\\assets\\");
 	mAssets->fonts.add("vertigo", loader.loadFont("vertigo.ttf", 40));
 	mAssets->surfaces.add("buttonblue", loader.loadPNG( "buttonblue.png"));
 	mAssets->surfaces.add("buttonblueinactive", loader.loadPNG("buttonblue_inactive.png"));
@@ -47,8 +48,7 @@ void MenuState::setUp()
 	mPlayer = std::dynamic_pointer_cast<Player>(savedSprites.get("player")->at(0));
 
 	std::shared_ptr<Sprite> background(new Sprite(mAssets->surfaces.get("background"), mEngine->getRenderer()));
-	background->getBody()->h = background->getBody()->h * 3;
-	background->getBody()->w = background->getBody()->w * 3;
+	background->scale(5, 5);
 	sprites.add("background", background);
 
 	std::shared_ptr<Text> welcomeTxt(new Text(mEngine->getRenderer()));
@@ -88,7 +88,8 @@ void MenuState::setUp()
 
 void MenuState::playButtonClick()
 {
-
+	mEngine->getStateManager()->getNextState()->savedSprites.add("player", mPlayer);
+	mEngine->getStateManager()->nextState();
 }
 
 void MenuState::highScoreButtonClick()

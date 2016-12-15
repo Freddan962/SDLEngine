@@ -5,14 +5,11 @@ EntitySprite::EntitySprite(const EntitySprite& other)
 {
 	mSpeed = other.getSpeed();
 
-	std::shared_ptr<Vector4<int>> oRestriction = other.getMovementRestriction();
-	if (oRestriction)
-	{
-		mRestriction->x = oRestriction->x;
-		mRestriction->y = oRestriction->y;
-		mRestriction->z = oRestriction->z;
-		mRestriction->o = oRestriction->o;
-	}
+	Vector4<int> oRestriction = other.getMovementRestriction();
+	mRestriction.x = oRestriction.x;
+	mRestriction.y = oRestriction.y;
+	mRestriction.w = oRestriction.w;
+	mRestriction.h = oRestriction.h;
 }
 
 void EntitySprite::update()
@@ -26,13 +23,31 @@ void EntitySprite::updateMovement()
 	int newX = mBody->x + mSpeed.x;
 	int newY = mBody->y + mSpeed.y;
 
-	if (mRestriction.get())
+	if (mRestriction.x != 0 || mRestriction.y != 0 || mRestriction.w != 0 || mRestriction.h != 0)
 	{
-		if (newX < mRestriction->x || newX + mBody->w > mRestriction->z)
+		if (newX < mRestriction.x)
+		{
 			newX = mBody->x;
+			onLeftRestriction();
+		}
 
-		if (newY < mRestriction->o || newY + mBody->h > mRestriction->y)
+		if (newX + mBody->w > mRestriction.w)
+		{
+			newX = mBody->x;
+			onRightRestriction();
+		}
+		
+		if (newY < mRestriction.y)
+		{
 			newY = mBody->y;
+			onTopRestriction();
+		}
+
+		if (newY + mBody->h > mRestriction.h)
+		{
+			newY = mBody->y;
+			onBottomRestriction();
+		}
 	}
 
 	mBody->x = newX;
@@ -56,12 +71,23 @@ void EntitySprite::modSpeed(int x, int y)
 	mSpeed.y -= y;
 }
 
-void EntitySprite::setMovementRestriction(std::shared_ptr<Vector4<int>> restriction)
+void EntitySprite::setMovementRestriction(int x, int y, int w, int h)
+{
+	Vector4<int> restriction;
+	restriction.x = x;
+	restriction.y = y;
+	restriction.w = w;
+	restriction.h= h;
+	mRestriction = restriction;
+}
+
+void EntitySprite::setMovementRestriction(Vector4<int> restriction)
 {
 	mRestriction = restriction;
 }
 
-std::shared_ptr<Vector4<int>> EntitySprite::getMovementRestriction() const
+Vector4<int> EntitySprite::getMovementRestriction() const
 {
 	return mRestriction;
 }
+

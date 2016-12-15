@@ -35,7 +35,7 @@ void WelcomeState::unload()
 }
 
 void WelcomeState::loadAssets() {
-	AssetLoader loader(mEngine->getRenderer(), "..\\engine\\source\\assets\\");
+	AssetLoader loader(mEngine->getRenderer(), "..\\SDLEngine\\source\\assets\\");
 	mAssets->fonts.add("vertigo", loader.loadFont("vertigo.ttf", 40));
 	mAssets->surfaces.add("buttonblue", loader.loadPNG("buttonblue.png"));
 	mAssets->surfaces.add("buttonblueinactive", loader.loadPNG("buttonblue_inactive.png"));
@@ -45,8 +45,7 @@ void WelcomeState::loadAssets() {
 
 void WelcomeState::setUp() {
 	std::shared_ptr<Sprite> background(new Sprite(mAssets->surfaces.get("background"), mEngine->getRenderer()));
-	background->getBody()->h = background->getBody()->h * 3;
-	background->getBody()->w = background->getBody()->w * 3;
+	background->scale(5, 5);
 	sprites.add("background", background);
 
 	std::shared_ptr<Sprite> logo(new Sprite(mAssets->surfaces.get("logo"), mEngine->getRenderer()));

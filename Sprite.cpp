@@ -84,6 +84,6 @@ SDL_Texture* Sprite::getTexture() const
 
 void Sprite::scale(double x, double y)
 {
-	mBody->h = mBody->h * x;
-	mBody->w = mBody->w * y;
+	mBody->w = mBody->w * x;
+	mBody->h = mBody->h * y;
 }

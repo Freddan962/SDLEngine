@@ -6,8 +6,8 @@ struct Vector4
 {
 	T x = 0;
 	T y = 0;
-	T z = 0;
-	T o = 0;
+	T w = 0;
+	T h = 0;
 };
 
 #endif
