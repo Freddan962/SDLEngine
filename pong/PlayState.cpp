@@ -10,13 +10,14 @@
 
 PlayState::PlayState(Engine* engine)
 	: State(engine, "PlayState"),
-	player1Score(0), player2Score(0) {}
+	player1Score(0), player2Score(0), bouncesForBallSpawn(3) {}
 
 void PlayState::update()
 {
 	State::update();
 	removeTemporaryBalls();
 	updateScore();
+	spawnBall();
 }
 
 void PlayState::render()
@@ -90,10 +91,6 @@ void PlayState::setUp() {
 	// Ball
 	mBall = createBall();
 	sprites.add("ballmain", mBall);
-
-	createBallTemporary();
-	createBallTemporary();
-	createBallTemporary();
 
 	// UI
 	std::shared_ptr<Button> mHomeButton(new Button(mAssets->surfaces.get("homeinactive"), mEngine->getRenderer()));
@@ -243,6 +240,7 @@ void PlayState::createBallTemporary()
 	std::shared_ptr<Ball> ball = createBall();
 	sprites.add("ball", ball);
 	mBalls.push_back(ball);
+	ball->launch();
 }
 
 void PlayState::removeTemporaryBalls()
@@ -274,4 +272,13 @@ void PlayState::updateScore()
 		score(2, mBall);
 	else if (mBall->reachedRight)
 		score(1, mBall);
+}
+
+void PlayState::spawnBall()
+{
+	if (mBall->getBounces() == bouncesForBallSpawn)
+	{
+		createBallTemporary();
+		mBall->setBounces(0);
+	}
 }

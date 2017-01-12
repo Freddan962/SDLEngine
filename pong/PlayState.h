@@ -37,6 +37,7 @@ private:
 	void homeButtonClick();
 	void resetButtonClick();
 
+	void spawnBall();
 	void updateScore();
 	void updateScoreText();
 	void reset();
@@ -56,6 +57,7 @@ private:
 	bool mPaddle1Active = true;
 
 	int player1Score, player2Score;
+	int bouncesForBallSpawn;
 };
 
 #endif

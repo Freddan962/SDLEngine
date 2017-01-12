@@ -7,7 +7,8 @@ Ball::Ball(SDL_Surface* surface, SDL_Renderer* renderer)
 	: AnimatedSprite(surface, renderer),
 	reachedLeft(false),
 	reachedRight(false),
-	shouldDelete(false)
+	shouldDelete(false),
+	mBounces(0)
 {
 	collisionCheckTimer.setTime(1000);
 	collisionCheckTimer.start();
@@ -24,6 +25,7 @@ void Ball::onCollide(Sprite* sprite)
 		{
 			invertHorizontalSpeed();
 			collisionCheckTimer.reset();
+			mBounces++;
 		}
 	}
 }
@@ -88,3 +90,6 @@ void Ball::launch()
 
 	setSpeed(xSpeed, ySpeed);
 }
+
+int Ball::getBounces() { return mBounces; }
+void Ball::setBounces(int bounces) { mBounces = bounces; }

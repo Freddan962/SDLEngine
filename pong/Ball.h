@@ -18,6 +18,9 @@ public:
 	void update();
 	void launch();
 
+	int getBounces();
+	void setBounces(int bounces);
+
 	bool reachedLeft, reachedRight;
 	bool shouldDelete;
 
@@ -28,6 +31,7 @@ private:
 private:
 	Vector2<int> mSpeed;
 	Timer collisionCheckTimer;
+	int mBounces;
 };
 
 #endif
