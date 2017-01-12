@@ -6,7 +6,7 @@
 #include "Player.h"
 #include "Ball.h"
 #include "../Text.h"
-#include <vector>
+#include <set>
 
 class PlayState : public State
 {
@@ -37,12 +37,13 @@ private:
 	void homeButtonClick();
 	void resetButtonClick();
 
+	void updateScore();
 	void updateScoreText();
 	void reset();
 
 	std::shared_ptr<Ball> createBall();
 	void createBallTemporary();
-	void removeBallTemporary(std::shared_ptr<Ball> ball);
+	void removeTemporaryBalls();
 
 private:
 	std::shared_ptr<Player> mPlayer;

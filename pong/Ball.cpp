@@ -4,9 +4,10 @@
 #include <random>
 
 Ball::Ball(SDL_Surface* surface, SDL_Renderer* renderer)
-: AnimatedSprite(surface, renderer),
-reachedLeft(false),
-reachedRight(false)
+	: AnimatedSprite(surface, renderer),
+	reachedLeft(false),
+	reachedRight(false),
+	shouldDelete(false)
 {
 	collisionCheckTimer.setTime(1000);
 	collisionCheckTimer.start();

@@ -19,6 +19,7 @@ public:
 	void launch();
 
 	bool reachedLeft, reachedRight;
+	bool shouldDelete;
 
 private:
 	void invertHorizontalSpeed();

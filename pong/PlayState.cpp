@@ -15,19 +15,8 @@ PlayState::PlayState(Engine* engine)
 void PlayState::update()
 {
 	State::update();
-
-	for (auto ball : mBalls)
-	{
-		if (ball->reachedLeft)
-			score(2, ball);
-		else if (ball->reachedRight)
-			score(1, ball);
-	}
-
-	if (mBall->reachedLeft)
-		score(2, mBall);
-	else if (mBall->reachedRight)
-		score(1, mBall);
+	removeTemporaryBalls();
+	updateScore();
 }
 
 void PlayState::render()
@@ -202,7 +191,7 @@ void PlayState::resetButtonClick()
 	mPaddle2->setSpeed(0, 0);
 	
 	for (auto ball : mBalls)
-		ball->setSpeed(0, 0);
+		ball->shouldDelete = true;
 
 	player1Score = 0;
 	player2Score = 0;
@@ -225,15 +214,9 @@ void PlayState::score(int player, std::shared_ptr<Ball> ball)
 	updateScoreText();
 
 	if (mBall == ball)
-	{
 		reset();
-	}
 	else
-	{
-		std::shared_ptr<Sprite> ballSpritePtr = std::dynamic_pointer_cast<Sprite>(ball);
-		//sprites.remove("ball", ballSpritePtr);
-		//removeBallTemporary(ball);
-	}
+		ball->shouldDelete = true;
 
 	ball->launch();
 }
@@ -262,21 +245,33 @@ void PlayState::createBallTemporary()
 	mBalls.push_back(ball);
 }
 
-void PlayState::removeBallTemporary(std::shared_ptr<Ball> ball)
+void PlayState::removeTemporaryBalls()
 {
-	std::vector<std::shared_ptr<Ball>> balls;
-
-	for (auto existingBall : mBalls)
-		if (existingBall != ball)
-			balls.push_back(existingBall);
-
-	if (balls.size() > 0)
+	for (std::vector<std::shared_ptr<Ball>>::iterator it = mBalls.begin(); it != mBalls.end(); )
 	{
-		mBalls.clear();
+		std::shared_ptr<Ball> ball = *it;
+		if (ball->shouldDelete)
+		{
+			sprites.remove("ball", ball);
+			it = mBalls.erase(it);
+		}
+		else
+			it++;
+	}
+}
 
-		for (auto keepBall : balls)
-			mBalls.push_back(keepBall);
+void PlayState::updateScore()
+{
+	for (auto ball : mBalls)
+	{
+		if (ball->reachedLeft)
+			score(2, ball);
+		else if (ball->reachedRight)
+			score(1, ball);
 	}
 
-	std::cout << "Done" << std::endl;
+	if (mBall->reachedLeft)
+		score(2, mBall);
+	else if (mBall->reachedRight)
+		score(1, mBall);
 }
