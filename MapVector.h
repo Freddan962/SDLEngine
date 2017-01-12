@@ -46,6 +46,16 @@ public:
 		return nullptr;
 	}
 
+	void remove(std::string key, T element)
+	{
+		std::vector<T> content = mContent[key];	
+		auto it = std::find(content.begin(), content.end(), element);
+		if (it != content.end())
+			content.erase(it);
+
+		mContent[key] = content;
+	}
+
 private:
 	std::map<std::string, std::vector<T>> mContent;
 };

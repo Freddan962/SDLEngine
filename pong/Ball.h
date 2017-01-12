@@ -16,12 +16,16 @@ public:
 	void onBottomRestriction();
 
 	void update();
+	void launch();
+
+	bool reachedLeft, reachedRight;
 
 private:
 	void invertHorizontalSpeed();
 	void invertVerticalSpeed();
 
 private:
+	Vector2<int> mSpeed;
 	Timer collisionCheckTimer;
 };
 
