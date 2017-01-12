@@ -2,11 +2,12 @@
 #define BALL_H
 
 #include "../AnimatedSprite.h"
+#include "../Timer.h"
 
 class Ball : public AnimatedSprite
 {
 public:
-	Ball(SDL_Surface* surface, SDL_Renderer* renderer) : AnimatedSprite(surface, renderer) {}
+	Ball(SDL_Surface* surface, SDL_Renderer* renderer);
 	
 	void onCollide(Sprite* sprite);
 	void onLeftRestriction();
@@ -14,10 +15,14 @@ public:
 	void onTopRestriction();
 	void onBottomRestriction();
 
+	void update();
+
 private:
 	void invertHorizontalSpeed();
 	void invertVerticalSpeed();
 
+private:
+	Timer collisionCheckTimer;
 };
 
 #endif

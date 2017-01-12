@@ -14,6 +14,7 @@ public:
 	void handleEvent(SDL_Event* event);
 	void load();
 	void unload();
+	void setPlayButtonText(std::string newText);
 
 private:
 	void loadAssets();
@@ -24,6 +25,7 @@ private:
 
 private:
 	std::shared_ptr<Player> mPlayer;
+	std::shared_ptr<Button> mPlayButton;
 };
 
 #endif

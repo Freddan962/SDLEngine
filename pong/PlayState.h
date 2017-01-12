@@ -26,11 +26,18 @@ private:
 	void moveDown();
 	void moveStop();
 	void startGame();
+	
+	void homeButtonClick();
+	void resetButtonClick();
+
+	void reset();
 
 private:
 	std::shared_ptr<Player> mPlayer;
 	std::shared_ptr<Paddle> mPaddle1, mPaddle2;
 	std::shared_ptr<Ball> mBall;
+	std::shared_ptr<Button> mHomeButton;
+	std::shared_ptr<Button> mResetButton;
 	bool mPaddle1Active = true;
 };
 

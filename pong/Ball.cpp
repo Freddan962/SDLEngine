@@ -2,19 +2,21 @@
 #include "Paddle.h"
 #include <iostream>
 
+Ball::Ball(SDL_Surface* surface, SDL_Renderer* renderer)
+: AnimatedSprite(surface, renderer)
+{
+	collisionCheckTimer.setTime(1000);
+	collisionCheckTimer.start();
+}
+
 void Ball::onCollide(Sprite* sprite)
 {
 	if (Paddle* pad = dynamic_cast<Paddle*>(sprite))
 	{
-		if (pad->id == 1)
+		if (collisionCheckTimer.isReady())
 		{
 			invertHorizontalSpeed();
-			getBody()->x = pad->getBody()->x + pad->getBody()->w - getSpeed().x + 1;
-		}
-		else if (pad->id == 2)
-		{
-			invertHorizontalSpeed();
-			getBody()->x = pad->getBody()->x - 1 - getBody()->w;
+			collisionCheckTimer.reset();
 		}
 	}
 }
@@ -47,4 +49,9 @@ void Ball::invertHorizontalSpeed()
 void Ball::invertVerticalSpeed()
 {
 	setSpeed(getSpeed().x, getSpeed().y*(-1));
+}
+
+void Ball::update()
+{
+	AnimatedSprite::update();
 }

@@ -65,6 +65,7 @@ void MenuState::setUp()
 	playButton->text.setText("Play");
 	playButton->click = std::bind(&MenuState::playButtonClick, this);
 	playButton->setSecondarySurface(mAssets->surfaces.get("buttonblue"));
+	mPlayButton = playButton;
 	mGUI.add("playbutton", playButton);
 
 	std::shared_ptr<Button> highScoreButton(new Button(mAssets->surfaces.get("buttonblueinactive"), mEngine->getRenderer()));
@@ -100,4 +101,9 @@ void MenuState::highScoreButtonClick()
 void MenuState::exitButtonClick()
 {
 	mEngine->shutdown();
+}
+
+void MenuState::setPlayButtonText(std::string newText) 
+{
+	mPlayButton->text.setText(newText);
 }

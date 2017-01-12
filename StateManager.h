@@ -17,6 +17,7 @@ public:
 
 	State* getCurrentState();
 	State* getNextState();
+	State* getPrevState();
 
 private:
 	std::vector<State*> mStates;

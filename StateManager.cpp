@@ -44,6 +44,14 @@ State* StateManager::getCurrentState()
 	return mCurrentState;
 }
 
+State* StateManager::getPrevState()
+{
+	if (mCurrentStateIndex - 1 < 0) return nullptr;
+
+	int index = mCurrentStateIndex - 1;
+	return mStates.at(index);
+}
+
 State* StateManager::getNextState()
 {
 	return mStates.size() < mCurrentStateIndex ?  nullptr : mStates.at(mCurrentStateIndex + 1);
