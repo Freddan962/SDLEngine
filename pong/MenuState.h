@@ -20,7 +20,6 @@ private:
 	void loadAssets();
 	void setUp();
 	void playButtonClick();
-	void highScoreButtonClick();
 	void exitButtonClick();
 
 private:

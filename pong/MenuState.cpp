@@ -84,11 +84,6 @@ void MenuState::playButtonClick()
 	mEngine->getStateManager()->nextState();
 }
 
-void MenuState::highScoreButtonClick()
-{
-
-}
-
 void MenuState::exitButtonClick()
 {
 	mEngine->shutdown();
