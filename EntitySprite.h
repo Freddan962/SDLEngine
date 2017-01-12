@@ -9,10 +9,7 @@
 class EntitySprite : public Sprite
 {
 public:
-	EntitySprite(SDL_Surface* surface, SDL_Renderer* renderer)
-		: Sprite(surface, renderer) {}
-
-	EntitySprite(const EntitySprite& other);
+	static EntitySprite* getInstance(SDL_Surface* surface, SDL_Renderer* renderer);
 
 	virtual void update();
 
@@ -30,6 +27,14 @@ public:
 	void setMovementRestriction(int x, int y, int w, int h);
 	void setMovementRestriction(Vector4<int> restriction);
 	Vector4<int> getMovementRestriction() const;
+
+protected:
+	EntitySprite(SDL_Surface* surface, SDL_Renderer* renderer)
+		: Sprite(surface, renderer) {}
+
+private:
+	EntitySprite(const EntitySprite& other);
+	const EntitySprite& operator=(const EntitySprite& other) = delete;
 
 private:
 	Vector2<int> mSpeed;

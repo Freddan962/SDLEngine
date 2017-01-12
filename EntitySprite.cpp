@@ -12,6 +12,11 @@ EntitySprite::EntitySprite(const EntitySprite& other)
 	mRestriction.h = oRestriction.h;
 }
 
+EntitySprite* EntitySprite::getInstance(SDL_Surface* surface, SDL_Renderer* renderer)
+{
+	return new EntitySprite(surface, renderer);
+}
+
 void EntitySprite::update()
 {
 	Sprite::update();

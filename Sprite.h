@@ -7,8 +7,7 @@
 class Sprite
 {
 public:
-	Sprite(SDL_Surface* surface, SDL_Renderer* renderer);
-	Sprite(const Sprite &other);
+	static Sprite* getInstance(SDL_Surface* surface, SDL_Renderer* renderer);
 
 	virtual void update();
 	virtual void render();
@@ -23,6 +22,13 @@ public:
 	SDL_Surface* getSurface() const;
 	SDL_Texture* getTexture() const;
 	std::shared_ptr<SDL_Rect> getBody() const;
+
+protected:
+	Sprite(SDL_Surface* surface, SDL_Renderer* renderer);
+	Sprite(const Sprite &other);
+
+private:
+	const Sprite& operator=(const Sprite& other) = delete;
 
 protected:
 	std::shared_ptr<SDL_Rect> mBody;

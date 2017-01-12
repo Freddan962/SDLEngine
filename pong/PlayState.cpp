@@ -64,7 +64,7 @@ void PlayState::loadAssets() {
 void PlayState::setUp() {
 	if (mPaddle1.get()) return;
 
-	std::shared_ptr<Sprite> background(new Sprite(mAssets->surfaces.get("background"), mEngine->getRenderer()));
+	std::shared_ptr<Sprite> background(Sprite::getInstance(mAssets->surfaces.get("background"), mEngine->getRenderer()));
 	sprites.add("background", background);
 	
 	// Left pud

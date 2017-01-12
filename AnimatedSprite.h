@@ -8,14 +8,7 @@
 class AnimatedSprite : public EntitySprite
 {
 public:
-	AnimatedSprite(SDL_Surface* surface, SDL_Renderer* renderer) : EntitySprite(surface, renderer) 
-	{ 
-		mAnimationSpeed = 100;
-		mAnimationCounter = 0;
-		mAnimationIndex = 0;
-		mSurface = surface;
-		mFrames.push_back(surface);
-	};
+	static AnimatedSprite* getInstance(SDL_Surface* surface, SDL_Renderer* renderer);
 
 	void update();
 	void render();
@@ -26,7 +19,19 @@ public:
 	void disableAnimation();
 	void enableAnimation();
 
+protected:
+	AnimatedSprite(SDL_Surface* surface, SDL_Renderer* renderer) : EntitySprite(surface, renderer)
+	{
+		mAnimationSpeed = 100;
+		mAnimationCounter = 0;
+		mAnimationIndex = 0;
+		mSurface = surface;
+		mFrames.push_back(surface);
+	};
+
 private:
+	AnimatedSprite(const AnimatedSprite& other) = delete;
+	const AnimatedSprite& operator=(const AnimatedSprite& other) = delete;
 	void updateFrame();
 
 private:

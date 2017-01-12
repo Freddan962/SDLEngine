@@ -47,7 +47,7 @@ void MenuState::setUp()
 {
 	mPlayer = std::dynamic_pointer_cast<Player>(savedSprites.get("player")->at(0));
 
-	std::shared_ptr<Sprite> background(new Sprite(mAssets->surfaces.get("background"), mEngine->getRenderer()));
+	std::shared_ptr<Sprite> background(Sprite::getInstance(mAssets->surfaces.get("background"), mEngine->getRenderer()));
 	background->scale(5, 5);
 	sprites.add("background", background);
 

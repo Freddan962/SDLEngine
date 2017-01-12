@@ -1,5 +1,10 @@
 #include "AnimatedSprite.h"
 
+AnimatedSprite* AnimatedSprite::getInstance(SDL_Surface* surface, SDL_Renderer* renderer)
+{
+	return new AnimatedSprite(surface, renderer);
+}
+
 void AnimatedSprite::update()
 {
 	EntitySprite::update();

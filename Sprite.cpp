@@ -17,6 +17,7 @@ Sprite::Sprite(SDL_Surface* surface, SDL_Renderer* renderer)
 		mTexture = SDL_CreateTextureFromSurface(renderer, surface);
 }
 
+
 Sprite::Sprite(const Sprite& other)
 {
 	mSurface = other.mSurface;
@@ -30,6 +31,11 @@ Sprite::Sprite(const Sprite& other)
 
 	mSurface = other.getSurface();
 	mBodyOutline = false;
+}
+
+Sprite* Sprite::getInstance(SDL_Surface* surface, SDL_Renderer* renderer)
+{
+	return new Sprite(surface, renderer);
 }
 
 void Sprite::update()

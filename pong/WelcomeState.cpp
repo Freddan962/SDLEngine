@@ -44,11 +44,11 @@ void WelcomeState::loadAssets() {
 }
 
 void WelcomeState::setUp() {
-	std::shared_ptr<Sprite> background(new Sprite(mAssets->surfaces.get("background"), mEngine->getRenderer()));
+	std::shared_ptr<Sprite> background(Sprite::getInstance(mAssets->surfaces.get("background"), mEngine->getRenderer()));
 	background->scale(5, 5);
 	sprites.add("background", background);
 
-	std::shared_ptr<Sprite> logo(new Sprite(mAssets->surfaces.get("logo"), mEngine->getRenderer()));
+	std::shared_ptr<Sprite> logo(Sprite::getInstance(mAssets->surfaces.get("logo"), mEngine->getRenderer()));
 	logo->scale(0.60, 0.60);
 	logo->getBody()->y = mEngine->getSize()->y * 0.3;
 	Centerer::centerHorizontal(logo.get(), mEngine->getSize()->x);
