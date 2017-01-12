@@ -189,6 +189,7 @@ void PlayState::resetButtonClick()
 	
 	for (auto ball : mBalls)
 		ball->shouldDelete = true;
+	removeTemporaryBalls();
 
 	player1Score = 0;
 	player2Score = 0;

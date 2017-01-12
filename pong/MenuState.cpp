@@ -68,18 +68,9 @@ void MenuState::setUp()
 	mPlayButton = playButton;
 	mGUI.add("playbutton", playButton);
 
-	std::shared_ptr<Button> highScoreButton(new Button(mAssets->surfaces.get("buttonblueinactive"), mEngine->getRenderer()));
-	Centerer::centerHorizontal(highScoreButton.get(), mEngine->getSize()->x);
-	highScoreButton->getBody()->y = playButton->getBody()->y + playButton->getBody()->h + 20;
-	highScoreButton->text.setFont(mAssets->fonts.get("vertigo"));
-	highScoreButton->text.setText("High Scores");
-	highScoreButton->click = std::bind(&MenuState::highScoreButtonClick, this);
-	highScoreButton->setSecondarySurface(mAssets->surfaces.get("buttonblue"));
-	mGUI.add("highScorebutton", highScoreButton);
-
 	std::shared_ptr<Button> exitButton(new Button(mAssets->surfaces.get("buttonblueinactive"), mEngine->getRenderer()));
 	Centerer::centerHorizontal(exitButton.get(), mEngine->getSize()->x);
-	exitButton->getBody()->y = highScoreButton->getBody()->y + highScoreButton->getBody()->h + 20;
+	exitButton->getBody()->y = playButton->getBody()->y + playButton->getBody()->h + 20;
 	exitButton->text.setFont(mAssets->fonts.get("vertigo"));
 	exitButton->text.setText("Exit");
 	exitButton->click = std::bind(&MenuState::exitButtonClick, this);
