@@ -17,7 +17,7 @@ public:
 	void scale(double x, double y);
 
 	void setRenderer(SDL_Renderer* renderer);
-	void setBodyOutline(bool state);
+	static void setBodyOutline(bool state);
 
 	SDL_Surface* getSurface() const;
 	SDL_Texture* getTexture() const;
@@ -30,14 +30,14 @@ protected:
 private:
 	const Sprite& operator=(const Sprite& other) = delete;
 
+public:
+	static bool mBodyOutline;
+
 protected:
 	std::shared_ptr<SDL_Rect> mBody;
 	SDL_Renderer* mRenderer;
 	SDL_Surface* mSurface;
 	SDL_Texture* mTexture;
-
-private:
-	bool mBodyOutline;
 };
 
 #endif

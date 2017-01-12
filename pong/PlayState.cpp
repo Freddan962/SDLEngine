@@ -7,6 +7,7 @@
 #include "../InputField.h"
 #include "../StateManager.h"
 #include "../pong/MenuState.h"
+#include "../pong/PowerupSpeed.h"
 
 PlayState::PlayState(Engine* engine)
 	: State(engine, "PlayState"),
@@ -59,6 +60,7 @@ void PlayState::loadAssets() {
 	mAssets->surfaces.add("homeinactive", loader.loadPNG("homebutton_inactive.png"));
 	mAssets->surfaces.add("resetactive", loader.loadPNG("resetbutton_active.png"));
 	mAssets->surfaces.add("resetinactive", loader.loadPNG("resetbutton_inactive.png"));
+	mAssets->surfaces.add("gemblue", loader.loadPNG("gemBlue.png"));
 }
 
 void PlayState::setUp() {
@@ -76,7 +78,6 @@ void PlayState::setUp() {
 	Centerer::centerVertical(mPaddle1.get(), mEngine->getSize()->y);
 	mPaddle1->getBody()->x = (mEngine->getSize()->x)*0.1;
 	mPaddle1->setMovementRestriction(0, 146, 0, 709);
-	mPaddle1->setBodyOutline(true);
 
 	// Right pud
 	std::shared_ptr<Paddle> paddle2(new Paddle(mAssets->surfaces.get("paddle2"), mEngine->getRenderer()));
@@ -91,6 +92,13 @@ void PlayState::setUp() {
 	// Ball
 	mBall = createBall();
 	sprites.add("ballmain", mBall);
+
+	//Powerup
+	std::shared_ptr<PowerupSpeed> speed(PowerupSpeed::getInstance(mAssets->surfaces.get("gemblue"), mEngine->getRenderer()));
+	Centerer::centerHorizontal(speed.get(), mEngine->getSize()->x);
+	speed->getBody()->x = speed->getBody()->x * 1.25;
+	Centerer::centerVertical(speed.get(), mEngine->getSize()->y);
+	sprites.add("powerup", speed);
 
 	// UI
 	std::shared_ptr<Button> mHomeButton(new Button(mAssets->surfaces.get("homeinactive"), mEngine->getRenderer()));
@@ -129,6 +137,7 @@ void PlayState::setUp() {
 	mKeyHooks.addHook(SDLK_DOWN, std::bind(&PlayState::moveStopRight, this), SDL_KEYUP);
 
 	mKeyHooks.addHook(SDLK_SPACE, std::bind(&PlayState::startGame, this), SDL_KEYUP);
+	mKeyHooks.addHook(SDLK_t, std::bind(&PlayState::debugModeToggle, this), SDL_KEYUP);
 
 	updateScoreText();
 }
@@ -225,7 +234,6 @@ std::shared_ptr<Ball> PlayState::createBall()
 	Centerer::centerHorizontal(ball.get(), mEngine->getSize()->x);
 	Centerer::centerVertical(ball.get(), mEngine->getSize()->y);
 	ball->setMovementRestriction(116, 133, 1167, 720);
-	ball->setBodyOutline(true);
 	ball->addFrame(mAssets->surfaces.get("ball2"));
 	ball->addFrame(mAssets->surfaces.get("ball3"));
 	ball->addFrame(mAssets->surfaces.get("ball4"));
@@ -282,4 +290,12 @@ void PlayState::spawnBall()
 		createBallTemporary();
 		mBall->setBounces(0);
 	}
+}
+
+void PlayState::debugModeToggle()
+{
+	if (Sprite::mBodyOutline)
+		Sprite::setBodyOutline(false);
+	else
+		Sprite::setBodyOutline(true);
 }

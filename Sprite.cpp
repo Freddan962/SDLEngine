@@ -30,13 +30,14 @@ Sprite::Sprite(const Sprite& other)
 	mBody = std::make_shared<SDL_Rect>(newBody);
 
 	mSurface = other.getSurface();
-	mBodyOutline = false;
 }
 
 Sprite* Sprite::getInstance(SDL_Surface* surface, SDL_Renderer* renderer)
 {
 	return new Sprite(surface, renderer);
 }
+
+bool Sprite::mBodyOutline = false;
 
 void Sprite::update()
 {

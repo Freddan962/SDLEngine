@@ -21,6 +21,9 @@ void AnimatedSprite::render()
 		SDL_RenderCopy(mRenderer, texture, NULL, mBody.get());
 		SDL_DestroyTexture(texture);
 	}
+
+	if (mBodyOutline)
+		renderBodyOutline();
 }
 
 void AnimatedSprite::addFrame(SDL_Surface* frame)

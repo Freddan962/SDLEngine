@@ -13,8 +13,8 @@ Ball::Ball(SDL_Surface* surface, SDL_Renderer* renderer)
 	collisionCheckTimer.setTime(1000);
 	collisionCheckTimer.start();
 
-	mSpeed.x = 3;
-	mSpeed.y = 3;
+	mSpeed.x = 5;
+	mSpeed.y = 5;
 }
 
 void Ball::onCollide(Sprite* sprite)
@@ -93,3 +93,5 @@ void Ball::launch()
 
 int Ball::getBounces() { return mBounces; }
 void Ball::setBounces(int bounces) { mBounces = bounces; }
+
+Vector2<int> Ball::getMaxSpeed() { return mSpeed; }

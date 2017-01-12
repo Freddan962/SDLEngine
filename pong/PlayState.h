@@ -6,7 +6,6 @@
 #include "Player.h"
 #include "Ball.h"
 #include "../Text.h"
-#include <set>
 
 class PlayState : public State
 {
@@ -45,6 +44,8 @@ private:
 	std::shared_ptr<Ball> createBall();
 	void createBallTemporary();
 	void removeTemporaryBalls();
+
+	void debugModeToggle();
 
 private:
 	std::shared_ptr<Player> mPlayer;

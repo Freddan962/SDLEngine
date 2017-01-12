@@ -20,10 +20,10 @@ public:
 
 	int getBounces();
 	void setBounces(int bounces);
+	Vector2<int> getMaxSpeed();
 
 	bool reachedLeft, reachedRight;
 	bool shouldDelete;
-
 private:
 	void invertHorizontalSpeed();
 	void invertVerticalSpeed();
