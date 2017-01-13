@@ -198,6 +198,8 @@ void PlayState::resetButtonClick()
 	for (auto ball : mBalls)
 		ball->shouldDelete = true;
 	removeTemporaryBalls();
+	sprites.get("powerup")->clear();
+	mPowerupSpawnTimer.reset();
 
 	player1Score = 0;
 	player2Score = 0;
