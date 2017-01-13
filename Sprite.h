@@ -3,6 +3,7 @@
 
 #include "SDL.h"
 #include <memory>
+#include "Vector2.h"
 
 class Sprite
 {
@@ -22,6 +23,7 @@ public:
 	SDL_Surface* getSurface() const;
 	SDL_Texture* getTexture() const;
 	std::shared_ptr<SDL_Rect> getBody() const;
+	Vector2<double> getScale();
 
 protected:
 	Sprite(SDL_Surface* surface, SDL_Renderer* renderer);
@@ -38,6 +40,9 @@ protected:
 	SDL_Renderer* mRenderer;
 	SDL_Surface* mSurface;
 	SDL_Texture* mTexture;
+
+private:
+	Vector2<double> mScale;
 };
 
 #endif

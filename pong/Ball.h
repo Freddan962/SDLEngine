@@ -22,16 +22,23 @@ public:
 	void setBounces(int bounces);
 	Vector2<int> getMaxSpeed();
 
-	bool reachedLeft, reachedRight;
-	bool shouldDelete;
+	void setScoreWorth(int worth);
+	int getScoreWorth();
+
 private:
 	void invertHorizontalSpeed();
 	void invertVerticalSpeed();
+
+public:
+	bool reachedLeft, reachedRight;
+	bool shouldDelete;
 
 private:
 	Vector2<int> mSpeed;
 	Timer collisionCheckTimer;
 	int mBounces;
+	int mScoreWorth;
+	unsigned char mEffectFlag;
 };
 
 #endif

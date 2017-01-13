@@ -14,10 +14,12 @@ public:
 	void start();
 	void stop();
 	void setTime(Uint32 time);
+	void forceReady();
 
 private:
 	int mStartTime;
 	Uint32 mTime;
+	bool mForceReady;
 };
 
 #endif

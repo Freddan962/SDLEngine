@@ -28,6 +28,8 @@ public:
 	void setMovementRestriction(Vector4<int> restriction);
 	Vector4<int> getMovementRestriction() const;
 
+	bool isMoving();
+
 protected:
 	EntitySprite(SDL_Surface* surface, SDL_Renderer* renderer)
 		: Sprite(surface, renderer) {}

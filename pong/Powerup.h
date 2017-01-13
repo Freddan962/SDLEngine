@@ -6,7 +6,7 @@
 
 enum POWER_TYPE {
 	POWER_TYPE_SPEED = 1,
-	POWER_TYPE_SIZE = 2
+	POWER_TYPE_WORTH = 2
 };
 
 class Powerup : public EntitySprite
@@ -26,7 +26,8 @@ public:
 		if (mEffectDuration.isReady())
 		{
 			mEffectDuration.stop();
-			effectOver();
+			if (mTarget)
+				effectOver();
 		}
 	}
 
@@ -41,13 +42,14 @@ public:
 		return mTarget != nullptr;
 	}
 
+	bool isOver()
+	{
+		return mOver;
+	}
+
 protected:
 	Powerup(SDL_Surface* surface, SDL_Renderer* renderer)
-		: EntitySprite(surface, renderer) 
-	{
- 		mCollisionCheckTimer.setTime(500);
-		mCollisionCheckTimer.start();
-	}
+		: EntitySprite(surface, renderer), mOver(false) { }
 
 	virtual void effectStart() = 0;
 	virtual void effectOver() = 0;
@@ -58,7 +60,7 @@ private:
 
 protected:
 	Timer mEffectDuration;
-	Timer mCollisionCheckTimer;
 	Sprite* mTarget = nullptr;
+	bool mOver;
 };
 #endif

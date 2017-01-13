@@ -93,4 +93,11 @@ void Sprite::scale(double x, double y)
 {
 	mBody->w = mBody->w * x;
 	mBody->h = mBody->h * y;
+	mScale.x = x;
+	mScale.y = y;
+}
+
+Vector2<double> Sprite::getScale()
+{
+	return mScale;
 }

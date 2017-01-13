@@ -96,3 +96,12 @@ Vector4<int> EntitySprite::getMovementRestriction() const
 	return mRestriction;
 }
 
+bool EntitySprite::isMoving()
+{
+	if (getSpeed().x != 0)
+		return true;
+
+	if (getSpeed().y != 0)
+		return true;
+}
+

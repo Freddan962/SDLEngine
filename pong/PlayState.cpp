@@ -8,17 +8,27 @@
 #include "../StateManager.h"
 #include "../pong/MenuState.h"
 #include "../pong/PowerupSpeed.h"
+#include "../Physics.h"
+#include <vector>
+#include <ctime>
 
 PlayState::PlayState(Engine* engine)
 	: State(engine, "PlayState"),
-	player1Score(0), player2Score(0), bouncesForBallSpawn(3) {}
+	player1Score(0), player2Score(0), bouncesForBallSpawn(3) 
+{
+	mPowerupSpawnTimer.setTime(10000);
+	mPowerupSpawnTimer.start();
+	srand(time(NULL));
+}
 
 void PlayState::update()
 {
 	State::update();
 	removeTemporaryBalls();
+	removeTemporaryPowerups();
 	updateScore();
 	spawnBall();
+	spawnPowerup();
 }
 
 void PlayState::render()
@@ -61,6 +71,7 @@ void PlayState::loadAssets() {
 	mAssets->surfaces.add("resetactive", loader.loadPNG("resetbutton_active.png"));
 	mAssets->surfaces.add("resetinactive", loader.loadPNG("resetbutton_inactive.png"));
 	mAssets->surfaces.add("gemblue", loader.loadPNG("gemBlue.png"));
+	mAssets->surfaces.add("gemred", loader.loadPNG("gemRed.png"));
 }
 
 void PlayState::setUp() {
@@ -93,12 +104,9 @@ void PlayState::setUp() {
 	mBall = createBall();
 	sprites.add("ballmain", mBall);
 
-	//Powerup
-	std::shared_ptr<PowerupSpeed> speed(PowerupSpeed::getInstance(mAssets->surfaces.get("gemblue"), mEngine->getRenderer()));
-	Centerer::centerHorizontal(speed.get(), mEngine->getSize()->x);
-	speed->getBody()->x = speed->getBody()->x * 1.25;
-	Centerer::centerVertical(speed.get(), mEngine->getSize()->y);
-	sprites.add("powerup", speed);
+	//Powerup Speed
+	mPowerupSpawnTimer.forceReady();
+	spawnPowerup();
 
 	// UI
 	std::shared_ptr<Button> mHomeButton(new Button(mAssets->surfaces.get("homeinactive"), mEngine->getRenderer()));
@@ -144,15 +152,6 @@ void PlayState::setUp() {
 
 void PlayState::reset()
 {
-	//Ball
-	for (auto ball : mBalls)
-	{
-		Centerer::centerHorizontal(ball.get(), mEngine->getSize()->x);
-		Centerer::centerVertical(ball.get(), mEngine->getSize()->y);
-		ball->reachedLeft = false;
-		ball->reachedRight = false;
-	}
-
 	Centerer::centerHorizontal(mBall.get(), mEngine->getSize()->x);
 	Centerer::centerVertical(mBall.get(), mEngine->getSize()->y);
 	mBall->reachedLeft = false;
@@ -214,9 +213,9 @@ void PlayState::updateScoreText()
 void PlayState::score(int player, std::shared_ptr<Ball> ball)
 {
 	if (player == 1)
-		player1Score++;
+		player1Score += ball->getScoreWorth();
 	else
-		player2Score++;
+		player2Score += ball->getScoreWorth();
 
 	updateScoreText();
 
@@ -241,7 +240,27 @@ std::shared_ptr<Ball> PlayState::createBall()
 	ball->addFrame(mAssets->surfaces.get("ball6"));
 	ball->setAnimationSpeed(10);
 	ball->enableAnimation();
+
 	return ball;
+}
+
+std::shared_ptr<Powerup> PlayState::createPowerupTemporary()
+{
+	int randomNr = rand() % 2 + 1;
+	Powerup* powerUp = nullptr;
+
+	if (randomNr == 1)
+		powerUp = PowerupSpeed::getInstance(mAssets->surfaces.get("gemblue"), mEngine->getRenderer());
+	else
+		powerUp = PowerupWorth::getInstance(mAssets->surfaces.get("gemred"), mEngine->getRenderer());
+
+	std::shared_ptr<Powerup> powerUpPtr(powerUp);
+	Centerer::centerHorizontal(powerUpPtr.get(), mEngine->getSize()->x);
+	powerUpPtr->getBody()->x = powerUpPtr->getBody()->x * 1.25;
+	Centerer::centerVertical(powerUpPtr.get(), mEngine->getSize()->y);
+	sprites.add("powerup", powerUpPtr);
+
+	return powerUpPtr;
 }
 
 void PlayState::createBallTemporary()
@@ -298,4 +317,32 @@ void PlayState::debugModeToggle()
 		Sprite::setBodyOutline(false);
 	else
 		Sprite::setBodyOutline(true);
+}
+
+void PlayState::spawnPowerup()
+{
+	if (mPowerupSpawnTimer.isReady() && mBall->isMoving())
+	{
+		auto powerup = createPowerupTemporary();
+		powerup->getBody()->x = rand() % (1051 - powerup->getBody()->w) + 116;
+		powerup->getBody()->y = rand() % (587 - powerup->getBody()->h) + 133;
+		mPowerupSpawnTimer.reset();
+	}
+}
+
+void PlayState::removeTemporaryPowerups()
+{
+	std::vector<std::shared_ptr<Sprite>>* collection = sprites.get("powerup");
+	std::vector<std::shared_ptr<Sprite>>::iterator it = collection->begin();
+
+	for ( ; it != collection->end(); )
+	{
+		std::shared_ptr<Sprite> sprite = *it;
+		std::shared_ptr<Powerup> powerup = std::dynamic_pointer_cast<Powerup>(sprite);
+
+		if (powerup && powerup->isOver())
+			it = collection->erase(it);
+		else
+			it++;
+	}
 }

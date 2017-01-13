@@ -3,7 +3,6 @@
 
 #include "Powerup.h"
 #include "Ball.h"
-#include <iostream>
 
 class PowerupSpeed : public Powerup
 {
@@ -17,14 +16,8 @@ public:
 	{
 		if (mTarget) return;
 
-  		if (mCollisionCheckTimer.isReady())
-		{
-			if (Ball* ball = dynamic_cast<Ball*>(sprite))
-			{
-				setTarget(ball);
-				mCollisionCheckTimer.reset();
-			}
-		}
+ 		if (Ball* ball = dynamic_cast<Ball*>(sprite))
+			setTarget(ball);
 	}
 
 private:
@@ -35,25 +28,43 @@ private:
 
 	void effectStart()
 	{ 
-		std::cout << "STARTED start" << std::endl;
 		Ball* ball = dynamic_cast<Ball*>(mTarget);
 		if (!ball) return;
 
-		ball->setSpeed(ball->getSpeed().x * 2, ball->getSpeed().x * 2);
-		std::cout << "STARTED end" << std::endl;
+		speedBefore.x = ball->getSpeed().x;
+		speedBefore.y = ball->getSpeed().y;
+
+		Vector2<int> newSpeed;
+		newSpeed.x = ball->getSpeed().x * 2;
+		newSpeed.y = ball->getSpeed().y * 2;
+
+		if (speedBefore.y < 0)
+			newSpeed.y *= 1;
+
+		if (speedBefore.x < 0)
+			newSpeed.x *= 1;
+
+		ball->setSpeed(newSpeed.x, newSpeed.y);
 	};
 
 	void effectOver() 
 	{
-		std::cout << "END START" << std::endl;
-
+		if (!mTarget) return;
 		Ball* ball = dynamic_cast<Ball*>(mTarget);
 		if (!ball) return;
 
-		ball->setSpeed(ball->getSpeed().x / 2, ball->getSpeed().y / 2);
+		if (ball->getSpeed().x < 0 && speedBefore.x > 0)
+			speedBefore.x *= -1;
 
-		std::cout << "END END" << std::endl;
+		if (ball->getSpeed().y < 0 && speedBefore.y > 0)
+			speedBefore.y *= -1;
+
+		ball->setSpeed(speedBefore.x, speedBefore.y);
+		mOver = true;
 	};
+
+private:
+	Vector2<int> speedBefore;
 };
 
 #endif

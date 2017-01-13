@@ -1,10 +1,6 @@
 #include "Timer.h"
 
-Timer::Timer()
-{
-	mTime = 0;
-	mStartTime = -1;
-}
+Timer::Timer() : mTime(0), mForceReady(false), mStartTime(-1) { }
 
 Timer::Timer(Uint32 time)
 {
@@ -14,6 +10,13 @@ Timer::Timer(Uint32 time)
 
 bool Timer::isReady()
 {
+	if (mForceReady)
+	{
+		mForceReady = false;
+		reset();
+		return true;
+	}
+
 	if (mStartTime == -1) return false;
 
 	int diff = SDL_GetTicks() - mStartTime;
@@ -44,4 +47,9 @@ void Timer::stop()
 void Timer::setTime(Uint32 time)
 {
 	mTime = time;
+}
+
+void Timer::forceReady()
+{
+	mForceReady = true;
 }

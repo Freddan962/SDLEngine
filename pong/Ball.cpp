@@ -8,7 +8,9 @@ Ball::Ball(SDL_Surface* surface, SDL_Renderer* renderer)
 	reachedLeft(false),
 	reachedRight(false),
 	shouldDelete(false),
-	mBounces(0)
+	mBounces(0),
+	mScoreWorth(1),
+	mEffectFlag(0)
 {
 	collisionCheckTimer.setTime(1000);
 	collisionCheckTimer.start();
@@ -93,5 +95,6 @@ void Ball::launch()
 
 int Ball::getBounces() { return mBounces; }
 void Ball::setBounces(int bounces) { mBounces = bounces; }
-
 Vector2<int> Ball::getMaxSpeed() { return mSpeed; }
+void Ball::setScoreWorth(int worth) { mScoreWorth = worth; }
+int Ball::getScoreWorth() { return mScoreWorth; }
