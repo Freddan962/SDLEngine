@@ -125,7 +125,7 @@ void PlayState::setUp() {
 	mResetButton->click = std::bind(&PlayState::resetButtonClick, this);
 	mGUI.add("resetbutton", mResetButton);
 
-	std::shared_ptr<Text> scoreTxt(new Text(mEngine->getRenderer()));
+	std::shared_ptr<Text> scoreTxt(Text::getInstance(mEngine->getRenderer()));
 	scoreTxt->setFont(mAssets->fonts.get("vertigoscore"));
 	scoreTxt->setText("0 - 0");
 	Centerer::centerHorizontal(scoreTxt.get(), mEngine->getSize()->x);

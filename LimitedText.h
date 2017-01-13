@@ -6,7 +6,7 @@
 class LimitedText : public Text
 {
 public:
-	LimitedText(SDL_Renderer* renderer);
+	static LimitedText* getInstance(SDL_Renderer* renderer);
 
 	void render();
 
@@ -23,6 +23,10 @@ public:
 	int getInputLimit();
 
 private:
+	LimitedText(SDL_Renderer* renderer);
+	LimitedText(LimitedText& other) = delete;
+	const LimitedText& operator=(const LimitedText& other) = delete;
+
 	void cut();
 	bool shouldCut(std::string text);
 	void updateText(std::string text);

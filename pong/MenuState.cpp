@@ -51,7 +51,7 @@ void MenuState::setUp()
 	background->scale(5, 5);
 	sprites.add("background", background);
 
-	std::shared_ptr<Text> welcomeTxt(new Text(mEngine->getRenderer()));
+	std::shared_ptr<Text> welcomeTxt(Text::getInstance(mEngine->getRenderer()));
 	welcomeTxt->setFont(mAssets->fonts.get("vertigo"));
 	welcomeTxt->setText("Welcome, " + mPlayer->getName());
 	Centerer::centerHorizontal(welcomeTxt.get(), mEngine->getSize()->x);
@@ -61,8 +61,8 @@ void MenuState::setUp()
 	std::shared_ptr<Button> playButton(Button::getInstance(mAssets->surfaces.get("buttonblueinactive"), mEngine->getRenderer()));
 	Centerer::centerHorizontal(playButton.get(), mEngine->getSize()->x);
 	playButton->getBody()->y = welcomeTxt->getBody()->y + welcomeTxt->getBody()->h + 20;
-	playButton->text.setFont(mAssets->fonts.get("vertigo"));
-	playButton->text.setText("Play");
+	playButton->text->setFont(mAssets->fonts.get("vertigo"));
+	playButton->text->setText("Play");
 	playButton->click = std::bind(&MenuState::playButtonClick, this);
 	playButton->setSecondarySurface(mAssets->surfaces.get("buttonblue"));
 	mPlayButton = playButton;
@@ -71,8 +71,8 @@ void MenuState::setUp()
 	std::shared_ptr<Button> exitButton(Button::getInstance(mAssets->surfaces.get("buttonblueinactive"), mEngine->getRenderer()));
 	Centerer::centerHorizontal(exitButton.get(), mEngine->getSize()->x);
 	exitButton->getBody()->y = playButton->getBody()->y + playButton->getBody()->h + 20;
-	exitButton->text.setFont(mAssets->fonts.get("vertigo"));
-	exitButton->text.setText("Exit");
+	exitButton->text->setFont(mAssets->fonts.get("vertigo"));
+	exitButton->text->setText("Exit");
 	exitButton->click = std::bind(&MenuState::exitButtonClick, this);
 	exitButton->setSecondarySurface(mAssets->surfaces.get("buttonblue"));
 	mGUI.add("exitButton", exitButton);
@@ -91,5 +91,5 @@ void MenuState::exitButtonClick()
 
 void MenuState::setPlayButtonText(std::string newText) 
 {
-	mPlayButton->text.setText(newText);
+	mPlayButton->text->setText(newText);
 }

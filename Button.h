@@ -10,6 +10,7 @@ class Button : public Sprite
 {
 public:
 	static Button* getInstance(SDL_Surface* surface, SDL_Renderer* renderer);
+	~Button();
 
 	void update();
 	void render();
@@ -34,7 +35,7 @@ private:
 	const Button& operator=(const Button& other) = delete;
 
 public: 
-	LimitedText text;
+	LimitedText* text;
 	std::function<void()> click;
 
 	bool mMouseHover;

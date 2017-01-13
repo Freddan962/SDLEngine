@@ -1,12 +1,17 @@
 #include "Button.h"
 
 Button::Button(SDL_Surface* surface, SDL_Renderer* renderer) 
-	: Sprite(surface, renderer),
-	text(renderer)
+	: Sprite(surface, renderer)
 {
-	text.setCutLimit(getBody()->w);
+	text = LimitedText::getInstance(renderer);
+	text->setCutLimit(getBody()->w);
 	mUpdatedText = false;
 };
+
+Button::~Button()
+{
+	delete text;
+}
 
 Button* Button::getInstance(SDL_Surface* surface, SDL_Renderer* renderer)
 {
@@ -27,7 +32,7 @@ void Button::update()
 void Button::render()
 {
 	Sprite::render();
-	text.render();
+	text->render();
 }
 
 void Button::onClick()
@@ -87,6 +92,6 @@ void Button::swapSurfaces()
 
 void Button::updateTextPosition()
 {
-	text.getBody()->x = getBody()->x + getBody()->w / 2 - text.getSize().x / 2;
-	text.getBody()->y = getBody()->y + getBody()->h / 2 - text.getSize().y / 2;
+	text->getBody()->x = getBody()->x + getBody()->w / 2 - text->getSize().x / 2;
+	text->getBody()->y = getBody()->y + getBody()->h / 2 - text->getSize().y / 2;
 }

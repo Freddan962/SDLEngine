@@ -9,7 +9,7 @@
 class Text : public Sprite
 {
 public:
-	Text(SDL_Renderer* renderer);
+	static Text* getInstance(SDL_Renderer* renderer);
 	~Text();
 
 	void render();
@@ -25,9 +25,13 @@ public:
 	Vector2<int> getSize();
 	std::string getText();
 	TTF_Font* getFont();
+protected:
+	Text(SDL_Renderer* renderer);
 
 private:
 	void adjustBodyForText();
+	Text(const Text& other) = delete;
+	const Text& operator=(const Text& other) = delete;
 
 private:
 	SDL_Color mTextColor;

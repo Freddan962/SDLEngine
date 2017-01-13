@@ -8,6 +8,11 @@ Text::Text(SDL_Renderer* renderer)
 	mTextTexture = nullptr;
 }
 
+Text* Text::getInstance(SDL_Renderer* renderer)
+{
+	return new Text(renderer);
+}
+
 Text::~Text()
 {
 	SDL_DestroyTexture(mTextTexture);

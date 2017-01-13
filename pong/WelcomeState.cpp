@@ -57,7 +57,7 @@ void WelcomeState::setUp() {
 	std::shared_ptr<Player> player(new Player(NULL, mEngine->getRenderer()));
 	mPlayer = player;
 
-	std::shared_ptr<Text> welcomeTxt(new Text(mEngine->getRenderer()));
+	std::shared_ptr<Text> welcomeTxt(Text::getInstance(mEngine->getRenderer()));
 	welcomeTxt->setFont(mAssets->fonts.get("vertigo"));
 	welcomeTxt->setText("Enter name");
 	Centerer::centerHorizontal(welcomeTxt.get(), mEngine->getSize()->x);
@@ -68,8 +68,8 @@ void WelcomeState::setUp() {
 	std::shared_ptr<InputField> inputField(InputField::getInstance(mAssets->surfaces.get("buttonblueinactive"), mEngine->getRenderer()));
 	Centerer::centerHorizontal(inputField.get(), mEngine->getSize()->x);
 	inputField->getBody()->y = welcomeTxt->getBody()->y + welcomeTxt->getBody()->h + 20;
-	inputField->text.setFont(mAssets->fonts.get("vertigo"));
-	inputField->text.setText("");
+	inputField->text->setFont(mAssets->fonts.get("vertigo"));
+	inputField->text->setText("");
 	inputField->setSecondarySurface(mAssets->surfaces.get("buttonblue"));
 	mGUI.add("input", inputField);
 	mInputField = inputField;
@@ -77,8 +77,8 @@ void WelcomeState::setUp() {
 	std::shared_ptr<Button> okButton(Button::getInstance(mAssets->surfaces.get("buttonblueinactive"), mEngine->getRenderer()));
 	Centerer::centerHorizontal(okButton.get(), mEngine->getSize()->x);
 	okButton->getBody()->y = inputField->getBody()->y + inputField->getBody()->h + 20;
-	okButton->text.setFont(mAssets->fonts.get("vertigo"));
-	okButton->text.setText("OK");
+	okButton->text->setFont(mAssets->fonts.get("vertigo"));
+	okButton->text->setText("OK");
 	okButton->click = std::bind(&WelcomeState::okButtonClick, this);
 	okButton->setSecondarySurface(mAssets->surfaces.get("buttonblue"));
 	mGUI.add("OKbutton", okButton);
@@ -86,9 +86,9 @@ void WelcomeState::setUp() {
 
 void WelcomeState::okButtonClick()
 {
-	if (mInputField->text.isEmpty()) return;
+	if (mInputField->text->isEmpty()) return;
 
-	mPlayer->setName(mInputField->text.getText());
+	mPlayer->setName(mInputField->text->getText());
 	mEngine->getStateManager()->getNextState()->savedSprites.add("player", mPlayer);
 	mEngine->getStateManager()->nextState();
 }

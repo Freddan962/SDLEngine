@@ -4,6 +4,11 @@
 LimitedText::LimitedText(SDL_Renderer* renderer)
 	: Text(renderer) { }
 
+LimitedText* LimitedText::getInstance(SDL_Renderer* renderer)
+{
+	return new LimitedText(renderer);
+}
+
 void LimitedText::render()
 {
 	Text::render();

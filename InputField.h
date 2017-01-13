@@ -10,6 +10,7 @@ class InputField : public Button
 {
 public:
 	static InputField* getInstance(SDL_Surface* surface, SDL_Renderer* renderer);
+	~InputField();
 
 	void update();
 	void render();
@@ -37,7 +38,7 @@ private:
 
 private:
 	bool mActive;
-	Text mActiveText;
+	Text* mActiveText;
 	std::string mActiveString;
 	Timer mIndicatorTimer;
 };
