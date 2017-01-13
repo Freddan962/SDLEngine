@@ -51,6 +51,7 @@ private:
 	void removeTemporaryBalls();
 	std::shared_ptr<Powerup> createPowerupTemporary();
 	void removeTemporaryPowerups();
+	void removeTemporaryPowerups(std::shared_ptr<Ball> ball);
 
 	void debugModeToggle();
 

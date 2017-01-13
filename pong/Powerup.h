@@ -14,6 +14,7 @@ class Powerup : public EntitySprite
 public:
 	void setTarget(Sprite* target)
 	{
+		setCollidable(false);
 		mTarget = target;
 		mEffectDuration.start();
 		effectStart();
@@ -45,6 +46,11 @@ public:
 	bool isOver()
 	{
 		return mOver;
+	}
+
+	Sprite* getTarget()
+	{
+		return mTarget;
 	}
 
 protected:

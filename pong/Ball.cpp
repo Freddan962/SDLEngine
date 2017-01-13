@@ -15,8 +15,8 @@ Ball::Ball(SDL_Surface* surface, SDL_Renderer* renderer)
 	collisionCheckTimer.setTime(1000);
 	collisionCheckTimer.start();
 
-	mSpeed.x = 5;
-	mSpeed.y = 5;
+	mSpeed.x = 8;
+	mSpeed.y = 8;
 }
 
 void Ball::onCollide(Sprite* sprite)

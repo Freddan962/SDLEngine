@@ -214,7 +214,7 @@ void PlayState::resetButtonClick()
 		ball->shouldDelete = true;
 
 	removeTemporaryBalls();
-	sprites.get("powerup")->clear();
+	sprites.get("powerup")->clear(); 
 
 	mPowerupSpawnTimer.reset();
 
@@ -298,11 +298,34 @@ void PlayState::removeTemporaryBalls()
 		std::shared_ptr<Ball> ball = *it;
 		if (ball->shouldDelete)
 		{
+			removeTemporaryPowerups(ball);
 			sprites.remove("ball", ball);
 			it = mBalls.erase(it);
 		}
 		else
 			it++;
+	}
+}
+
+void PlayState::removeTemporaryPowerups(std::shared_ptr<Ball> ball)
+{
+	std::vector<std::shared_ptr<Sprite>>* powerups = sprites.get("powerup");
+	std::vector<std::shared_ptr<Sprite>>::iterator it = powerups->begin();
+
+	for ( it; it != powerups->end(); )
+	{
+		std::shared_ptr<Powerup> powerup = std::dynamic_pointer_cast<Powerup>(*it);
+		if (powerup)
+		{
+			if (powerup->getTarget() && powerup->getTarget() == ball.get())
+			{
+				it = powerups->erase(it);
+			}
+			else
+			{
+				it++;
+			}
+		}
 	}
 }
 
