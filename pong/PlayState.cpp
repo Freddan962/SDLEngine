@@ -91,6 +91,7 @@ void PlayState::setUp() {
 	Centerer::centerVertical(mPaddle1.get(), mEngine->getSize()->y);
 	mPaddle1->getBody()->x = (mEngine->getSize()->x)*0.1;
 	mPaddle1->setMovementRestriction(0, 146, 0, 709);
+	mPaddle1->setCollidable(true);
 
 	// Right pud
 	std::shared_ptr<Paddle> paddle2(new Paddle(mAssets->surfaces.get("paddle2"), mEngine->getRenderer()));
@@ -101,10 +102,12 @@ void PlayState::setUp() {
 	Centerer::centerVertical(mPaddle2.get(), mEngine->getSize()->y);
 	mPaddle2->getBody()->x = (mEngine->getSize()->x)*0.9 - (mPaddle2->getBody()->w);
 	mPaddle2->setMovementRestriction(0, 146, 0, 709);
+	mPaddle2->setCollidable(true);
 
 	// Ball
 	mBall = createBall();
 	sprites.add("ballmain", mBall);
+	mBall->setCollidable(true);
 
 	//Powerup Speed
 	mPowerupSpawnTimer.forceReady();
@@ -212,6 +215,7 @@ void PlayState::resetButtonClick()
 
 	removeTemporaryBalls();
 	sprites.get("powerup")->clear();
+
 	mPowerupSpawnTimer.reset();
 
 	player1Score = 0;
@@ -255,6 +259,7 @@ std::shared_ptr<Ball> PlayState::createBall()
 	ball->addFrame(mAssets->surfaces.get("ball6"));
 	ball->setAnimationSpeed(10);
 	ball->enableAnimation();
+	ball->setCollidable(true);
 
 	return ball;
 }
@@ -339,6 +344,7 @@ void PlayState::spawnPowerup()
 	if (mPowerupSpawnTimer.isReady() && mBall->isMoving())
 	{
 		auto powerup = createPowerupTemporary();
+		powerup->setCollidable(true);
 		powerup->getBody()->x = rand() % (1051 - powerup->getBody()->w) + 116;
 		powerup->getBody()->y = rand() % (587 - powerup->getBody()->h) + 133;
 		mPowerupSpawnTimer.reset();

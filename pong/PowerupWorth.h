@@ -36,6 +36,7 @@ private:
 
 	void effectOver()
 	{
+		if (!mTarget) return;
 		Ball* ball = dynamic_cast<Ball*>(mTarget);
 		if (!ball) return;
 

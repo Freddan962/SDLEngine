@@ -2,7 +2,7 @@
 #include "SDL.h"
 
 Sprite::Sprite(SDL_Surface* surface, SDL_Renderer* renderer)
-	: mBody(new SDL_Rect())
+	: mBody(new SDL_Rect()), mCollidable(false)
 {
 	mSurface = surface;
 	mRenderer = renderer;
@@ -100,4 +100,23 @@ void Sprite::scale(double x, double y)
 Vector2<double> Sprite::getScale()
 {
 	return mScale;
+}
+
+void Sprite::setCollidable(bool collidable)
+{
+	mCollidable = collidable;
+}
+
+bool Sprite::isCollidable()
+{
+	return mCollidable;
+}
+
+Vector2<float> Sprite::getCenter()
+{
+	Vector2<float> center;
+	center.x = getBody()->x + getBody()->w / 2;
+	center.y = getBody()->y + getBody()->h / 2;
+
+	return center;
 }

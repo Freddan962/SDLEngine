@@ -17,12 +17,10 @@ public:
 	virtual void onRightRestriction() {}
 	virtual void onTopRestriction() {}
 	virtual void onBottomRestriction() {}
+	virtual void onCollide(Sprite* sprite);
 	
 	void updateMovement();
-
-	/*Vector2<int> getSpeed() const;
-	void setSpeed(int x, int y);
-	void modSpeed(int x, int y);*/
+	void updateMovement(double modX, double modY);
 
 	Vector2<double> getVelocity() const;
 	void setVelocity(double x, double y);
@@ -39,9 +37,13 @@ public:
 	bool affectedByGravity();
 	void setAffectedByGravity(bool affected);
 
+	bool affectedByCollision();
+	void setAffectedByCollision(bool affected);
+
 protected:
 	EntitySprite(SDL_Surface* surface, SDL_Renderer* renderer)
-		: Sprite(surface, renderer) {}
+		: Sprite(surface, renderer), mAffectedByGravity(false), mElasticity(1), mCollisionSinceLastFrame(false)
+		, mAffectedByCollision(true) {}
 
 private:
 	EntitySprite(const EntitySprite& other);
@@ -50,10 +52,11 @@ private:
 
 private:
 	Vector2<double> mVelocity;
-	//Vector2<int> mSpeed;
 	Vector4<int> mRestriction;
 	double mElasticity;
 	bool mAffectedByGravity;
+	bool mCollisionSinceLastFrame;
+	bool mAffectedByCollision;
 
 };
 

@@ -25,6 +25,11 @@ public:
 	std::shared_ptr<SDL_Rect> getBody() const;
 	Vector2<double> getScale();
 
+	void setCollidable(bool collidable);
+	bool isCollidable();
+
+	Vector2<float> getCenter();
+
 protected:
 	Sprite(SDL_Surface* surface, SDL_Renderer* renderer);
 	Sprite(const Sprite &other);
@@ -43,6 +48,7 @@ protected:
 
 private:
 	Vector2<double> mScale;
+	bool mCollidable;
 };
 
 #endif

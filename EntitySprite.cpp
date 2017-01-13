@@ -1,8 +1,11 @@
 #include "EntitySprite.h"
+#include <iostream>
 
 EntitySprite::EntitySprite(const EntitySprite& other)
 	: Sprite(other),
-	mAffectedByGravity(false)
+	mAffectedByGravity(false),
+	mElasticity(1),
+	mCollisionSinceLastFrame(false)
 {
 	mVelocity = other.getVelocity();
 
@@ -25,10 +28,63 @@ void EntitySprite::update()
 	updateGravity();
 }
 
+void EntitySprite::onCollide(Sprite* sprite)
+{
+	EntitySprite* eSprite = dynamic_cast<EntitySprite*>(sprite);
+
+	if (eSprite && eSprite->isCollidable())
+	{
+		Sprite::onCollide(sprite);
+		if (!affectedByCollision()) return;
+
+		Vector2<int> dCoordinates;
+		dCoordinates.x = getCenter().x - eSprite->getCenter().x;
+		dCoordinates.y = getCenter().y - eSprite->getCenter().y;
+
+		bool collisionLeft(false), collisionRight(false), collisionTop(false), collisionBottom(false);
+
+		if (dCoordinates.x != 0) //No horizontal collision
+		{
+			if (dCoordinates.x < 0) //Collision on left side
+				collisionLeft = true;
+			else
+				collisionRight = true;
+		}
+
+		if (dCoordinates.y != 0) //No vertical collision
+		{
+			if (dCoordinates.y < 0) //Collision on top side
+				collisionTop = true;
+			else
+				collisionBottom = true;
+		}
+
+		if (collisionTop || collisionBottom)
+			setVelocity(getVelocity().x, getVelocity().y * -1);
+
+		if (collisionLeft || collisionRight)
+			setVelocity(getVelocity().x * -1, getVelocity().y);
+
+		updateMovement();
+	}
+}
+
 void EntitySprite::updateMovement()
 {
-	int newX = mBody->x + mVelocity.x;
-	int newY = mBody->y + mVelocity.y;
+	updateMovement(mVelocity.x, mVelocity.y);
+
+	if (mCollisionSinceLastFrame)
+	{
+		mVelocity.x *= mElasticity;
+		mVelocity.y *= mElasticity;
+		mCollisionSinceLastFrame = false;
+	}
+}
+
+void EntitySprite::updateMovement(double modX, double modY)
+{
+	int newX = mBody->x + modX;
+	int newY = mBody->y + modY;
 
 	if (mRestriction.x != 0 || mRestriction.y != 0 || mRestriction.w != 0 || mRestriction.h != 0)
 	{
@@ -43,7 +99,7 @@ void EntitySprite::updateMovement()
 			newX = mBody->x;
 			onRightRestriction();
 		}
-		
+
 		if (newY < mRestriction.y)
 		{
 			newY = mBody->y;
@@ -60,23 +116,6 @@ void EntitySprite::updateMovement()
 	mBody->x = newX;
 	mBody->y = newY;
 }
-
-/*Vector2<int> EntitySprite::getSpeed() const
-{
-	return mSpeed;
-}
-
-void EntitySprite::setSpeed(int x, int y)
-{
-	mSpeed.x = x;
-	mSpeed.y = y;
-}
-
-void EntitySprite::modSpeed(int x, int y)
-{
-	mSpeed.x -= x;
-	mSpeed.y -= y;
-}*/
 
 void EntitySprite::setMovementRestriction(int x, int y, int w, int h)
 {
@@ -147,6 +186,15 @@ void EntitySprite::setAffectedByGravity(bool affected)
 void EntitySprite::updateGravity()
 {
 	if (affectedByGravity())
-		mVelocity.y += (double)3 / 60;
+		mVelocity.y += (double)2 / 60;
 }
 
+bool EntitySprite::affectedByCollision()
+{
+	return mAffectedByCollision;
+}
+
+void EntitySprite::setAffectedByCollision(bool affected)
+{
+	mAffectedByCollision = affected;
+}

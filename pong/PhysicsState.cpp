@@ -110,13 +110,16 @@ void PhysicsState::spawnButtonClick()
 {
 	std::shared_ptr<Ball> ball(new Ball(mAssets->surfaces.get("ballwhite"), mEngine->getRenderer()));
 
-	ball->getBody()->x = rand() % mEngine->getSize()->x;
+	//ball->getBody()->x = rand() % mEngine->getSize()->x;
+	ball->getBody()->x = 250;
 	ball->getBody()->y = rand() % mEngine->getSize()->y * 0.65 + (mEngine->getSize()->y * 0.11);
 
-	ball->setMovementRestriction(116, -500, 1167, 720);
+	ball->setMovementRestriction(116, 116, 1167, 720);
 	ball->setAnimationSpeed(10);
 	ball->enableAnimation();
 	ball->setAffectedByGravity(true);
+	ball->setCollidable(true);
+	ball->setElasticity(0.5);
 
 	sprites.add("ball", ball);
 }

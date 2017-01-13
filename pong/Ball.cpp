@@ -21,12 +21,15 @@ Ball::Ball(SDL_Surface* surface, SDL_Renderer* renderer)
 
 void Ball::onCollide(Sprite* sprite)
 {
+	EntitySprite::onCollide(sprite);
+	if (!sprite->isCollidable()) return;
+
 	if (Paddle* pad = dynamic_cast<Paddle*>(sprite))
 	{
 		if (collisionCheckTimer.isReady())
 		{
-			invertHorizontalSpeed();
-			collisionCheckTimer.reset();
+			//invertHorizontalSpeed();
+			//collisionCheckTimer.reset();
 			mBounces++;
 		}
 	}
@@ -44,11 +47,13 @@ void Ball::onRightRestriction()
 
 void Ball::onTopRestriction()
 {
+	//setVelocity(getVelocity().x, getVelocity().y * getElasticity());
 	invertVerticalSpeed();
 }
 
 void Ball::onBottomRestriction()
 {
+	//setVelocity(getVelocity().x, getVelocity().y * getElasticity());
 	invertVerticalSpeed();
 }
 

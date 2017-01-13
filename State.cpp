@@ -6,7 +6,7 @@
 #include "Physics.h"
 #include "GUI.h"
 #include "Sound.h"
-
+#include "EntitySprite.h"
 State::State(Engine* engine, std::string name)
 	: mAssets(new AssetContainer())
 {
@@ -35,11 +35,11 @@ void State::checkForCollisions()
 		{
 			if (sprite.get() == spriteInner.get()) continue;
 
-			if (Physics::isRectangularPixelCollision(sprite.get(), spriteInner.get()))
+			if (Physics::isRectangularPixelCollision(sprite.get(), spriteInner.get())) 
 			{
 				sprite->onCollide(spriteInner.get());
 				spriteInner->onCollide(sprite.get());
-			}
+			} 
 		}
 	}	
 }
