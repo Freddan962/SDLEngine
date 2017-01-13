@@ -8,6 +8,11 @@ Button::Button(SDL_Surface* surface, SDL_Renderer* renderer)
 	mUpdatedText = false;
 };
 
+Button* Button::getInstance(SDL_Surface* surface, SDL_Renderer* renderer)
+{
+	return new Button(surface, renderer);
+}
+
 void Button::update()
 {
 	Sprite::update();

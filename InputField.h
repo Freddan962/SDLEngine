@@ -9,7 +9,7 @@
 class InputField : public Button
 {
 public:
-	InputField(SDL_Surface* surface, SDL_Renderer* renderer);
+	static InputField* getInstance(SDL_Surface* surface, SDL_Renderer* renderer);
 
 	void update();
 	void render();
@@ -27,6 +27,13 @@ public:
 	void updateIndicatorState();
 
 	void setActive(bool active);
+
+protected:
+	InputField(SDL_Surface* surface, SDL_Renderer* renderer);
+
+private:
+	InputField(const InputField& other) = delete;
+	const InputField& operator=(const InputField& other) = delete;
 
 private:
 	bool mActive;

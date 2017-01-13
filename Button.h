@@ -9,7 +9,7 @@
 class Button : public Sprite
 {
 public:
-	Button(SDL_Surface* surface, SDL_Renderer* renderer);
+	static Button* getInstance(SDL_Surface* surface, SDL_Renderer* renderer);
 
 	void update();
 	void render();
@@ -25,6 +25,13 @@ public:
 	void onMouseLeave();
 
 	void setSecondarySurface(SDL_Surface* surface);
+
+protected:
+	Button(SDL_Surface* surface, SDL_Renderer* renderer);
+
+private:
+	Button(const Button& other) = delete;
+	const Button& operator=(const Button& other) = delete;
 
 public: 
 	LimitedText text;

@@ -65,7 +65,7 @@ void WelcomeState::setUp() {
 	welcomeTxt->getBody()->y = welcomeTxt->getBody()->y + mEngine->getSize()->y * 0.1;
 	mGUI.add("welcomeTxt", welcomeTxt);
 
-	std::shared_ptr<InputField> inputField(new InputField(mAssets->surfaces.get("buttonblueinactive"), mEngine->getRenderer()));
+	std::shared_ptr<InputField> inputField(InputField::getInstance(mAssets->surfaces.get("buttonblueinactive"), mEngine->getRenderer()));
 	Centerer::centerHorizontal(inputField.get(), mEngine->getSize()->x);
 	inputField->getBody()->y = welcomeTxt->getBody()->y + welcomeTxt->getBody()->h + 20;
 	inputField->text.setFont(mAssets->fonts.get("vertigo"));
@@ -74,7 +74,7 @@ void WelcomeState::setUp() {
 	mGUI.add("input", inputField);
 	mInputField = inputField;
 
-	std::shared_ptr<Button> okButton(new Button(mAssets->surfaces.get("buttonblueinactive"), mEngine->getRenderer()));
+	std::shared_ptr<Button> okButton(Button::getInstance(mAssets->surfaces.get("buttonblueinactive"), mEngine->getRenderer()));
 	Centerer::centerHorizontal(okButton.get(), mEngine->getSize()->x);
 	okButton->getBody()->y = inputField->getBody()->y + inputField->getBody()->h + 20;
 	okButton->text.setFont(mAssets->fonts.get("vertigo"));

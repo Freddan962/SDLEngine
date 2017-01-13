@@ -109,7 +109,7 @@ void PlayState::setUp() {
 	spawnPowerup();
 
 	// UI
-	std::shared_ptr<Button> mHomeButton(new Button(mAssets->surfaces.get("homeinactive"), mEngine->getRenderer()));
+	std::shared_ptr<Button> mHomeButton(Button::getInstance(mAssets->surfaces.get("homeinactive"), mEngine->getRenderer()));
 	mHomeButton->scale(0.4, 0.4);
 	mHomeButton->getBody()->y = mEngine->getSize()->y * 0.015;
 	mHomeButton->getBody()->x = mEngine->getSize()->x - mHomeButton->getBody()->w - (mEngine->getSize()->y * 0.015);
@@ -117,7 +117,7 @@ void PlayState::setUp() {
 	mHomeButton->click = std::bind(&PlayState::homeButtonClick, this);
 	mGUI.add("homebutton", mHomeButton);
 
-	std::shared_ptr<Button> mResetButton(new Button(mAssets->surfaces.get("resetinactive"), mEngine->getRenderer()));
+	std::shared_ptr<Button> mResetButton(Button::getInstance(mAssets->surfaces.get("resetinactive"), mEngine->getRenderer()));
 	mResetButton->scale(0.4, 0.4);
 	mResetButton->getBody()->y = mEngine->getSize()->y * 0.015;
 	mResetButton->getBody()->x = mHomeButton->getBody()->x - mResetButton->getBody()->w - (mEngine->getSize()->y * 0.015);

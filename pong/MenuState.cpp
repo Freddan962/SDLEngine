@@ -58,7 +58,7 @@ void MenuState::setUp()
 	welcomeTxt->getBody()->y = mEngine->getSize()->y * 0.3;
 	mGUI.add("Welcome", welcomeTxt);
 
-	std::shared_ptr<Button> playButton(new Button(mAssets->surfaces.get("buttonblueinactive"), mEngine->getRenderer()));
+	std::shared_ptr<Button> playButton(Button::getInstance(mAssets->surfaces.get("buttonblueinactive"), mEngine->getRenderer()));
 	Centerer::centerHorizontal(playButton.get(), mEngine->getSize()->x);
 	playButton->getBody()->y = welcomeTxt->getBody()->y + welcomeTxt->getBody()->h + 20;
 	playButton->text.setFont(mAssets->fonts.get("vertigo"));
@@ -68,7 +68,7 @@ void MenuState::setUp()
 	mPlayButton = playButton;
 	mGUI.add("playbutton", playButton);
 
-	std::shared_ptr<Button> exitButton(new Button(mAssets->surfaces.get("buttonblueinactive"), mEngine->getRenderer()));
+	std::shared_ptr<Button> exitButton(Button::getInstance(mAssets->surfaces.get("buttonblueinactive"), mEngine->getRenderer()));
 	Centerer::centerHorizontal(exitButton.get(), mEngine->getSize()->x);
 	exitButton->getBody()->y = playButton->getBody()->y + playButton->getBody()->h + 20;
 	exitButton->text.setFont(mAssets->fonts.get("vertigo"));

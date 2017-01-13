@@ -8,6 +8,11 @@ InputField::InputField(SDL_Surface* surface, SDL_Renderer* renderer)
 	mIndicatorTimer.setTime(450);
 }
 
+InputField* InputField::getInstance(SDL_Surface* surface, SDL_Renderer* renderer)
+{
+	return new InputField(surface, renderer);
+}
+
 void InputField::update()
 {
 	Button::update();
