@@ -29,6 +29,8 @@ private:
 	void debugModeToggle();
 
 private:
+	int mMaxBalls;
+	int mCurrBalls;
 };
 
 #endif

@@ -11,7 +11,9 @@
 #include <ctime>
 
 PhysicsState::PhysicsState(Engine* engine)
-	: State(engine, "PhysicsState")
+	: State(engine, "PhysicsState"),
+	mMaxBalls(10),
+	mCurrBalls(0)
 {
 }
 
@@ -94,6 +96,7 @@ void PhysicsState::setUp() {
 void PhysicsState::reset()
 {
 	sprites.get("ball")->clear();
+	mCurrBalls = 0;
 }
 
 void PhysicsState::returnButtonClick()
@@ -108,11 +111,12 @@ void PhysicsState::resetButtonClick()
 
 void PhysicsState::spawnButtonClick()
 {
+	if (mCurrBalls + 1 > mMaxBalls) return;
+
 	std::shared_ptr<Ball> ball(new Ball(mAssets->surfaces.get("ballwhite"), mEngine->getRenderer()));
 
-	//ball->getBody()->x = rand() % mEngine->getSize()->x;
-	ball->getBody()->x = 250;
-	ball->getBody()->y = rand() % mEngine->getSize()->y * 0.65 + (mEngine->getSize()->y * 0.11);
+	ball->getBody()->x = rand() % (mEngine->getSize()->x - 290) + 120;
+	ball->getBody()->y = rand() % mEngine->getSize()->y * 0.55 + (mEngine->getSize()->y * 0.20);
 
 	ball->setMovementRestriction(116, 116, 1167, 720);
 	ball->setAnimationSpeed(10);
@@ -120,8 +124,10 @@ void PhysicsState::spawnButtonClick()
 	ball->setAffectedByGravity(true);
 	ball->setCollidable(true);
 	ball->setElasticity(0.5);
+	ball->launch();
 
 	sprites.add("ball", ball);
+	mCurrBalls++;
 }
 
 void PhysicsState::debugModeToggle()

@@ -51,7 +51,7 @@ void EntitySprite::onCollide(Sprite* sprite)
 				collisionRight = true;
 		}
 
-		if (dCoordinates.y != 0) //No vertical collision
+		if (dCoordinates.y != 0)
 		{
 			if (dCoordinates.y < 0) //Collision on top side
 				collisionTop = true;
@@ -66,6 +66,9 @@ void EntitySprite::onCollide(Sprite* sprite)
 			setVelocity(getVelocity().x * -1, getVelocity().y);
 
 		updateMovement();
+
+		setVelocity(getVelocity().x, getVelocity().y * mElasticity);
+		setVelocity(getVelocity().x * mElasticity, getVelocity().y);
 	}
 }
 
@@ -186,15 +189,8 @@ void EntitySprite::setAffectedByGravity(bool affected)
 void EntitySprite::updateGravity()
 {
 	if (affectedByGravity())
-		mVelocity.y += (double)2 / 60;
+		mVelocity.y += (double)5 / 60;
 }
 
-bool EntitySprite::affectedByCollision()
-{
-	return mAffectedByCollision;
-}
-
-void EntitySprite::setAffectedByCollision(bool affected)
-{
-	mAffectedByCollision = affected;
-}
+bool EntitySprite::affectedByCollision() { return mAffectedByCollision; }
+void EntitySprite::setAffectedByCollision(bool affected) { mAffectedByCollision = affected; }

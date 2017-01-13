@@ -26,35 +26,35 @@ void Ball::onCollide(Sprite* sprite)
 
 	if (Paddle* pad = dynamic_cast<Paddle*>(sprite))
 	{
-		if (collisionCheckTimer.isReady())
-		{
-			//invertHorizontalSpeed();
-			//collisionCheckTimer.reset();
-			mBounces++;
-		}
+		invertVerticalSpeed();
+		mBounces++;
 	}
 }
 
 void Ball::onLeftRestriction()
 {
 	reachedLeft = true;
+	invertHorizontalSpeed();
+	setVelocity(getVelocity().x * getElasticity(), getVelocity().y);
 }
 
 void Ball::onRightRestriction()
 {
 	reachedRight = true;
+	invertHorizontalSpeed();
+	setVelocity(getVelocity().x * getElasticity(), getVelocity().y);
 }
 
 void Ball::onTopRestriction()
 {
-	//setVelocity(getVelocity().x, getVelocity().y * getElasticity());
 	invertVerticalSpeed();
+	setVelocity(getVelocity().x, getVelocity().y * getElasticity());
 }
 
 void Ball::onBottomRestriction()
 {
-	//setVelocity(getVelocity().x, getVelocity().y * getElasticity());
 	invertVerticalSpeed();
+	setVelocity(getVelocity().x, getVelocity().y * getElasticity());
 }
 
 void Ball::invertHorizontalSpeed()

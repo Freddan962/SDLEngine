@@ -57,7 +57,6 @@ private:
 	bool mAffectedByGravity;
 	bool mCollisionSinceLastFrame;
 	bool mAffectedByCollision;
-
 };
 
 #endif
