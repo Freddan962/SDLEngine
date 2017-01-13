@@ -54,12 +54,12 @@ void Ball::onBottomRestriction()
 
 void Ball::invertHorizontalSpeed()
 {
-	setSpeed(getSpeed().x*(-1), getSpeed().y);
+	setVelocity(getVelocity().x*(-1), getVelocity().y);
 }
 
 void Ball::invertVerticalSpeed()
 {
-	setSpeed(getSpeed().x, getSpeed().y*(-1));
+	setVelocity(getVelocity().x, getVelocity().y*(-1));
 }
 
 void Ball::update()
@@ -90,7 +90,7 @@ void Ball::launch()
 		ySpeed = dist2(mt2);
 	}
 
-	setSpeed(xSpeed, ySpeed);
+	setVelocity(xSpeed, ySpeed);
 }
 
 int Ball::getBounces() { return mBounces; }

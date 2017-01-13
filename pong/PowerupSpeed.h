@@ -31,12 +31,12 @@ private:
 		Ball* ball = dynamic_cast<Ball*>(mTarget);
 		if (!ball) return;
 
-		speedBefore.x = ball->getSpeed().x;
-		speedBefore.y = ball->getSpeed().y;
+		speedBefore.x = ball->getVelocity().x;
+		speedBefore.y = ball->getVelocity().y;
 
 		Vector2<int> newSpeed;
-		newSpeed.x = ball->getSpeed().x * 2;
-		newSpeed.y = ball->getSpeed().y * 2;
+		newSpeed.x = ball->getVelocity().x * 2;
+		newSpeed.y = ball->getVelocity().y * 2;
 
 		if (speedBefore.y < 0)
 			newSpeed.y *= 1;
@@ -44,7 +44,7 @@ private:
 		if (speedBefore.x < 0)
 			newSpeed.x *= 1;
 
-		ball->setSpeed(newSpeed.x, newSpeed.y);
+		ball->setVelocity(newSpeed.x, newSpeed.y);
 	};
 
 	void effectOver() 
@@ -53,13 +53,13 @@ private:
 		Ball* ball = dynamic_cast<Ball*>(mTarget);
 		if (!ball) return;
 
-		if (ball->getSpeed().x < 0 && speedBefore.x > 0)
+		if (ball->getVelocity().x < 0 && speedBefore.x > 0)
 			speedBefore.x *= -1;
 
-		if (ball->getSpeed().y < 0 && speedBefore.y > 0)
+		if (ball->getVelocity().y < 0 && speedBefore.y > 0)
 			speedBefore.y *= -1;
 
-		ball->setSpeed(speedBefore.x, speedBefore.y);
+		ball->setVelocity(speedBefore.x, speedBefore.y);
 		mOver = true;
 	};
 

@@ -1,9 +1,10 @@
 #include "EntitySprite.h"
 
 EntitySprite::EntitySprite(const EntitySprite& other)
-	: Sprite(other)
+	: Sprite(other),
+	mAffectedByGravity(false)
 {
-	mSpeed = other.getSpeed();
+	mVelocity = other.getVelocity();
 
 	Vector4<int> oRestriction = other.getMovementRestriction();
 	mRestriction.x = oRestriction.x;
@@ -21,12 +22,13 @@ void EntitySprite::update()
 {
 	Sprite::update();
 	updateMovement();
+	updateGravity();
 }
 
 void EntitySprite::updateMovement()
 {
-	int newX = mBody->x + mSpeed.x;
-	int newY = mBody->y + mSpeed.y;
+	int newX = mBody->x + mVelocity.x;
+	int newY = mBody->y + mVelocity.y;
 
 	if (mRestriction.x != 0 || mRestriction.y != 0 || mRestriction.w != 0 || mRestriction.h != 0)
 	{
@@ -59,7 +61,7 @@ void EntitySprite::updateMovement()
 	mBody->y = newY;
 }
 
-Vector2<int> EntitySprite::getSpeed() const
+/*Vector2<int> EntitySprite::getSpeed() const
 {
 	return mSpeed;
 }
@@ -74,7 +76,7 @@ void EntitySprite::modSpeed(int x, int y)
 {
 	mSpeed.x -= x;
 	mSpeed.y -= y;
-}
+}*/
 
 void EntitySprite::setMovementRestriction(int x, int y, int w, int h)
 {
@@ -98,10 +100,53 @@ Vector4<int> EntitySprite::getMovementRestriction() const
 
 bool EntitySprite::isMoving()
 {
-	if (getSpeed().x != 0)
+	if (getVelocity().x != 0)
 		return true;
 
-	if (getSpeed().y != 0)
+	if (getVelocity().y != 0)
 		return true;
+}
+
+double EntitySprite::getElasticity()
+{
+	return mElasticity;
+}
+
+void EntitySprite::setElasticity(double elasticity)
+{
+	mElasticity = elasticity;
+}
+
+void EntitySprite::setVelocity(double x, double y)
+{
+	mVelocity.x = x;
+	mVelocity.y = y;
+}
+
+void EntitySprite::modVelocity(double x, double y)
+{
+	mVelocity.x += x;
+	mVelocity.y += y;
+}
+
+Vector2<double> EntitySprite::getVelocity() const
+{
+	return mVelocity;
+}
+
+bool EntitySprite::affectedByGravity()
+{
+	return mAffectedByGravity;
+}
+
+void EntitySprite::setAffectedByGravity(bool affected)
+{
+	mAffectedByGravity = affected;
+}
+
+void EntitySprite::updateGravity()
+{
+	if (affectedByGravity())
+		mVelocity.y += (double)3 / 60;
 }
 

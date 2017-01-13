@@ -6,6 +6,9 @@
 #include "../Sprite.h"
 #include "../Button.h"
 #include "../Centerer.h"
+#include "Ball.h"
+
+#include <ctime>
 
 PhysicsState::PhysicsState(Engine* engine)
 	: State(engine, "PhysicsState")
@@ -44,16 +47,13 @@ void PhysicsState::loadAssets() {
 	mAssets->fonts.add("vertigo", loader.loadFont("vertigo.ttf", 40));
 	mAssets->fonts.add("vertigoscore", loader.loadFont("vertigo.ttf", 60));
 	mAssets->surfaces.add("background", loader.loadPNG("court_05.png"));
-	mAssets->surfaces.add("ball1", loader.loadPNG("ball1.png"));
-	mAssets->surfaces.add("ball2", loader.loadPNG("ball2.png"));
-	mAssets->surfaces.add("ball3", loader.loadPNG("ball3.png"));
-	mAssets->surfaces.add("ball4", loader.loadPNG("ball4.png"));
-	mAssets->surfaces.add("ball5", loader.loadPNG("ball5.png"));
-	mAssets->surfaces.add("ball6", loader.loadPNG("ball6.png"));
 	mAssets->surfaces.add("homeactive", loader.loadPNG("homebutton_active.png"));
 	mAssets->surfaces.add("homeinactive", loader.loadPNG("homebutton_inactive.png"));
 	mAssets->surfaces.add("resetactive", loader.loadPNG("resetbutton_active.png"));
 	mAssets->surfaces.add("resetinactive", loader.loadPNG("resetbutton_inactive.png"));
+	mAssets->surfaces.add("ballwhite", loader.loadPNG("ball_white.png"));
+	mAssets->surfaces.add("spawnactive", loader.loadPNG("spawnactive.png"));
+	mAssets->surfaces.add("spawninactive", loader.loadPNG("spawninactive.png"));
 }
 
 void PhysicsState::setUp() {
@@ -73,6 +73,14 @@ void PhysicsState::setUp() {
 	mResetButton->click = std::bind(&PhysicsState::resetButtonClick, this);
 	mGUI.add("resetbutton", mResetButton);
 
+	std::shared_ptr<Button> mPhysicsButton(Button::getInstance(mAssets->surfaces.get("spawninactive"), mEngine->getRenderer()));
+	mPhysicsButton->scale(0.4, 0.4);
+	mPhysicsButton->getBody()->y = mEngine->getSize()->y * 0.015;
+	mPhysicsButton->getBody()->x = mEngine->getSize()->y * 0.015;
+	mPhysicsButton->setSecondarySurface(mAssets->surfaces.get("spawnactive"));
+	mPhysicsButton->click = std::bind(&PhysicsState::spawnButtonClick, this);
+	mGUI.add("physicsbutton", mPhysicsButton);
+
 	std::shared_ptr<Text> scoreTxt(Text::getInstance(mEngine->getRenderer()));
 	scoreTxt->setFont(mAssets->fonts.get("vertigoscore"));
 	scoreTxt->setText("Physics Simulation");
@@ -85,12 +93,7 @@ void PhysicsState::setUp() {
 
 void PhysicsState::reset()
 {
-
-}
-
-void PhysicsState::start()
-{
-
+	sprites.get("ball")->clear();
 }
 
 void PhysicsState::returnButtonClick()
@@ -103,6 +106,21 @@ void PhysicsState::resetButtonClick()
 	reset();
 }
 
+void PhysicsState::spawnButtonClick()
+{
+	std::shared_ptr<Ball> ball(new Ball(mAssets->surfaces.get("ballwhite"), mEngine->getRenderer()));
+
+	ball->getBody()->x = rand() % mEngine->getSize()->x;
+	ball->getBody()->y = rand() % mEngine->getSize()->y * 0.65 + (mEngine->getSize()->y * 0.11);
+
+	ball->setMovementRestriction(116, -500, 1167, 720);
+	ball->setAnimationSpeed(10);
+	ball->enableAnimation();
+	ball->setAffectedByGravity(true);
+
+	sprites.add("ball", ball);
+}
+
 void PhysicsState::debugModeToggle()
 {
 	if (Sprite::mBodyOutline)
@@ -110,3 +128,4 @@ void PhysicsState::debugModeToggle()
 	else
 		Sprite::setBodyOutline(true);
 }
+

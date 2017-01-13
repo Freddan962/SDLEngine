@@ -168,12 +168,12 @@ void PlayState::reset()
 	mBall->reachedRight = false;
 }
 
-void PlayState::moveUpLeft() { mPaddle1->setSpeed(0, -7); }
-void PlayState::moveDownLeft() { mPaddle1->setSpeed(0, 7); }
-void PlayState::moveStopLeft() { mPaddle1->setSpeed(0, 0); }
-void PlayState::moveUpRight() { mPaddle2->setSpeed(0, -7); }
-void PlayState::moveDownRight() { mPaddle2->setSpeed(0, 7); }
-void PlayState::moveStopRight() { mPaddle2->setSpeed(0, 0); }
+void PlayState::moveUpLeft() { mPaddle1->setVelocity(0, -7); }
+void PlayState::moveDownLeft() { mPaddle1->setVelocity(0, 7); }
+void PlayState::moveStopLeft() { mPaddle1->setVelocity(0, 0); }
+void PlayState::moveUpRight() { mPaddle2->setVelocity(0, -7); }
+void PlayState::moveDownRight() { mPaddle2->setVelocity(0, 7); }
+void PlayState::moveStopRight() { mPaddle2->setVelocity(0, 0); }
 
 void PlayState::startGame()
 {
@@ -198,14 +198,14 @@ void PlayState::resetButtonClick()
 	//Pud 1
 	Centerer::centerVertical(mPaddle1.get(), mEngine->getSize()->y);
 	mPaddle1->getBody()->x = (mEngine->getSize()->x)*0.1;
-	mPaddle1->setSpeed(0, 0);
+	mPaddle1->setVelocity(0, 0);
 
 	//Pud 2 
 	Centerer::centerVertical(mPaddle2.get(), mEngine->getSize()->y);
 	mPaddle2->getBody()->x = (mEngine->getSize()->x)*0.9 - (mPaddle2->getBody()->w);
-	mPaddle2->setSpeed(0, 0);
+	mPaddle2->setVelocity(0, 0);
 
-	mBall->setSpeed(0, 0);
+	mBall->setVelocity(0, 0);
 	
 	for (auto ball : mBalls)
 		ball->shouldDelete = true;

@@ -19,6 +19,7 @@ public:
 
 	void returnButtonClick();
 	void resetButtonClick();
+	void spawnButtonClick();
 
 private:
 	void loadAssets();
