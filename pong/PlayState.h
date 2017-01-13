@@ -38,6 +38,7 @@ private:
 	
 	void homeButtonClick();
 	void resetButtonClick();
+	void physicsButtonClick();
 
 	void spawnBall();
 	void updateScore();
@@ -63,7 +64,6 @@ private:
 	std::vector<std::shared_ptr<Ball>> mBalls;
 	Timer mPowerupSpawnTimer;
 	bool mPaddle1Active = true;
-
 	int player1Score, player2Score;
 	int bouncesForBallSpawn;
 };

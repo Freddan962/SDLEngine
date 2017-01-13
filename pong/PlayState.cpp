@@ -72,6 +72,8 @@ void PlayState::loadAssets() {
 	mAssets->surfaces.add("resetinactive", loader.loadPNG("resetbutton_inactive.png"));
 	mAssets->surfaces.add("gemblue", loader.loadPNG("gemBlue.png"));
 	mAssets->surfaces.add("gemred", loader.loadPNG("gemRed.png"));
+	mAssets->surfaces.add("physicsbuttonactive", loader.loadPNG("physicsbutton_active.png"));
+	mAssets->surfaces.add("physicsbuttoninactive", loader.loadPNG("physicsbutton_inactive.png"));
 }
 
 void PlayState::setUp() {
@@ -132,6 +134,14 @@ void PlayState::setUp() {
 	scoreTxt->getBody()->y = mEngine->getSize()->y * 0.015;
 	mGUI.add("scoreTxt", scoreTxt);
 	mScoreTxt = scoreTxt;
+
+	std::shared_ptr<Button> mPhysicsButton(Button::getInstance(mAssets->surfaces.get("physicsbuttoninactive"), mEngine->getRenderer()));
+	mPhysicsButton->scale(0.4, 0.4);
+	mPhysicsButton->getBody()->y = mEngine->getSize()->y * 0.015;
+	mPhysicsButton->getBody()->x = mEngine->getSize()->y * 0.015;
+	mPhysicsButton->setSecondarySurface(mAssets->surfaces.get("physicsbuttonactive"));
+	mPhysicsButton->click = std::bind(&PlayState::physicsButtonClick, this);
+	mGUI.add("physicsbutton", mPhysicsButton);
 
 	// Key hooks
 	mKeyHooks.addHook(SDLK_w, std::bind(&PlayState::moveUpLeft, this), SDL_KEYDOWN);
@@ -194,9 +204,12 @@ void PlayState::resetButtonClick()
 	Centerer::centerVertical(mPaddle2.get(), mEngine->getSize()->y);
 	mPaddle2->getBody()->x = (mEngine->getSize()->x)*0.9 - (mPaddle2->getBody()->w);
 	mPaddle2->setSpeed(0, 0);
+
+	mBall->setSpeed(0, 0);
 	
 	for (auto ball : mBalls)
 		ball->shouldDelete = true;
+
 	removeTemporaryBalls();
 	sprites.get("powerup")->clear();
 	mPowerupSpawnTimer.reset();
@@ -347,4 +360,9 @@ void PlayState::removeTemporaryPowerups()
 		else
 			it++;
 	}
+}
+
+void PlayState::physicsButtonClick()
+{
+	mEngine->getStateManager()->nextState();
 }

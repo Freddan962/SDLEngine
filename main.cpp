@@ -3,6 +3,7 @@
 #include "pong/MenuState.h"
 #include "pong/HighScoreState.h"
 #include "pong/PlayState.h"
+#include "pong/PhysicsState.h"
 #include "StateManager.h"
 
 using namespace std;
@@ -29,6 +30,9 @@ int main(int argc, char *argv[])
 
 	PlayState playState(&engine);
 	engine.getStateManager()->addState(&playState);
+
+	PhysicsState physicsState(&engine);
+	engine.getStateManager()->addState(&physicsState);
 
 	engine.run();
 
