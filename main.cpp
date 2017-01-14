@@ -13,15 +13,6 @@ int main(int argc, char *argv[])
 	Engine engine("Pong Goal", 0, 1280, 860);
 	engine.setFrameRate(60);
 
-	//MainState st(&engine);
-	//engine.getStateManager()->addState(&st);
-
-	//MainMenuState mainMenuState(&engine);
-	//engine.getStateManager()->addState(&mainMenuState);
-
-	//PlayState playState(&engine);
-	//engine.getStateManager()->addState(&playState);
-
 	WelcomeState welcomeState(&engine);
 	engine.getStateManager()->addState(&welcomeState);
 
